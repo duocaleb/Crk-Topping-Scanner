@@ -1,6 +1,6 @@
 ﻿namespace Crk_Topping_Scanner
 {
-    partial class Form1
+    partial class Scanner
     {
         /// <summary>
         /// Required designer variable.
@@ -413,7 +413,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(407, 48);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
@@ -437,16 +437,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(407, 502);
             this.panel1.TabIndex = 9;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // Form1
+            // Scanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(638, 502);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Scanner";
+            this.Text = "Topping Scanner";
+            this.Load += new System.EventHandler(this.Scanner_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numStat3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numStat1)).EndInit();
             this.panel3.ResumeLayout(false);

@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace Crk_Topping_Scanner
 {
-    public partial class Form1 : Form
+    public partial class Scanner : Form
     {
-        public Form1()
+        public Scanner()
         {
             InitializeComponent();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Scanner_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
