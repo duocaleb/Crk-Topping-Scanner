@@ -51,6 +51,7 @@
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             exportButton = new System.Windows.Forms.Button();
             panel1 = new System.Windows.Forms.Panel();
+            scannedImage = new System.Windows.Forms.PictureBox();
             label2 = new System.Windows.Forms.Label();
             tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             scannedList = new System.Windows.Forms.TextBox();
@@ -64,6 +65,7 @@
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)scannedImage).BeginInit();
             tableLayoutPanel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -316,6 +318,7 @@
             readButton.TabIndex = 5;
             readButton.Text = "Read";
             readButton.UseVisualStyleBackColor = true;
+            readButton.Click += readButton_Click;
             // 
             // screenshotButton
             // 
@@ -328,6 +331,7 @@
             screenshotButton.TabIndex = 6;
             screenshotButton.Text = "Screenshot";
             screenshotButton.UseVisualStyleBackColor = true;
+            screenshotButton.Click += screenshotButton_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -364,6 +368,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(scannedImage);
             panel1.Controls.Add(tableLayoutPanel1);
             panel1.Dock = System.Windows.Forms.DockStyle.Left;
             panel1.Location = new System.Drawing.Point(0, 0);
@@ -372,6 +377,15 @@
             panel1.Size = new System.Drawing.Size(458, 659);
             panel1.TabIndex = 9;
             panel1.Paint += panel1_Paint;
+            // 
+            // scannedImage
+            // 
+            scannedImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            scannedImage.Location = new System.Drawing.Point(0, 0);
+            scannedImage.Name = "scannedImage";
+            scannedImage.Size = new System.Drawing.Size(458, 596);
+            scannedImage.TabIndex = 6;
+            scannedImage.TabStop = false;
             // 
             // label2
             // 
@@ -442,6 +456,7 @@
             tableLayoutPanel2.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)scannedImage).EndInit();
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
             ResumeLayout(false);
@@ -476,6 +491,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TextBox scannedList;
+        private System.Windows.Forms.PictureBox scannedImage;
     }
 }
 

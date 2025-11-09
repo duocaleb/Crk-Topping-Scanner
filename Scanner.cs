@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -13,9 +14,11 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Tesseract;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
-using System.Drawing.Imaging;
+using Application = System.Windows.Forms.Application;
 using ComboBox = System.Windows.Forms.ComboBox;
 
 
@@ -30,6 +33,9 @@ namespace Crk_Topping_Scanner
         private List<NumericUpDown> numericUpDowns;
         private Dictionary<string, (double, double)> possibleToppingSubs = new Dictionary<string, (double, double)>();
         private List<Topping> toppingsExportList = new List<Topping>();
+        private Bitmap bmpScreenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
+                               Screen.PrimaryScreen.Bounds.Height,
+                               PixelFormat.Format32bppArgb);
         public Scanner()
         {
             InitializeComponent();
@@ -221,6 +227,34 @@ namespace Crk_Topping_Scanner
         private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void screenshotButton_Click(object sender, EventArgs e)
+        {
+            scannedImage.Image?.Dispose();
+            bmpScreenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
+                               Screen.PrimaryScreen.Bounds.Height,
+                               PixelFormat.Format32bppArgb);
+            var gfxScreenshot = Graphics.FromImage(bmpScreenshot);
+
+            gfxScreenshot.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
+                                        Screen.PrimaryScreen.Bounds.Y,
+                                        0,
+                                        0,
+                                        Screen.PrimaryScreen.Bounds.Size,
+                                        CopyPixelOperation.SourceCopy);
+
+            scannedImage.Image = bmpScreenshot;
+
+
+        }
+
+        private void readButton_Click(object sender, EventArgs e)
+        {
+            var engine = new TesseractEngine(Application.StartupPath + @"/tessdata", "eng");
+            var page = engine.Process(bmpScreenshot);
+            var extractedText = page.GetText();
+            scannedList.Text = extractedText;
         }
     }
 }
