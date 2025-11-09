@@ -46,14 +46,14 @@
             label3 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            panel2 = new System.Windows.Forms.Panel();
             readButton = new System.Windows.Forms.Button();
             screenshotButton = new System.Windows.Forms.Button();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             exportButton = new System.Windows.Forms.Button();
             panel1 = new System.Windows.Forms.Panel();
-            scannedList = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
+            tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            scannedList = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)stat3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)stat1).BeginInit();
             panel3.SuspendLayout();
@@ -62,9 +62,9 @@
             ((System.ComponentModel.ISupportInitialize)stat2).BeginInit();
             panel6.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            panel2.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
             SuspendLayout();
             // 
             // stat3
@@ -204,7 +204,7 @@
             resonantType.Dock = System.Windows.Forms.DockStyle.Left;
             resonantType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             resonantType.FormattingEnabled = true;
-            resonantType.Items.AddRange(new object[] { "Not Resonant", "Moonkissed", "Triple Cone Cup Trio", "Dragonic", "Tropical Rock", "Sea Salt", "Radiant Cheese", "Frosted Crystal", "Life-sprouting", "Destructive", "Fragrant", "Iris Gem", "Deceitful", "Truthful", "Sacred Vow", "Flaming", "Indolent", "Passionate", "Fuzzy Wuzzy", "Seafarer", "Destined", "Silent", "Blooming" });
+            resonantType.Items.AddRange(new object[] { "", "Moonkissed", "Triple Cone Cup Trio", "Dragonic", "Tropical Rock", "Sea Salt", "Radiant Cheese", "Frosted Crystal", "Life-sprouting", "Destructive", "Fragrant", "Iris Gem", "Deceitful", "Truthful", "Sacred Vow", "Flaming", "Indolent", "Passionate", "Fuzzy Wuzzy", "Seafarer", "Destined", "Silent", "Blooming" });
             resonantType.Location = new System.Drawing.Point(0, 0);
             resonantType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             resonantType.Name = "resonantType";
@@ -289,8 +289,7 @@
             tableLayoutPanel2.Controls.Add(label5, 0, 4);
             tableLayoutPanel2.Controls.Add(label3, 0, 2);
             tableLayoutPanel2.Controls.Add(label1, 0, 0);
-            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Right;
-            tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel2.Location = new System.Drawing.Point(461, 0);
             tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 9;
@@ -305,16 +304,6 @@
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
             tableLayoutPanel2.Size = new System.Drawing.Size(260, 659);
             tableLayoutPanel2.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            panel2.Controls.Add(tableLayoutPanel2);
-            panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            panel2.Location = new System.Drawing.Point(458, 0);
-            panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(260, 659);
-            panel2.TabIndex = 10;
             // 
             // readButton
             // 
@@ -376,8 +365,6 @@
             // panel1
             // 
             panel1.Controls.Add(tableLayoutPanel1);
-            panel1.Controls.Add(scannedList);
-            panel1.Controls.Add(label2);
             panel1.Dock = System.Windows.Forms.DockStyle.Left;
             panel1.Location = new System.Drawing.Point(0, 0);
             panel1.Margin = new System.Windows.Forms.Padding(0);
@@ -386,30 +373,59 @@
             panel1.TabIndex = 9;
             panel1.Paint += panel1_Paint;
             // 
-            // scannedList
-            // 
-            scannedList.AutoSize = true;
-            scannedList.Location = new System.Drawing.Point(19, 43);
-            scannedList.Name = "scannedList";
-            scannedList.Size = new System.Drawing.Size(48, 21);
-            scannedList.TabIndex = 7;
-            scannedList.Text = "None";
-            // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(11, 12);
+            label2.Dock = System.Windows.Forms.DockStyle.Top;
+            label2.Location = new System.Drawing.Point(3, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(135, 21);
+            label2.Size = new System.Drawing.Size(233, 21);
             label2.TabIndex = 6;
             label2.Text = "Scanned Toppings";
+            label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.AutoScroll = true;
+            tableLayoutPanel3.ColumnCount = 1;
+            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel3.Controls.Add(scannedList, 0, 1);
+            tableLayoutPanel3.Controls.Add(label2, 0, 0);
+            tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right;
+            tableLayoutPanel3.Location = new System.Drawing.Point(724, 0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 2;
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.91805744F));
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.08194F));
+            tableLayoutPanel3.Size = new System.Drawing.Size(239, 659);
+            tableLayoutPanel3.TabIndex = 8;
+            tableLayoutPanel3.Paint += tableLayoutPanel3_Paint;
+            // 
+            // scannedList
+            // 
+            scannedList.AcceptsReturn = true;
+            scannedList.AcceptsTab = true;
+            scannedList.AccessibleRole = System.Windows.Forms.AccessibleRole.List;
+            scannedList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            scannedList.Dock = System.Windows.Forms.DockStyle.Top;
+            scannedList.Location = new System.Drawing.Point(3, 41);
+            scannedList.MaxLength = int.MaxValue;
+            scannedList.Multiline = true;
+            scannedList.Name = "scannedList";
+            scannedList.ReadOnly = true;
+            scannedList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            scannedList.Size = new System.Drawing.Size(233, 615);
+            scannedList.TabIndex = 8;
+            scannedList.Text = "None";
+            scannedList.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Scanner
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(718, 659);
-            Controls.Add(panel2);
+            ClientSize = new System.Drawing.Size(963, 659);
+            Controls.Add(tableLayoutPanel3);
+            Controls.Add(tableLayoutPanel2);
             Controls.Add(panel1);
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "Scanner";
@@ -424,10 +440,10 @@
             panel6.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
-            panel2.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -452,14 +468,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button readButton;
         private System.Windows.Forms.Button screenshotButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button exportButton;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label scannedList;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TextBox scannedList;
     }
 }
 
