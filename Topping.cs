@@ -8,39 +8,21 @@ namespace Crk_Topping_Scanner
 {
     internal class Topping
     {
-        public string ResonantType;
-        public string ToppingType;
-        public string Stat1;
-        public string Stat2;
-        public string Stat3;
-        public string Stat1Value;
-        public string Stat2Value;
-        public string Stat3Value;
+        public string ResonantType {get; set; }
+        public string ToppingType{get; set;}
+        public string Stat1{get; set;}
+        public string Stat2{get; set;}
+        public string Stat3{get; set;}
+        public string Stat1Value{get; set;}
+        public string Stat2Value{get; set;}
+        public string Stat3Value{get; set;}
 
-        public Topping(string resonantType,
-                       string toppingType,
-                       string stat1,
-                       string stat2,
-                       string stat3,
-                       string stat1Value,
-                       string stat2Value,
-                       string stat3Value)
+        public Topping()
         {
-            if (resonantType == "Not Resonant")
+            if (this.ResonantType == "Not Resonant")
             {
                 this.ResonantType = "";
             }
-            else
-            {
-                this.ResonantType = resonantType;
-            }
-            this.ToppingType = toppingType;
-            this.Stat1 = stat1;
-            this.Stat2 = stat2;
-            this.Stat3 = stat3;
-            this.Stat1Value = stat1Value;
-            this.Stat2Value = stat2Value;
-            this.Stat3Value = stat3Value;
         }
 
         public override string ToString()
