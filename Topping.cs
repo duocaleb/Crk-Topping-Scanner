@@ -13,18 +13,18 @@ namespace Crk_Topping_Scanner
         public string Stat1;
         public string Stat2;
         public string Stat3;
-        public float Stat1Value;
-        public float Stat2Value;
-        public float Stat3Value;
+        public string Stat1Value;
+        public string Stat2Value;
+        public string Stat3Value;
 
         public Topping(string resonantType,
                        string toppingType,
                        string stat1,
                        string stat2,
                        string stat3,
-                       float stat1Value,
-                       float stat2Value, 
-                       float stat3Value)
+                       string stat1Value,
+                       string stat2Value,
+                       string stat3Value)
         {
             if (resonantType == "Not Resonant")
             {
@@ -45,7 +45,7 @@ namespace Crk_Topping_Scanner
 
         public override string ToString()
         {
-            return (this.ResonantType + this.ToppingType + "\n    " + this.Stat1 + ": " + this.Stat1Value + "\n    " + this.Stat2 + ": " + this.Stat2Value + "\n    " + this.Stat3 + ": " + this.Stat3Value);
+            return (this.ResonantType + " " + this.ToppingType + "\n    " + this.Stat1 + ": " + this.Stat1Value + "\n    " + this.Stat2 + ": " + this.Stat2Value + "\n    " + this.Stat3 + ": " + this.Stat3Value);
         }
     }
 }
