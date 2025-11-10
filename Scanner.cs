@@ -185,7 +185,7 @@ namespace Crk_Topping_Scanner
         {
             scannedList.Text = "";
             string json = JsonSerializer.Serialize(toppingsExportList);
-            string filePath = Path.Combine(Application.StartupPath, "\"Crk Exports\"\\" + "crkExport" + DateTime.Now.ToString("yyyyMMddhmmss") + ".json");
+            string filePath = Path.Combine(Application.StartupPath, "Crk-Exports\\" + "crkExport" + DateTime.Now.ToString("yyyyMMddhmmss") + ".json");
             File.WriteAllText(filePath, json);
 
         }
