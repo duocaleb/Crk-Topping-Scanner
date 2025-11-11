@@ -79,25 +79,47 @@ namespace Crk_Topping_Scanner
 
         private void btnAddTopping_Click(object sender, EventArgs e)
         {
-            Topping newTopping = new Topping()
+
+            if (toppingType.Text == "")
             {
-                ResonantType = resonantType.Text,
-                ToppingType = toppingType.Text,
-                Stat1Value = statType1.Text,
-                Stat2Value = statType2.Text,
-                Stat3Value = statType3.Text,
-                Stat1 = stat1.Text,
-                Stat2 = stat2.Text,
-                Stat3 = stat3.Text
-            };
-            toppingsExportList.Add(newTopping);
-            if (scannedList.Text != "None")
+                MessageBox.Show(
+                    "Missing topping type",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+            else if (new List<string> {statType1.Text, statType2.Text, statType3.Text}.Any(n => n == ""))
             {
-                scannedList.Text = scannedList.Text + newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                MessageBox.Show(
+                    "Missing topping substat. Please ensure your topping is epic and is fully upgraded.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
             else
             {
-                scannedList.Text = newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                Topping newTopping = new Topping()
+                {
+                    ResonantType = resonantType.Text,
+                    ToppingType = toppingType.Text,
+                    Stat1Value = statType1.Text,
+                    Stat2Value = statType2.Text,
+                    Stat3Value = statType3.Text,
+                    Stat1 = stat1.Text,
+                    Stat2 = stat2.Text,
+                    Stat3 = stat3.Text
+                };
+                toppingsExportList.Add(newTopping);
+                if (scannedList.Text != "None")
+                {
+                    scannedList.Text = scannedList.Text + newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                }
+                else
+                {
+                    scannedList.Text = newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                }
             }
         }
 
@@ -236,13 +258,16 @@ namespace Crk_Topping_Scanner
 
         private void screenshotButton_Click(object sender, EventArgs e)
         {
+            var oldImage = scannedImage.Image;
+
+            // Assign the new image to the PictureBox
+
             scanRoot = (Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
             // Force 16:9 aspect ratio
-            scanRoot = ((int)Math.Min(scanRoot.Value.Item1, scanRoot.Value.Item2 * (9.0 / 16.0)),
-                        (int)Math.Min(scanRoot.Value.Item1 * (16.0 / 9.0), scanRoot.Value.Item2));
             scanRoot = ((int)(Screen.PrimaryScreen.Bounds.Width),
-                        (int)(Screen.PrimaryScreen.Bounds.Height));
-            Rectangle cropRect = new Rectangle(0, 0, Screen.PrimaryScreen.Bounds.Width - (int)(0.604 * scanRoot.Value.Item1), Screen.PrimaryScreen.Bounds.Height - (int)(0.513 * scanRoot.Value.Item2));
+            (int)(Screen.PrimaryScreen.Bounds.Height));
+            scanRoot = ((int)Math.Min(scanRoot.Value.Item1, scanRoot.Value.Item2 * (16.0 / 9.0)),
+                        (int)Math.Min(scanRoot.Value.Item1 * (9.0 / 16.0), scanRoot.Value.Item2));
 
             int x1 = (int)(0.063 * scanRoot.Value.Item1);
             int y1 = (int)(0.262 * scanRoot.Value.Item2);
@@ -253,64 +278,91 @@ namespace Crk_Topping_Scanner
             int height = y2 - y1;
 
             bmpScreenshot = new Bitmap(width, height);
-            Graphics.FromImage(bmpScreenshot).CopyFromScreen(x1, y1, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+            using (Graphics g = Graphics.FromImage(bmpScreenshot))
+            {
+                g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+            }
             
             scannedImage.Image = bmpScreenshot;
+
+            if (oldImage != null)
+            {
+                oldImage.Dispose();
+            }
 
         }
 
         private void readButton_Click(object sender, EventArgs e)
         {
-            var engine = new TesseractEngine(Application.StartupPath + @"/tessdata", "eng", EngineMode.TesseractAndLstm);
-            using (var pix = PixConverter.ToPix(MakeGrayscale3(new Bitmap(bmpScreenshot, bmpScreenshot.Width * 5, bmpScreenshot.Height * 5))))
+            using (var engine = new TesseractEngine(Application.StartupPath + @"/tessdata", "eng", EngineMode.TesseractAndLstm))
             {
-                // Define your rectangle
-                Rect rectSubs = new Rect(0, (int)(0.671 * pix.Height), pix.Width, (int)(0.329 * pix.Height));
-                Rect rectHead = new Rect(0, 0, pix.Width, pix.Height);
-                // Process the image region
-                using (var page = engine.Process(pix, rectHead, PageSegMode.Auto))
+                using (var scaledBitmap = new Bitmap(bmpScreenshot, bmpScreenshot.Width * 5, bmpScreenshot.Height * 5))
                 {
-                    var text = page.GetText();
-                    
-                    foreach(var resonant in resonantType.Items)
+                    using (var grayscaleBitmap = MakeGrayscale3(scaledBitmap))
                     {
-                        if (text.Contains(resonant.ToString()))
+                        using (var pix = PixConverter.ToPix(grayscaleBitmap))
                         {
-                            resonantType.SelectedItem = resonant.ToString();
-                        }
-                    }
-                    foreach(var topType in toppingType.Items)
-                    {
-                        if (text.Contains(topType.ToString()))
-                        {
-                            toppingType.SelectedItem = topType.ToString();
-                        }
-                    }
+                            Rect rectSubs = new Rect(0, (int)(0.671 * pix.Height), pix.Width, (int)(0.329 * pix.Height));
+                            Rect rectHead = new Rect(0, 0, pix.Width, pix.Height);
 
-                }
-                using (var page = engine.Process(pix, rectSubs, PageSegMode.Auto))
-                {
-                    var count = 0;
-                    var text = page.GetText();
-                    for(var i = 0; i < comboBoxes.Count; i++)
-                    {
-                        comboBoxes[i].SelectedItem = "";
-                        numericUpDowns[i].Value = 0;
+                            using (var page = engine.Process(pix, rectHead, PageSegMode.Auto))
+                            {
+                                var text = page.GetText();
+
+                                foreach (var resonant in resonantType.Items)
+                                {
+                                    if (text.Contains(resonant.ToString()))
+                                    {
+                                        resonantType.SelectedItem = resonant.ToString();
+                                    }
+                                }
+                                foreach (var topType in toppingType.Items)
+                                {
+                                    if (text.Contains(topType.ToString()))
+                                    {
+                                        toppingType.SelectedItem = topType.ToString();
+                                    }
+                                }
+                            }
+
+                            using (var page = engine.Process(pix, rectSubs, PageSegMode.Auto))
+                            {
+                                var count = 0;
+                                var text = page.GetText();
+                                for (var i = 0; i < comboBoxes.Count; i++)
+                                {
+                                    comboBoxes[i].SelectedItem = "";
+                                    numericUpDowns[i].Value = 0;
+                                }
+                                foreach (var line in text.Split(new[] { '\n', '\r' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    try
+                                    {
+                                        int lastSpace = line.LastIndexOf(' ');
+                                        string statName = line.Substring(0, lastSpace);
+                                        comboBoxes[count].SelectedItem = statName;
+                                        double statValue = double.Parse(line.Substring(lastSpace + 1).Replace("%", ""));
+                                        numericUpDowns[count].Value = (decimal)statValue;
+                                    }
+                                    catch (Exception)
+                                    {
+                                        MessageBox.Show(
+                                            "Scanner Error. Please ensure that CookieRun: Kingdom is full screen and the scanner does not cover the topping.",
+                                            "Error",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error
+                                        );
+                                        break;
+                                    }
+                                    count++;
+                                }
+                            }
+                        }
                     }
-                    foreach (var line in text.Split(new[] { '\n', '\r' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        int lastSpace = line.LastIndexOf(' ');
-                        string statName = line.Substring(0, lastSpace);
-                        comboBoxes[count].SelectedItem = statName;
-                        double statValue = double.Parse(line.Substring(lastSpace + 1).Replace("%", ""));
-                        numericUpDowns[count].Value = (decimal)statValue;
-                        count++;
-                    }
-                    
                 }
-                
             }
         }
+
 
         private void scannedList_TextChanged(object sender, EventArgs e)
         {

@@ -75,10 +75,10 @@
             stat3.DecimalPlaces = 1;
             stat3.Dock = System.Windows.Forms.DockStyle.Right;
             stat3.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            stat3.Location = new System.Drawing.Point(152, 0);
+            stat3.Location = new System.Drawing.Point(136, 0);
             stat3.Margin = new System.Windows.Forms.Padding(0);
             stat3.Name = "stat3";
-            stat3.Size = new System.Drawing.Size(128, 31);
+            stat3.Size = new System.Drawing.Size(115, 29);
             stat3.TabIndex = 7;
             // 
             // stat1
@@ -87,20 +87,20 @@
             stat1.DecimalPlaces = 1;
             stat1.Dock = System.Windows.Forms.DockStyle.Right;
             stat1.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            stat1.Location = new System.Drawing.Point(152, 0);
+            stat1.Location = new System.Drawing.Point(136, 0);
             stat1.Margin = new System.Windows.Forms.Padding(0);
             stat1.Name = "stat1";
-            stat1.Size = new System.Drawing.Size(128, 31);
+            stat1.Size = new System.Drawing.Size(115, 29);
             stat1.TabIndex = 6;
             // 
             // addToppingButton
             // 
             addToppingButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             addToppingButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            addToppingButton.Location = new System.Drawing.Point(4, 778);
-            addToppingButton.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            addToppingButton.Location = new System.Drawing.Point(4, 653);
+            addToppingButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             addToppingButton.Name = "addToppingButton";
-            addToppingButton.Size = new System.Drawing.Size(280, 61);
+            addToppingButton.Size = new System.Drawing.Size(251, 52);
             addToppingButton.TabIndex = 11;
             addToppingButton.Text = "Add topping";
             addToppingButton.UseVisualStyleBackColor = true;
@@ -114,9 +114,9 @@
             statType1.FormattingEnabled = true;
             statType1.Items.AddRange(new object[] { "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF%", "DMG Resist", "HP%" });
             statType1.Location = new System.Drawing.Point(0, 0);
-            statType1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            statType1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             statType1.Name = "statType1";
-            statType1.Size = new System.Drawing.Size(146, 33);
+            statType1.Size = new System.Drawing.Size(132, 29);
             statType1.TabIndex = 6;
             statType1.SelectedIndexChanged += statType1_SelectedIndexChanged;
             // 
@@ -125,10 +125,10 @@
             panel3.Controls.Add(statType1);
             panel3.Controls.Add(stat1);
             panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel3.Location = new System.Drawing.Point(4, 341);
-            panel3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            panel3.Location = new System.Drawing.Point(4, 286);
+            panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new System.Drawing.Size(280, 40);
+            panel3.Size = new System.Drawing.Size(251, 34);
             panel3.TabIndex = 10;
             // 
             // statType3
@@ -138,9 +138,9 @@
             statType3.FormattingEnabled = true;
             statType3.Items.AddRange(new object[] { "Amplify Buff", "ATK SPD", "ATK%", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF%", "DMG Resist", "HP%" });
             statType3.Location = new System.Drawing.Point(0, 0);
-            statType3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            statType3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             statType3.Name = "statType3";
-            statType3.Size = new System.Drawing.Size(146, 33);
+            statType3.Size = new System.Drawing.Size(132, 29);
             statType3.TabIndex = 6;
             // 
             // tbxStat3
@@ -148,10 +148,10 @@
             tbxStat3.Controls.Add(stat3);
             tbxStat3.Controls.Add(statType3);
             tbxStat3.Dock = System.Windows.Forms.DockStyle.Fill;
-            tbxStat3.Location = new System.Drawing.Point(4, 727);
-            tbxStat3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            tbxStat3.Location = new System.Drawing.Point(4, 610);
+            tbxStat3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             tbxStat3.Name = "tbxStat3";
-            tbxStat3.Size = new System.Drawing.Size(280, 40);
+            tbxStat3.Size = new System.Drawing.Size(251, 34);
             tbxStat3.TabIndex = 9;
             // 
             // statType2
@@ -161,9 +161,9 @@
             statType2.FormattingEnabled = true;
             statType2.Items.AddRange(new object[] { "Amplify Buff", "ATK SPD", "ATK%", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF%", "DMG Resist", "HP%" });
             statType2.Location = new System.Drawing.Point(0, 0);
-            statType2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            statType2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             statType2.Name = "statType2";
-            statType2.Size = new System.Drawing.Size(146, 33);
+            statType2.Size = new System.Drawing.Size(132, 29);
             statType2.TabIndex = 6;
             // 
             // panel4
@@ -171,10 +171,10 @@
             panel4.Controls.Add(stat2);
             panel4.Controls.Add(statType2);
             panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel4.Location = new System.Drawing.Point(4, 534);
-            panel4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            panel4.Location = new System.Drawing.Point(4, 448);
+            panel4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel4.Name = "panel4";
-            panel4.Size = new System.Drawing.Size(280, 40);
+            panel4.Size = new System.Drawing.Size(251, 34);
             panel4.TabIndex = 8;
             // 
             // stat2
@@ -183,10 +183,10 @@
             stat2.DecimalPlaces = 1;
             stat2.Dock = System.Windows.Forms.DockStyle.Right;
             stat2.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            stat2.Location = new System.Drawing.Point(152, 0);
+            stat2.Location = new System.Drawing.Point(136, 0);
             stat2.Margin = new System.Windows.Forms.Padding(0);
             stat2.Name = "stat2";
-            stat2.Size = new System.Drawing.Size(128, 31);
+            stat2.Size = new System.Drawing.Size(115, 29);
             stat2.TabIndex = 7;
             // 
             // toppingType
@@ -195,10 +195,10 @@
             toppingType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             toppingType.FormattingEnabled = true;
             toppingType.Items.AddRange(new object[] { "Caramel", "Almond", "Raspberry", "Chocolate", "Apple Jelly", "Walnut", "Peanut", "Hazelnut", "Candy", "Kiwi" });
-            toppingType.Location = new System.Drawing.Point(175, 0);
+            toppingType.Location = new System.Drawing.Point(156, 0);
             toppingType.Margin = new System.Windows.Forms.Padding(0);
             toppingType.Name = "toppingType";
-            toppingType.Size = new System.Drawing.Size(105, 33);
+            toppingType.Size = new System.Drawing.Size(95, 29);
             toppingType.TabIndex = 7;
             // 
             // resonantType
@@ -208,9 +208,9 @@
             resonantType.FormattingEnabled = true;
             resonantType.Items.AddRange(new object[] { "", "Moonkissed", "Triple Cone Cup Trio", "Dragonic", "Tropical Rock", "Sea Salt", "Radiant Cheese", "Frosted Crystal", "Life-sprouting", "Destructive", "Fragrant", "Iris Gem", "Deceitful", "Truthful", "Sacred Vow", "Flaming", "Indolent", "Passionate", "Fuzzy Wuzzy", "Seafarer", "Destined", "Silent", "Blooming" });
             resonantType.Location = new System.Drawing.Point(0, 0);
-            resonantType.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            resonantType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             resonantType.Name = "resonantType";
-            resonantType.Size = new System.Drawing.Size(171, 33);
+            resonantType.Size = new System.Drawing.Size(154, 29);
             resonantType.TabIndex = 7;
             resonantType.SelectedIndexChanged += drpResonantType_SelectedIndexChanged;
             // 
@@ -219,10 +219,10 @@
             panel6.Controls.Add(toppingType);
             panel6.Controls.Add(resonantType);
             panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel6.Location = new System.Drawing.Point(4, 148);
-            panel6.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            panel6.Location = new System.Drawing.Point(4, 124);
+            panel6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel6.Name = "panel6";
-            panel6.Size = new System.Drawing.Size(280, 40);
+            panel6.Size = new System.Drawing.Size(251, 34);
             panel6.TabIndex = 6;
             // 
             // label7
@@ -231,9 +231,9 @@
             label7.Dock = System.Windows.Forms.DockStyle.Fill;
             label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F);
             label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            label7.Location = new System.Drawing.Point(4, 580);
+            label7.Location = new System.Drawing.Point(4, 487);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(280, 141);
+            label7.Size = new System.Drawing.Size(251, 118);
             label7.TabIndex = 6;
             label7.Text = "Stat 3";
             label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -244,9 +244,9 @@
             label5.Dock = System.Windows.Forms.DockStyle.Fill;
             label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F);
             label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            label5.Location = new System.Drawing.Point(4, 387);
+            label5.Location = new System.Drawing.Point(4, 325);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(280, 141);
+            label5.Size = new System.Drawing.Size(251, 118);
             label5.TabIndex = 4;
             label5.Text = "Stat 2";
             label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -257,9 +257,9 @@
             label3.Dock = System.Windows.Forms.DockStyle.Fill;
             label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F);
             label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            label3.Location = new System.Drawing.Point(4, 194);
+            label3.Location = new System.Drawing.Point(4, 163);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(280, 141);
+            label3.Size = new System.Drawing.Size(251, 118);
             label3.TabIndex = 2;
             label3.Text = "Stat 1";
             label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -272,7 +272,7 @@
             label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             label1.Location = new System.Drawing.Point(4, 1);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(280, 141);
+            label1.Size = new System.Drawing.Size(251, 118);
             label1.TabIndex = 0;
             label1.Text = "Topping Type";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -292,20 +292,20 @@
             tableLayoutPanel2.Controls.Add(label3, 0, 2);
             tableLayoutPanel2.Controls.Add(label1, 0, 0);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Left;
-            tableLayoutPanel2.Location = new System.Drawing.Point(511, 0);
+            tableLayoutPanel2.Location = new System.Drawing.Point(460, 0);
             tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 9;
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 69F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(288, 845);
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 58F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(259, 710);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // label2
@@ -314,7 +314,7 @@
             label2.Dock = System.Windows.Forms.DockStyle.Fill;
             label2.Location = new System.Drawing.Point(3, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(265, 50);
+            label2.Size = new System.Drawing.Size(238, 42);
             label2.TabIndex = 6;
             label2.Text = "Scanned Toppings";
             label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -327,13 +327,12 @@
             tableLayoutPanel3.Controls.Add(scannedList, 0, 1);
             tableLayoutPanel3.Controls.Add(label2, 0, 0);
             tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right;
-            tableLayoutPanel3.Location = new System.Drawing.Point(801, 0);
-            tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tableLayoutPanel3.Location = new System.Drawing.Point(721, 0);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 2;
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.91805744F));
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.08194F));
-            tableLayoutPanel3.Size = new System.Drawing.Size(271, 845);
+            tableLayoutPanel3.Size = new System.Drawing.Size(244, 710);
             tableLayoutPanel3.TabIndex = 8;
             tableLayoutPanel3.Paint += tableLayoutPanel3_Paint;
             // 
@@ -344,14 +343,13 @@
             scannedList.AccessibleRole = System.Windows.Forms.AccessibleRole.List;
             scannedList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             scannedList.Dock = System.Windows.Forms.DockStyle.Top;
-            scannedList.Location = new System.Drawing.Point(3, 54);
-            scannedList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            scannedList.Location = new System.Drawing.Point(3, 45);
             scannedList.MaxLength = int.MaxValue;
             scannedList.Multiline = true;
             scannedList.Name = "scannedList";
             scannedList.ReadOnly = true;
             scannedList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            scannedList.Size = new System.Drawing.Size(265, 685);
+            scannedList.Size = new System.Drawing.Size(238, 575);
             scannedList.TabIndex = 8;
             scannedList.Text = "None";
             scannedList.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -368,23 +366,23 @@
             tableLayoutPanel1.Controls.Add(exportButton, 2, 0);
             tableLayoutPanel1.Controls.Add(screenshotButton, 0, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            tableLayoutPanel1.Location = new System.Drawing.Point(0, 770);
-            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 647);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 74F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(511, 75);
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(460, 63);
             tableLayoutPanel1.TabIndex = 5;
             // 
             // readButton
             // 
             readButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             readButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            readButton.Location = new System.Drawing.Point(174, 6);
-            readButton.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            readButton.Location = new System.Drawing.Point(157, 5);
+            readButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             readButton.Name = "readButton";
-            readButton.Size = new System.Drawing.Size(163, 63);
+            readButton.Size = new System.Drawing.Size(146, 53);
             readButton.TabIndex = 5;
             readButton.Text = "Read";
             readButton.UseVisualStyleBackColor = true;
@@ -394,10 +392,10 @@
             // 
             exportButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             exportButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            exportButton.Location = new System.Drawing.Point(344, 6);
-            exportButton.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            exportButton.Location = new System.Drawing.Point(310, 5);
+            exportButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             exportButton.Name = "exportButton";
-            exportButton.Size = new System.Drawing.Size(163, 63);
+            exportButton.Size = new System.Drawing.Size(146, 53);
             exportButton.TabIndex = 4;
             exportButton.Text = "Export";
             exportButton.UseVisualStyleBackColor = true;
@@ -407,10 +405,10 @@
             // 
             screenshotButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             screenshotButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            screenshotButton.Location = new System.Drawing.Point(4, 6);
-            screenshotButton.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            screenshotButton.Location = new System.Drawing.Point(4, 5);
+            screenshotButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             screenshotButton.Name = "screenshotButton";
-            screenshotButton.Size = new System.Drawing.Size(163, 63);
+            screenshotButton.Size = new System.Drawing.Size(146, 53);
             screenshotButton.TabIndex = 6;
             screenshotButton.Text = "Screenshot";
             screenshotButton.UseVisualStyleBackColor = true;
@@ -425,7 +423,7 @@
             panel1.Location = new System.Drawing.Point(0, 0);
             panel1.Margin = new System.Windows.Forms.Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(511, 845);
+            panel1.Size = new System.Drawing.Size(460, 710);
             panel1.TabIndex = 9;
             panel1.Paint += panel1_Paint;
             // 
@@ -433,21 +431,20 @@
             // 
             scannedImage.Dock = System.Windows.Forms.DockStyle.Fill;
             scannedImage.Location = new System.Drawing.Point(0, 0);
-            scannedImage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             scannedImage.Name = "scannedImage";
-            scannedImage.Size = new System.Drawing.Size(511, 770);
+            scannedImage.Size = new System.Drawing.Size(460, 647);
             scannedImage.TabIndex = 6;
             scannedImage.TabStop = false;
             // 
             // Scanner
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1072, 845);
+            ClientSize = new System.Drawing.Size(965, 710);
             Controls.Add(tableLayoutPanel3);
             Controls.Add(tableLayoutPanel2);
             Controls.Add(panel1);
-            Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "Scanner";
             Text = "Topping Scanner";
             Load += Scanner_Load;
