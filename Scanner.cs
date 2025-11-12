@@ -35,13 +35,13 @@ namespace Crk_Topping_Scanner
         private List<NumericUpDown> numericUpDowns;
         private Dictionary<string, (double, double)> possibleToppingSubs = new Dictionary<string, (double, double)>();
         private List<Topping> toppingsExportList = new List<Topping>();
-        private Bitmap bmpScreenshot = new Bitmap(1,1);
+        private Bitmap bmpScreenshot = new Bitmap(1, 1);
         private (int, int)? scanRoot;
-        
+
         public Scanner()
         {
             InitializeComponent();
-            
+
             TenToppingResonants = new List<string> { "Destined", "Silent", "Blooming", "" };
             comboBoxes = new List<ComboBox> { statType1, statType2, statType3 };
             numericUpDowns = new List<NumericUpDown> { stat1, stat2, stat3 };
@@ -59,21 +59,14 @@ namespace Crk_Topping_Scanner
             possibleToppingSubs.Add("HP%", (1.0, 3.0));
             possibleToppingSubs.Add("CRIT%", (1.0, 3.0));
             possibleToppingSubs.Add("", (0, 0));
+
+            itemSelector.SelectedItem = "Toppings";
+
             foreach (var combo in comboBoxes)
             {
                 combo.DataSource = new List<string>(PossibleSubstats); // Give each a fresh copy initially
                 combo.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
             }
-            
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void Scanner_Load(object sender, EventArgs e)
-        {
 
         }
 
@@ -89,7 +82,7 @@ namespace Crk_Topping_Scanner
                     MessageBoxIcon.Error
                 );
             }
-            else if (new List<string> {statType1.Text, statType2.Text, statType3.Text}.Any(n => n == ""))
+            else if (new List<string> { statType1.Text, statType2.Text, statType3.Text }.Any(n => n == ""))
             {
                 MessageBox.Show(
                     "Missing topping substat. Please ensure your topping is epic and is fully upgraded.",
@@ -212,10 +205,6 @@ namespace Crk_Topping_Scanner
 
         }
 
-        private void statType1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -251,16 +240,11 @@ namespace Crk_Topping_Scanner
             }
         }
 
-        private void tableLayoutPanel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void screenshotButton_Click(object sender, EventArgs e)
         {
+            // Memory thing
             var oldImage = scannedImage.Image;
-
-            // Assign the new image to the PictureBox
 
             scanRoot = (Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
             // Force 16:9 aspect ratio
@@ -282,7 +266,7 @@ namespace Crk_Topping_Scanner
             {
                 g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
             }
-            
+
             scannedImage.Image = bmpScreenshot;
 
             if (oldImage != null)
@@ -295,79 +279,68 @@ namespace Crk_Topping_Scanner
         private void readButton_Click(object sender, EventArgs e)
         {
             using (var engine = new TesseractEngine(Application.StartupPath + @"/tessdata", "eng", EngineMode.TesseractAndLstm))
+            using (var scaledBitmap = new Bitmap(bmpScreenshot, bmpScreenshot.Width * 5, bmpScreenshot.Height * 5))
+            using (var grayscaleBitmap = MakeGrayscale3(scaledBitmap))
+            using (var pix = PixConverter.ToPix(grayscaleBitmap))
             {
-                using (var scaledBitmap = new Bitmap(bmpScreenshot, bmpScreenshot.Width * 5, bmpScreenshot.Height * 5))
+                Rect rectSubs = new Rect(0, (int)(0.671 * pix.Height), pix.Width, (int)(0.329 * pix.Height));
+                Rect rectHead = new Rect(0, 0, pix.Width, pix.Height);
+
+                using (var page = engine.Process(pix, rectHead, PageSegMode.Auto))
                 {
-                    using (var grayscaleBitmap = MakeGrayscale3(scaledBitmap))
+                    var text = page.GetText();
+
+                    foreach (var resonant in resonantType.Items)
                     {
-                        using (var pix = PixConverter.ToPix(grayscaleBitmap))
+                        if (text.Contains(resonant.ToString()))
                         {
-                            Rect rectSubs = new Rect(0, (int)(0.671 * pix.Height), pix.Width, (int)(0.329 * pix.Height));
-                            Rect rectHead = new Rect(0, 0, pix.Width, pix.Height);
-
-                            using (var page = engine.Process(pix, rectHead, PageSegMode.Auto))
-                            {
-                                var text = page.GetText();
-
-                                foreach (var resonant in resonantType.Items)
-                                {
-                                    if (text.Contains(resonant.ToString()))
-                                    {
-                                        resonantType.SelectedItem = resonant.ToString();
-                                    }
-                                }
-                                foreach (var topType in toppingType.Items)
-                                {
-                                    if (text.Contains(topType.ToString()))
-                                    {
-                                        toppingType.SelectedItem = topType.ToString();
-                                    }
-                                }
-                            }
-
-                            using (var page = engine.Process(pix, rectSubs, PageSegMode.Auto))
-                            {
-                                var count = 0;
-                                var text = page.GetText();
-                                for (var i = 0; i < comboBoxes.Count; i++)
-                                {
-                                    comboBoxes[i].SelectedItem = "";
-                                    numericUpDowns[i].Value = 0;
-                                }
-                                foreach (var line in text.Split(new[] { '\n', '\r' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
-                                {
-                                    try
-                                    {
-                                        int lastSpace = line.LastIndexOf(' ');
-                                        string statName = line.Substring(0, lastSpace);
-                                        comboBoxes[count].SelectedItem = statName;
-                                        double statValue = double.Parse(line.Substring(lastSpace + 1).Replace("%", ""));
-                                        numericUpDowns[count].Value = (decimal)statValue;
-                                    }
-                                    catch (Exception)
-                                    {
-                                        MessageBox.Show(
-                                            "Scanner Error. Please ensure that CookieRun: Kingdom is full screen and the scanner does not cover the topping.",
-                                            "Error",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error
-                                        );
-                                        break;
-                                    }
-                                    count++;
-                                }
-                            }
+                            resonantType.SelectedItem = resonant.ToString();
                         }
+                    }
+                    foreach (var topType in toppingType.Items)
+                    {
+                        if (text.Contains(topType.ToString()))
+                        {
+                            toppingType.SelectedItem = topType.ToString();
+                        }
+                    }
+                }
+
+                using (var page = engine.Process(pix, rectSubs, PageSegMode.Auto))
+                {
+                    var count = 0;
+                    var text = page.GetText();
+                    for (var i = 0; i < comboBoxes.Count; i++)
+                    {
+                        comboBoxes[i].SelectedItem = "";
+                        numericUpDowns[i].Value = 0;
+                    }
+                    foreach (var line in text.Split(new[] { '\n', '\r' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        try
+                        {
+                            int lastSpace = line.LastIndexOf(' ');
+                            string statName = line.Substring(0, lastSpace);
+                            comboBoxes[count].SelectedItem = statName;
+                            double statValue = double.Parse(line.Substring(lastSpace + 1).Replace("%", ""));
+                            numericUpDowns[count].Value = (decimal)statValue;
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show(
+                                "Scanner Error. Please ensure that CookieRun: Kingdom is full screen and the scanner does not cover the topping.",
+                                "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                            break;
+                        }
+                        count++;
                     }
                 }
             }
         }
 
-
-        private void scannedList_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         //code from switchonthecode
         public static Bitmap MakeGrayscale3(Bitmap original)
@@ -404,11 +377,6 @@ namespace Crk_Topping_Scanner
                 }
             }
             return newBitmap;
-        }
-
-        private void scannedImage_Click(object sender, EventArgs e)
-        {
-            
         }
     }
 }
