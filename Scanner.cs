@@ -30,175 +30,321 @@ namespace Crk_Topping_Scanner
     public partial class Scanner : Form
     {
         private List<string> TenToppingResonants;
-        private List<string> PossibleSubstats;
+        private List<string> ToppingSubstats;
+        private List<string> BeascuitsSubstats;
+        private List<string> TartSubstats;
+        private List<string> toppingRes;
+        private List<string> toppingTypes;
+        private List<string> beascuitRes;
+        private List<string> beascuitTypes;
         private List<ComboBox> comboBoxes;
         private List<NumericUpDown> numericUpDowns;
-        private Dictionary<string, (double, double)> possibleToppingSubs = new Dictionary<string, (double, double)>();
-        private List<Topping> toppingsExportList = new List<Topping>();
+        private Dictionary<string, (double, double)> subStatLimits = new Dictionary<string, (double, double)>();
+        private List<Iitem> toppingsExportList = new List<Iitem>();
         private Bitmap bmpScreenshot = new Bitmap(1, 1);
         private (int, int)? scanRoot;
+        private Dictionary<string, string> typeToMain = new Dictionary<string, string>();
+        private Dictionary<string, string> beascuitResToMain = new Dictionary<string, string>();
 
         public Scanner()
         {
             InitializeComponent();
 
             TenToppingResonants = new List<string> { "Destined", "Silent", "Blooming", "" };
-            comboBoxes = new List<ComboBox> { statType1, statType2, statType3 };
-            numericUpDowns = new List<NumericUpDown> { stat1, stat2, stat3 };
-            PossibleSubstats = new List<string> { "", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF%", "DMG Resist" };
+            comboBoxes = new List<ComboBox> { statType1, statType2, statType3, statType4 };
+            numericUpDowns = new List<NumericUpDown> { stat1, stat2, stat3, stat4 };
+            ToppingSubstats = new List<string> { "", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF", "DMG Resist" };
+            BeascuitsSubstats = new List<string> { "", "Unattuned", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF", "DMG Resist", "DMG Resist Bypass" };
+            toppingTypes = new List<string> { "", "Raspberry", "Caramel", "Apple Jelly", "Chocolate", "Almond", "Walnut", "Peanut", "Hazelnut", "Candy", "Kiwi" };
+            toppingRes = new List<string> { "", "Blooming", "Silent", "Destined", "Seafarer", "Fuzzy Wuzzy", "Passionate", "Indolent", "Flaming", "Sacred Vow", "Truthful", "Deceitful", "Iris", "Fragrant", "Destructive", "Life-sprouting", "Frosted Crystal", "Radiant Cheese", "Sea Salt", "Tropical Rock", "Destructive", "Triple Cone Cup", "Moonkissed" };
+            beascuitRes = new List<string> { "", "Dark", "Thunderous", "Burning", "Earthen", "Poisonous", "Gleaming", "Surging", "Frozen", "Steelen", "Verdant", "Wuthering" };
+            beascuitTypes = new List<string> { "", "Sweet", "Hearty", "Zesty", "Spicy", "Light", "Chewy", "Hard", "Crispy" };
+            typeToMain = new Dictionary<string, string>()
+            {
+                {"Raspberry", "ATK"},
+                {"Caramel", "ATK SPD"},
+                {"Apple Jelly", "CRIT%"},
+                {"Chocolate", "Cooldown"},
+                {"Almond", "DMG Resist"},
+                {"Walnut", "DEF"},
+                {"Peanut", "HP"},
+                {"Hazelnut", "CRIT Resist"},
+                {"Candy", "Amplify Buff"},
+                {"Kiwi", "Debuff Resist"}
+            };
+            beascuitResToMain = new Dictionary<string, string>()
+            {
+                { "Dark", "Dark. DMG"},
+                { "Thunderous", "Elec. DMG"},
+                { "Burning", "Fire DMG" },
+                { "Earthen", "Earth DMG" },
+                { "Poisonous", "Poison DMG" },
+                { "Gleaming", "Light DMG" },
+                { "Surging", "Water DMG" },
+                { "Frozen", "Ice DMG" },
+                { "Steelen", "Steel DMG" },
+                { "Verdant", "Grass DMG" },
+                { "Wuthering", "Wind DMG" }
+            };
             scannedImage.SizeMode = PictureBoxSizeMode.Zoom;
 
-            possibleToppingSubs.Add("Amplify Buff", (1.0, 2.0));
-            possibleToppingSubs.Add("ATK", (1.0, 3.0));
-            possibleToppingSubs.Add("ATK SPD", (1.0, 3.0));
-            possibleToppingSubs.Add("Cooldown", (1.0, 2.0));
-            possibleToppingSubs.Add("CRIT Resist", (3.0, 4.0));
-            possibleToppingSubs.Add("Debuff Resist", (1.0, 2.0));
-            possibleToppingSubs.Add("DEF%", (1.0, 3.0));
-            possibleToppingSubs.Add("DMG Resist", (1.0, 6.0));
-            possibleToppingSubs.Add("HP%", (1.0, 3.0));
-            possibleToppingSubs.Add("CRIT%", (1.0, 3.0));
-            possibleToppingSubs.Add("", (0, 0));
 
             itemSelector.SelectedItem = "Toppings";
-
-            foreach (var combo in comboBoxes)
+            foreach (ComboBox combo in comboBoxes)
             {
-                combo.DataSource = new List<string>(PossibleSubstats); // Give each a fresh copy initially
-                combo.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
+                combo.SelectedIndexChanged += ComboBox_SelectedIndexChanged_1;
             }
-
         }
 
-        private void btnAddTopping_Click(object sender, EventArgs e)
+        private void addItem_Click(object sender, EventArgs e)
         {
-
-            if (toppingType.Text == "")
+            if (itemSelector.Text == "Toppings")
             {
-                MessageBox.Show(
-                    "Missing topping type",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-            else if (new List<string> { statType1.Text, statType2.Text, statType3.Text }.Any(n => n == ""))
-            {
-                MessageBox.Show(
-                    "Missing topping substat. Please ensure your topping is epic and is fully upgraded.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-            }
-            else
-            {
-                Topping newTopping = new Topping()
+                if (toppingType.Text == "")
                 {
-                    ResonantType = resonantType.Text,
-                    ToppingType = toppingType.Text,
-                    Stat1Value = statType1.Text,
-                    Stat2Value = statType2.Text,
-                    Stat3Value = statType3.Text,
-                    Stat1 = stat1.Text,
-                    Stat2 = stat2.Text,
-                    Stat3 = stat3.Text
-                };
-                toppingsExportList.Add(newTopping);
-                if (scannedList.Text != "None")
+                    MessageBox.Show(
+                        "Missing topping type.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+                else if (new List<string> { statType1.Text, statType2.Text, statType3.Text }.Any(n => n == ""))
                 {
-                    scannedList.Text = scannedList.Text + newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    MessageBox.Show(
+                        "Missing topping substat. Please ensure your topping is epic and is fully upgraded.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
                 }
                 else
                 {
-                    scannedList.Text = newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    Topping newTopping = new Topping()
+                    {
+                        ResonantType = resonantType.Text,
+                        ToppingType = toppingType.Text,
+                        Stat1Value = double.Parse(stat1.Text),
+                        Stat2Value = double.Parse(stat2.Text),
+                        Stat3Value = double.Parse(stat3.Text),
+                        Stat1 = statType1.Text,
+                        Stat2 = statType2.Text,
+                        Stat3 = statType3.Text
+                    };
+                    toppingsExportList.Add(newTopping);
+                    if (scannedList.Text != "None")
+                    {
+                        scannedList.Text = scannedList.Text + newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    }
+                    else
+                    {
+                        scannedList.Text = newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    }
+                }
+            }
+            else if (itemSelector.Text == "Beascuits")
+            {
+                if (toppingType.Text == "")
+                {
+                    MessageBox.Show(
+                        "Missing topping type.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+                else if (new List<string> { statType1.Text, statType2.Text, statType3.Text, statType4.Text }.Any(n => n == ""))
+                {
+                    MessageBox.Show(
+                        "Missing Beascuit substat. Please ensure you select \"unattuned\" for all unattuned slots.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+                else
+                {
+                    Beascuit newBeascuit = new Beascuit()
+                    {
+                        Tainted = isTainted.Checked,
+                        ResonantType = resonantType.Text,
+                        BeascuitType = toppingType.Text,
+                        Stat1Value = double.Parse(stat1.Text),
+                        Stat2Value = double.Parse(stat2.Text),
+                        Stat3Value = double.Parse(stat3.Text),
+                        Stat4Value = double.Parse(stat4.Text),
+                        Stat1 = statType1.Text,
+                        Stat2 = statType2.Text,
+                        Stat3 = statType3.Text,
+                        Stat4 = statType4.Text
+                    };
+                    if (scannedList.Text != "None")
+                    {
+                        scannedList.Text = scannedList.Text + newBeascuit.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    }
+                    else
+                    {
+                        scannedList.Text = newBeascuit.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    }
+                    toppingsExportList.Add(newBeascuit);
                 }
             }
         }
 
-        private void drpResonantType_SelectedIndexChanged(object sender, EventArgs e)
+        private void resonantType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ComboBox resBox = (ComboBox)sender;
-            if (resBox.Text != "")
+            if (itemSelector.Text == "Toppings")
             {
-                PossibleSubstats = new List<string> { "", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "DMG Resist" };
-                possibleToppingSubs["ATK SPD"] = (2.0, 3.0);
-                possibleToppingSubs["ATK"] = (2.0, 3.0);
-                possibleToppingSubs["Cooldown"] = (1.5, 2.0);
-                possibleToppingSubs["CRIT Resist"] = (3.5, 4.0);
-                possibleToppingSubs["DMG Resist"] = (4.5, 6.0);
-                possibleToppingSubs["CRIT%"] = (2.0, 3.0);
-                for (int i = 0; i < comboBoxes.Count; i++)
+                ComboBox resBox = (ComboBox)sender;
+                if (resBox.Text != "")
                 {
-                    var combo = comboBoxes[i];
-                    var numUpDown = numericUpDowns[i];
-                    var selectedItem = combo.SelectedItem?.ToString();
-                    var numVal = numUpDown.Value;
-                    combo.DataSource = new List<string>(PossibleSubstats);
-                    if (PossibleSubstats.Contains(selectedItem))
+                    ToppingSubstats = new List<string> { "", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "DMG Resist" };
+                    subStatLimits["ATK SPD"] = (2.0, 3.0);
+                    subStatLimits["ATK"] = (2.0, 3.0);
+                    subStatLimits["Cooldown"] = (1.5, 2.0);
+                    subStatLimits["CRIT Resist"] = (3.5, 4.0);
+                    subStatLimits["DMG Resist"] = (4.5, 6.0);
+                    subStatLimits["CRIT%"] = (2.0, 3.0);
+                    for (int i = 0; i < comboBoxes.Count; i++)
                     {
-                        combo.SelectedItem = selectedItem;
-                    }
-                    if (numVal > numUpDown.Minimum && numVal <= numUpDown.Maximum)
-                    {
-                        numUpDown.Value = numVal;
-                    }
-                }
-            }
-            else
-            {
-                PossibleSubstats = new List<string> { "", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF%", "DMG Resist" };
-                possibleToppingSubs["ATK SPD"] = (1.0, 3.0);
-                possibleToppingSubs["ATK"] = (1.0, 3.0);
-                possibleToppingSubs["Cooldown"] = (1.0, 2.0);
-                possibleToppingSubs["CRIT Resist"] = (3.0, 4.0);
-                possibleToppingSubs["DMG Resist"] = (1.0, 6.0);
-                possibleToppingSubs["CRIT%"] = (1.0, 3.0);
-                for (int i = 0; i < comboBoxes.Count; i++)
-                {
-                    var combo = comboBoxes[i];
-                    var numUpDown = numericUpDowns[i];
-                    var selectedItem = combo.SelectedItem?.ToString();
-                    var numVal = numUpDown.Value;
-                    combo.DataSource = new List<string>(PossibleSubstats);
-                    if (PossibleSubstats.Contains(selectedItem))
-                    {
-                        combo.SelectedItem = selectedItem;
-                    }
-                    if (numVal > numUpDown.Minimum && numVal <= numUpDown.Maximum)
-                    {
-                        numUpDown.Value = numVal;
+                        var combo = comboBoxes[i];
+                        var numUpDown = numericUpDowns[i];
+                        var selectedItem = combo.SelectedItem?.ToString();
+                        var numVal = numUpDown.Value;
+                        combo.DataSource = new List<string>(ToppingSubstats);
+                        if (ToppingSubstats.Contains(selectedItem))
+                        {
+                            combo.SelectedItem = selectedItem;
+                        }
+                        if (numVal > numUpDown.Minimum && numVal <= numUpDown.Maximum)
+                        {
+                            numUpDown.Value = numVal;
+                        }
                     }
                 }
-            }
-            if (TenToppingResonants.Contains(resBox.Text))
-            {
-                if (toppingType.Items.Count != 10)
+                else
                 {
-                    toppingType.Items.AddRange(new List<string> { "Walnut", "Peanut", "Hazelnut", "Candy", "Kiwi" }.ToArray());
+                    ToppingSubstats = new List<string> { "", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF", "DMG Resist" };
+                    subStatLimits["ATK SPD"] = (1.0, 3.0);
+                    subStatLimits["ATK"] = (1.0, 3.0);
+                    subStatLimits["Cooldown"] = (1.0, 2.0);
+                    subStatLimits["CRIT Resist"] = (3.0, 4.0);
+                    subStatLimits["DMG Resist"] = (1.0, 6.0);
+                    subStatLimits["CRIT%"] = (1.0, 3.0);
+                    for (int i = 0; i < comboBoxes.Count; i++)
+                    {
+                        var combo = comboBoxes[i];
+                        var numUpDown = numericUpDowns[i];
+                        var selectedItem = combo.SelectedItem?.ToString();
+                        var numVal = numUpDown.Value;
+                        combo.DataSource = new List<string>(ToppingSubstats);
+                        if (ToppingSubstats.Contains(selectedItem))
+                        {
+                            combo.SelectedItem = selectedItem;
+                        }
+                        if (numVal > numUpDown.Minimum && numVal <= numUpDown.Maximum)
+                        {
+                            numUpDown.Value = numVal;
+                        }
+                    }
+                }
+                if (TenToppingResonants.Contains(resBox.Text))
+                {
+                    if (toppingType.Items.Count != 10)
+                    {
+                        string currentType = toppingType.Text;
+                        toppingTypes.AddRange(new List<string> { "Walnut", "Peanut", "Hazelnut", "Candy", "Kiwi" }.ToArray());
+                        toppingType.DataSource = new List<string>(toppingTypes);
+                        if (toppingTypes.Contains(currentType))
+                        {
+                            toppingType.SelectedItem = currentType;
+                        }
+                    }
+
+
+
+                }
+                else
+                {
+                    if (toppingTypes.Count != 5)
+                    {
+                        string currentType = toppingType.Text;
+                        toppingTypes.Remove("Walnut");
+                        toppingTypes.Remove("Peanut");
+                        toppingTypes.Remove("Hazelnut");
+                        toppingTypes.Remove("Candy");
+                        toppingTypes.Remove("Kiwi");
+                        toppingType.DataSource = new List<string>(toppingTypes);
+                        if (toppingTypes.Contains(currentType))
+                        {
+                            toppingType.SelectedItem = currentType;
+                        }
+                    }
+
+                }
+            }
+            else if (itemSelector.Text == "Beascuits")
+            {
+                if (resonantType.Text != "")
+                {
+                    
+                    if (isTainted.Checked)
+                    {
+                        
+                        statType1.DataSource = new List<string> { beascuitResToMain[resonantType.Text] };
+                        stat1.Minimum = 20;
+                        stat1.Maximum = 20;
+                        statType1.Enabled = false;
+                        stat1.Enabled = false;
+                        for (int i = 1; i < comboBoxes.Count(); i++)
+                        {
+                            List<string> beascuitSubsNew = new List<string>(BeascuitsSubstats).ToList();
+                            string comboText = comboBoxes[i].Text;
+                            comboBoxes[i].DataSource = beascuitSubsNew;
+                            if (comboBoxes[i].Items.Contains(comboText))
+                            {
+                                comboBoxes[i].SelectedItem = comboText;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        statType1.Enabled = true;
+                        stat1.Enabled = true;
+                        foreach (ComboBox combo in comboBoxes)
+                        {
+                            List<string> beascuitSubsNew = new List<string>(BeascuitsSubstats).Append(beascuitResToMain[resonantType.Text]).ToList();
+                            string comboText = combo.Text;
+                            combo.DataSource = beascuitSubsNew;
+                            if (combo.Items.Contains(comboText))
+                            {
+                                combo.SelectedItem = comboText;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (ComboBox combo in comboBoxes)
+                    {
+                        List<string> beascuitSubsNew = new List<string>(BeascuitsSubstats);
+                        string comboText = combo.Text;
+                        combo.DataSource = beascuitSubsNew;
+                        if (combo.Items.Contains(comboText))
+                        {
+                            combo.SelectedItem = comboText;
+                        }
+                    }
+                    statType1.Enabled = true;
+                    stat1.Enabled = true;
                 }
 
-
-
             }
-            else
-            {
-                if (toppingType.Items.Count != 5)
-                {
-                    toppingType.Items.Remove("Walnut");
-                    toppingType.Items.Remove("Peanut");
-                    toppingType.Items.Remove("Hazelnut");
-                    toppingType.Items.Remove("Candy");
-                    toppingType.Items.Remove("Kiwi");
-                }
-
-            }
-
         }
 
         private void exportButton_Click(object sender, EventArgs e)
         {
-            scannedList.Text = "";
+            scannedList.Text = "None";
             string json = JsonSerializer.Serialize(toppingsExportList);
             string filePath = Path.Combine(Application.StartupPath, "Crk-Exports\\" + "crkExport" + DateTime.Now.ToString("yyyyMMddhmmss") + ".json");
             File.WriteAllText(filePath, json);
@@ -207,7 +353,6 @@ namespace Crk_Topping_Scanner
 
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             for (int i = 0; i < comboBoxes.Count; i++)
             {
                 ComboBox combo = comboBoxes[i];
@@ -217,7 +362,7 @@ namespace Crk_Topping_Scanner
                     .Select(c => c.SelectedItem?.ToString())
                     .Where(item => !string.IsNullOrEmpty(item))
                     .ToList();
-                var availableItems = PossibleSubstats.Except(selectedItems).ToList();
+                var availableItems = ToppingSubstats.Except(selectedItems).ToList();
                 var currentSelection = combo.SelectedItem?.ToString();
                 combo.SelectedIndexChanged -= ComboBox_SelectedIndexChanged;
                 combo.DataSource = new List<string>(availableItems);
@@ -227,16 +372,23 @@ namespace Crk_Topping_Scanner
                     combo.SelectedItem = currentSelection;
                 }
                 combo.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
+            }
+        }
 
-                var numVal = numUpDown.Value;
+        private void ComboBox_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            int index = int.Parse(char.ToString(((ComboBox)sender).Name.Last())) - 1;
+            NumericUpDown numUpDown = numericUpDowns[index];
+            var numVal = numUpDown.Value;
 
-                numUpDown.Minimum = ((decimal)possibleToppingSubs[currentSelection].Item1);
-                numUpDown.Maximum = ((decimal)possibleToppingSubs[currentSelection].Item2);
+            var currentSelection = comboBoxes[index].SelectedItem?.ToString();
 
-                if (numVal > numUpDown.Minimum && numVal <= numUpDown.Maximum)
-                {
-                    numUpDown.Value = numVal;
-                }
+            numUpDown.Minimum = ((decimal)subStatLimits[currentSelection].Item1);
+            numUpDown.Maximum = ((decimal)subStatLimits[currentSelection].Item2);
+
+            if (numVal > numUpDown.Minimum && numVal <= numUpDown.Maximum)
+            {
+                numUpDown.Value = numVal;
             }
         }
 
@@ -278,66 +430,77 @@ namespace Crk_Topping_Scanner
 
         private void readButton_Click(object sender, EventArgs e)
         {
-            using (var engine = new TesseractEngine(Application.StartupPath + @"/tessdata", "eng", EngineMode.TesseractAndLstm))
-            using (var scaledBitmap = new Bitmap(bmpScreenshot, bmpScreenshot.Width * 5, bmpScreenshot.Height * 5))
-            using (var grayscaleBitmap = MakeGrayscale3(scaledBitmap))
-            using (var pix = PixConverter.ToPix(grayscaleBitmap))
+            if (itemSelector.Text == "Toppings")
             {
-                Rect rectSubs = new Rect(0, (int)(0.671 * pix.Height), pix.Width, (int)(0.329 * pix.Height));
-                Rect rectHead = new Rect(0, 0, pix.Width, pix.Height);
-
-                using (var page = engine.Process(pix, rectHead, PageSegMode.Auto))
+                using (var engine = new TesseractEngine(Application.StartupPath + @"/tessdata", "eng", EngineMode.TesseractAndLstm))
+                using (var scaledBitmap = new Bitmap(bmpScreenshot, bmpScreenshot.Width * 5, bmpScreenshot.Height * 5))
+                using (var grayscaleBitmap = MakeGrayscale3(scaledBitmap))
+                using (var pix = PixConverter.ToPix(grayscaleBitmap))
                 {
-                    var text = page.GetText();
+                    Rect rectSubs = new Rect(0, (int)(0.671 * pix.Height), pix.Width, (int)(0.329 * pix.Height));
+                    Rect rectHead = new Rect(0, 0, pix.Width, pix.Height);
 
-                    foreach (var resonant in resonantType.Items)
+                    using (var page = engine.Process(pix, rectHead, PageSegMode.Auto))
                     {
-                        if (text.Contains(resonant.ToString()))
+                        var text = page.GetText();
+
+                        foreach (var resonant in resonantType.Items)
                         {
-                            resonantType.SelectedItem = resonant.ToString();
+                            if (text.Contains(resonant.ToString()))
+                            {
+                                resonantType.SelectedItem = resonant.ToString();
+                            }
+                        }
+                        foreach (var topType in toppingType.Items)
+                        {
+                            if (text.Contains(topType.ToString()))
+                            {
+                                toppingType.SelectedItem = topType.ToString();
+                            }
                         }
                     }
-                    foreach (var topType in toppingType.Items)
+
+                    using (var page = engine.Process(pix, rectSubs, PageSegMode.Auto))
                     {
-                        if (text.Contains(topType.ToString()))
+                        var count = 0;
+                        var text = page.GetText();
+                        for (var i = 0; i < comboBoxes.Count; i++)
                         {
-                            toppingType.SelectedItem = topType.ToString();
+                            comboBoxes[i].SelectedItem = "";
+                            numericUpDowns[i].Value = 0;
+                        }
+                        foreach (var line in text.Split(new[] { '\n', '\r' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            try
+                            {
+                                int lastSpace = line.LastIndexOf(' ');
+                                string statName = line.Substring(0, lastSpace);
+                                comboBoxes[count].SelectedItem = statName;
+                                double statValue = double.Parse(line.Substring(lastSpace + 1).Replace("%", ""));
+                                numericUpDowns[count].Value = (decimal)statValue;
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show(
+                                    "Scanner Error. Please ensure that CookieRun: Kingdom is full screen and the scanner does not cover the topping.",
+                                    "Error",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error
+                                );
+                                break;
+                            }
+                            count++;
                         }
                     }
                 }
-
-                using (var page = engine.Process(pix, rectSubs, PageSegMode.Auto))
-                {
-                    var count = 0;
-                    var text = page.GetText();
-                    for (var i = 0; i < comboBoxes.Count; i++)
-                    {
-                        comboBoxes[i].SelectedItem = "";
-                        numericUpDowns[i].Value = 0;
-                    }
-                    foreach (var line in text.Split(new[] { '\n', '\r' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        try
-                        {
-                            int lastSpace = line.LastIndexOf(' ');
-                            string statName = line.Substring(0, lastSpace);
-                            comboBoxes[count].SelectedItem = statName;
-                            double statValue = double.Parse(line.Substring(lastSpace + 1).Replace("%", ""));
-                            numericUpDowns[count].Value = (decimal)statValue;
-                        }
-                        catch (Exception)
-                        {
-                            MessageBox.Show(
-                                "Scanner Error. Please ensure that CookieRun: Kingdom is full screen and the scanner does not cover the topping.",
-                                "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error
-                            );
-                            break;
-                        }
-                        count++;
-                    }
-                }
+            }
+            else if (itemSelector.Text == "Beascuits")
+            {
+                // Future Implementation
+            }
+            else if (itemSelector.Text == "Tarts")
+            {
+                // Future Implementation
             }
         }
 
@@ -377,6 +540,171 @@ namespace Crk_Topping_Scanner
                 }
             }
             return newBitmap;
+        }
+
+        private void itemSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (itemSelector.Text == "Toppings")
+            {
+                resonantType.Enabled = true;
+                statType1.Enabled = true;
+                resonantType.DataSource = new List<string>(toppingRes);
+                toppingType.DataSource = new List<string>(toppingTypes);
+                label1.Text = "Topping Type";
+                tableLayoutPanel4.ColumnStyles[0].Width = 25;
+                tableLayoutPanel4.ColumnStyles[1].Width = 0;
+                tableLayoutPanel4.ColumnStyles[2].Width = 25;
+                tableLayoutPanel4.ColumnStyles[3].Width = 25;
+                tableLayoutPanel4.ColumnStyles[4].Width = 25;
+                tableLayoutPanel4.ColumnStyles[5].Width = 0;
+                isTainted.Width = 0;
+                subStatLimits = new Dictionary<string, (double, double)>()
+                {
+                    {"Amplify Buff", (1.0, 2.0)},
+                    {"ATK", (1.0, 3.0)},
+                    {"ATK SPD", (1.0, 3.0)},
+                    {"Cooldown", (1.0, 2.0)},
+                    {"CRIT Resist", (3.0, 4.0)},
+                    {"Debuff Resist", (1.0, 2.0)},
+                    {"DEF", (1.0, 3.0)},
+                    {"DMG Resist", (1.0, 6.0)},
+                    {"HP", (1.0, 3.0)},
+                    {"CRIT%", (1.0, 3.0)},
+                    {"DMG Resist Bypass", (5.0, 15.0)},
+                    {"", (0, 0)}
+                };
+                foreach (var combo in comboBoxes)
+                {
+                    combo.DataSource = new List<string>(ToppingSubstats);
+                    combo.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
+                }
+            }
+            else if (itemSelector.Text == "Beascuits")
+            {
+                resonantType.Enabled = true;
+                statType1.Enabled = true;
+                resonantType.DataSource = new List<string>(beascuitRes);
+                toppingType.DataSource = new List<string>(beascuitTypes);
+                label1.Text = "Beascuit Type";
+                tableLayoutPanel4.ColumnStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel4.ColumnStyles[0].Width = 20;
+                tableLayoutPanel4.ColumnStyles[1].Width = 20;
+                tableLayoutPanel4.ColumnStyles[2].Width = 20;
+                tableLayoutPanel4.ColumnStyles[3].Width = 20;
+                tableLayoutPanel4.ColumnStyles[4].Width = 20;
+                tableLayoutPanel4.ColumnStyles[5].Width = 20;
+                isTainted.Width = (int)(tableLayoutPanel4.ClientSize.Width * 0.2);
+                subStatLimits = new Dictionary<string, (double, double)>()
+                {
+                    {"Amplify Buff", (2.0, 5.0)},
+                    {"ATK", (3.0, 7.5)},
+                    {"ATK SPD", (3.0, 10.0)},
+                    {"Cooldown", (2.0, 6.0)},
+                    {"CRIT Resist", (4.0, 10.0)},
+                    {"Debuff Resist", (2.0, 5.0)},
+                    {"DEF", (5.0, 7.5)},
+                    {"DMG Resist", (5.0, 10.0)},
+                    {"HP", (3.0, 15.0)},
+                    {"CRIT%", (3.0, 7.0)},
+                    {"DMG Resist Bypass", (5.0, 15.0)},
+                    {"", (0, 0)},
+                    {"Unattuned", (0, 0)}
+                };
+                foreach (string stat in beascuitResToMain.Values)
+                {
+                    subStatLimits.Add(stat, (8.0, 15.0));
+                }
+                foreach (var combo in comboBoxes)
+                {
+                    combo.SelectedIndexChanged -= ComboBox_SelectedIndexChanged;
+                    combo.DataSource = new List<string>(BeascuitsSubstats);
+                }
+
+            }
+            else if (itemSelector.Text == "Tarts")
+            {
+                resonantType.SelectedItem = "";
+                resonantType.Enabled = false;
+                statType1.Enabled = false;
+                toppingType.DataSource = new List<string>(toppingTypes);
+                label1.Text = "Tart Type";
+                subStatLimits = new Dictionary<string, (double, double)>()
+                {
+                    {"Amplify Buff", (6.0, 10.0)},
+                    {"ATK", (7.2, 12.0)},
+                    {"ATK SPD", (5.4, 9.0)},
+                    {"Cooldown", (3.0, 5.0)},
+                    {"CRIT Resist", (9.0, 15.0)},
+                    {"Debuff Resist", (6.0, 10.0)},
+                    {"DEF", (12.0, 20.0)},
+                    {"DMG Resist", (6.0, 10.0)},
+                    {"HP", (7.8, 13.0)},
+                    {"CRIT%", (6.6, 11.0)},
+                    {"", (0, 0)}
+                };
+                tableLayoutPanel4.ColumnStyles[0].Width = 50;
+                tableLayoutPanel4.ColumnStyles[1].Width = 0;
+                tableLayoutPanel4.ColumnStyles[2].Width = 50;
+                tableLayoutPanel4.ColumnStyles[3].Width = 0;
+                tableLayoutPanel4.ColumnStyles[4].Width = 0;
+                tableLayoutPanel4.ColumnStyles[5].Width = 0;
+                isTainted.Width = 0;
+
+                foreach (var combo in comboBoxes)
+                {
+                    combo.SelectedIndexChanged -= ComboBox_SelectedIndexChanged;
+                    combo.DataSource = new List<string>(ToppingSubstats);
+                }
+            }
+        }
+
+        private void toppingType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (itemSelector.Text == "Tarts" && toppingType.Text != "")
+            {
+                statType1.SelectedItem = typeToMain[toppingType.Text];
+            }
+        }
+
+        private void isTainted_CheckedChanged(object sender, EventArgs e)
+        {
+            if (resonantType.Text != "")
+            {
+                if (isTainted.Checked)
+                {
+                    
+                    statType1.DataSource = new List<string> { beascuitResToMain[resonantType.Text] };
+                    stat1.Minimum = 20;
+                    stat1.Maximum = 20;
+                    statType1.Enabled = false;
+                    stat1.Enabled = false;
+                    for (int i = 1; i < comboBoxes.Count(); i++)
+                    {
+                        List<string> beascuitSubsNew = new List<string>(BeascuitsSubstats).ToList();
+                        string comboText = comboBoxes[i].Text;
+                        comboBoxes[i].DataSource = beascuitSubsNew;
+                        if (comboBoxes[i].Items.Contains(comboText))
+                        {
+                            comboBoxes[i].SelectedItem = comboText;
+                        }
+                    }
+                }
+                else
+                {
+                    statType1.Enabled = true;
+                    stat1.Enabled = true;
+                    foreach (ComboBox combo in comboBoxes)
+                    {
+                        List<string> beascuitSubsNew = new List<string>(BeascuitsSubstats).Append(beascuitResToMain[resonantType.Text]).ToList();
+                        string comboText = combo.Text;
+                        combo.DataSource = beascuitSubsNew;
+                        if (combo.Items.Contains(comboText))
+                        {
+                            combo.SelectedItem = comboText;
+                        }
+                    }
+                }
+            }
         }
     }
 }
