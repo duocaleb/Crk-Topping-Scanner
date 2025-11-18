@@ -27,6 +27,7 @@
     <GenerateManifests>true</GenerateManifests>
     <SignManifests>true</SignManifests>
     <SignAssembly>False</SignAssembly>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

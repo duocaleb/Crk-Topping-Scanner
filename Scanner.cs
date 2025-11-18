@@ -45,6 +45,8 @@ namespace Crk_Topping_Scanner
         private (int, int)? scanRoot;
         private Dictionary<string, string> typeToMain = new Dictionary<string, string>();
         private Dictionary<string, string> beascuitResToMain = new Dictionary<string, string>();
+        private TesseractEngine engine = new TesseractEngine(@Path.Combine(Application.StartupPath, "tessdata"), "eng", EngineMode.TesseractAndLstm);
+
 
         public Scanner()
         {
@@ -98,97 +100,7 @@ namespace Crk_Topping_Scanner
 
         private void addItem_Click(object sender, EventArgs e)
         {
-            if (itemSelector.Text == "Toppings")
-            {
-                if (toppingType.Text == "")
-                {
-                    MessageBox.Show(
-                        "Missing topping type.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
-                else if (new List<string> { statType1.Text, statType2.Text, statType3.Text }.Any(n => n == ""))
-                {
-                    MessageBox.Show(
-                        "Missing topping substat. Please ensure your topping is epic and is fully upgraded.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
-                else
-                {
-                    Topping newTopping = new Topping()
-                    {
-                        ResonantType = resonantType.Text,
-                        ToppingType = toppingType.Text,
-                        Stat1Value = double.Parse(stat1.Text),
-                        Stat2Value = double.Parse(stat2.Text),
-                        Stat3Value = double.Parse(stat3.Text),
-                        Stat1 = statType1.Text,
-                        Stat2 = statType2.Text,
-                        Stat3 = statType3.Text
-                    };
-                    toppingsExportList.Add(newTopping);
-                    if (scannedList.Text != "None")
-                    {
-                        scannedList.Text = scannedList.Text + newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
-                    }
-                    else
-                    {
-                        scannedList.Text = newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
-                    }
-                }
-            }
-            else if (itemSelector.Text == "Beascuits")
-            {
-                if (toppingType.Text == "")
-                {
-                    MessageBox.Show(
-                        "Missing topping type.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
-                else if (new List<string> { statType1.Text, statType2.Text, statType3.Text, statType4.Text }.Any(n => n == ""))
-                {
-                    MessageBox.Show(
-                        "Missing Beascuit substat. Please ensure you select \"unattuned\" for all unattuned slots.",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
-                else
-                {
-                    Beascuit newBeascuit = new Beascuit()
-                    {
-                        Tainted = isTainted.Checked,
-                        ResonantType = resonantType.Text,
-                        BeascuitType = toppingType.Text,
-                        Stat1Value = double.Parse(stat1.Text),
-                        Stat2Value = double.Parse(stat2.Text),
-                        Stat3Value = double.Parse(stat3.Text),
-                        Stat4Value = double.Parse(stat4.Text),
-                        Stat1 = statType1.Text,
-                        Stat2 = statType2.Text,
-                        Stat3 = statType3.Text,
-                        Stat4 = statType4.Text
-                    };
-                    if (scannedList.Text != "None")
-                    {
-                        scannedList.Text = scannedList.Text + newBeascuit.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
-                    }
-                    else
-                    {
-                        scannedList.Text = newBeascuit.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
-                    }
-                    toppingsExportList.Add(newBeascuit);
-                }
-            }
+            AddItem();
         }
 
         private void resonantType_SelectedIndexChanged(object sender, EventArgs e)
@@ -287,10 +199,10 @@ namespace Crk_Topping_Scanner
             {
                 if (resonantType.Text != "")
                 {
-                    
+
                     if (isTainted.Checked)
                     {
-                        
+
                         statType1.DataSource = new List<string> { beascuitResToMain[resonantType.Text] };
                         stat1.Minimum = 20;
                         stat1.Maximum = 20;
@@ -418,8 +330,17 @@ namespace Crk_Topping_Scanner
             {
                 g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
             }
-
-            scannedImage.Image = bmpScreenshot;
+            Bitmap processedImage = null;
+            using (Bitmap grayScreenshot = MakeGrayscale3(bmpScreenshot))
+            using (Bitmap tempImage = boundWords(grayScreenshot))
+            {
+                processedImage = (Bitmap)tempImage.Clone();
+            }
+            if (scannedImage.Image != null)
+            {
+                scannedImage.Image.Dispose();
+            }
+            scannedImage.Image = processedImage;
 
             if (oldImage != null)
             {
@@ -430,20 +351,25 @@ namespace Crk_Topping_Scanner
 
         private void readButton_Click(object sender, EventArgs e)
         {
+
             if (itemSelector.Text == "Toppings")
             {
-                using (var engine = new TesseractEngine(Application.StartupPath + @"/tessdata", "eng", EngineMode.TesseractAndLstm))
-                using (var scaledBitmap = new Bitmap(bmpScreenshot, bmpScreenshot.Width * 5, bmpScreenshot.Height * 5))
-                using (var grayscaleBitmap = MakeGrayscale3(scaledBitmap))
-                using (var pix = PixConverter.ToPix(grayscaleBitmap))
+                foreach(var combo in comboBoxes)
                 {
+                    combo.SelectedItem = "";
+                }
+                double[] statValues = { 0, 0, 0 };
+                using (var scaledBitmap = new Bitmap(bmpScreenshot, bmpScreenshot.Width * 5, bmpScreenshot.Height * 5))
+                using (var pix = PixConverter.ToPix(scaledBitmap))
+                {
+
                     Rect rectSubs = new Rect(0, (int)(0.671 * pix.Height), pix.Width, (int)(0.329 * pix.Height));
                     Rect rectHead = new Rect(0, 0, pix.Width, pix.Height);
 
                     using (var page = engine.Process(pix, rectHead, PageSegMode.Auto))
                     {
                         var text = page.GetText();
-
+                        scannedList.Text = text;
                         foreach (var resonant in resonantType.Items)
                         {
                             if (text.Contains(resonant.ToString()))
@@ -462,22 +388,17 @@ namespace Crk_Topping_Scanner
 
                     using (var page = engine.Process(pix, rectSubs, PageSegMode.Auto))
                     {
-                        var count = 0;
                         var text = page.GetText();
-                        for (var i = 0; i < comboBoxes.Count; i++)
-                        {
-                            comboBoxes[i].SelectedItem = "";
-                            numericUpDowns[i].Value = 0;
-                        }
-                        foreach (var line in text.Split(new[] { '\n', '\r' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+                        var textSplit = text.Split(new[] { '\n' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+                        for (int i = 0; i < textSplit.Count(); i++)
                         {
                             try
                             {
-                                int lastSpace = line.LastIndexOf(' ');
-                                string statName = line.Substring(0, lastSpace);
-                                comboBoxes[count].SelectedItem = statName;
-                                double statValue = double.Parse(line.Substring(lastSpace + 1).Replace("%", ""));
-                                numericUpDowns[count].Value = (decimal)statValue;
+                                int lastSpace = textSplit[i].LastIndexOf(' ');
+                                string statName = textSplit[i].Substring(0, lastSpace);
+                                comboBoxes[i].SelectedItem = statName;
+                                double statValue = double.Parse(textSplit[i].Substring(lastSpace + 1).Replace("%", ""));
+                                statValues[i] = statValue;
                             }
                             catch (Exception)
                             {
@@ -489,9 +410,12 @@ namespace Crk_Topping_Scanner
                                 );
                                 break;
                             }
-                            count++;
                         }
                     }
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    numericUpDowns[i].Value = (decimal)statValues[i];
                 }
             }
             else if (itemSelector.Text == "Beascuits")
@@ -506,39 +430,71 @@ namespace Crk_Topping_Scanner
 
 
         //code from switchonthecode
+        public static Bitmap boundWords(Bitmap original)
+        {
+            //make an empty bitmap the same size as original
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+            for (int i = 0; i < original.Width; i++)
+            {
+                for (int j = 0; j < original.Height; j++)
+                {
+                    //get the pixel from the original image
+                    Color originalColor = original.GetPixel(i, j);
+
+                    //create the grayscale version of the pixel
+                    int bw;
+                    if (originalColor.R > 200)
+                    {
+                        bw = 255;
+                    }
+                    else
+                    {
+                        bw = 0;
+                    }
+
+                    //create the color object
+                    Color newColor = Color.FromArgb(bw, bw, bw);
+
+                    //set the new image's pixel to the grayscale version
+                    newBitmap.SetPixel(i, j, newColor);
+                }
+            }
+
+            return newBitmap;
+        }
         public static Bitmap MakeGrayscale3(Bitmap original)
         {
             //create a blank bitmap the same size as original
             Bitmap newBitmap = new Bitmap(original.Width, original.Height);
 
             //get a graphics object from the new image
-            using (Graphics g = Graphics.FromImage(newBitmap))
-            {
+            Graphics g = Graphics.FromImage(newBitmap);
 
-                //create the grayscale ColorMatrix
-                ColorMatrix colorMatrix = new ColorMatrix(
-                   new float[][]
-                   {
-                     new float[] {.3f, .3f, .3f, 0, 0},
-                     new float[] {.59f, .59f, .59f, 0, 0},
-                     new float[] {.11f, .11f, .11f, 0, 0},
-                     new float[] {0, 0, 0, 1, 0},
-                     new float[] {0, 0, 0, 0, 1}
-                   });
+            //create the grayscale ColorMatrix
+            ColorMatrix colorMatrix = new ColorMatrix(
+               new float[][]
+               {
+                 new float[] {.3f, .3f, .3f, 0, 0},
+                 new float[] {.59f, .59f, .59f, 0, 0},
+                 new float[] {.11f, .11f, .11f, 0, 0},
+                 new float[] {0, 0, 0, 1, 0},
+                 new float[] {0, 0, 0, 0, 1}
+               });
 
-                //create some image attributes
-                using (ImageAttributes attributes = new ImageAttributes())
-                {
+            //create some image attributes
+            ImageAttributes attributes = new ImageAttributes();
 
-                    //set the color matrix attribute
-                    attributes.SetColorMatrix(colorMatrix);
+            //set the color matrix attribute
+            attributes.SetColorMatrix(colorMatrix);
 
-                    //draw the original image on the new image
-                    //using the grayscale color matrix
-                    g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                                0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
-                }
-            }
+            //draw the original image on the new image
+            //using the grayscale color matrix
+            g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
+               0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+
+            //dispose the Graphics object
+            g.Dispose();
             return newBitmap;
         }
 
@@ -672,7 +628,7 @@ namespace Crk_Topping_Scanner
             {
                 if (isTainted.Checked)
                 {
-                    
+
                     statType1.DataSource = new List<string> { beascuitResToMain[resonantType.Text] };
                     stat1.Minimum = 20;
                     stat1.Maximum = 20;
@@ -703,6 +659,105 @@ namespace Crk_Topping_Scanner
                             combo.SelectedItem = comboText;
                         }
                     }
+                }
+            }
+        }
+
+        private void scannedImage_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void AddItem()
+        {
+            if (itemSelector.Text == "Toppings")
+            {
+                if (toppingType.Text == "")
+                {
+                    MessageBox.Show(
+                        "Missing topping type.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+                else if (new List<string> { statType1.Text, statType2.Text, statType3.Text }.Any(n => n == ""))
+                {
+                    MessageBox.Show(
+                        "Missing topping substat. Please ensure your topping is epic and is fully upgraded.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+                else
+                {
+                    Topping newTopping = new Topping()
+                    {
+                        ResonantType = resonantType.Text,
+                        ToppingType = toppingType.Text,
+                        Stat1Value = double.Parse(stat1.Text),
+                        Stat2Value = double.Parse(stat2.Text),
+                        Stat3Value = double.Parse(stat3.Text),
+                        Stat1 = statType1.Text,
+                        Stat2 = statType2.Text,
+                        Stat3 = statType3.Text
+                    };
+                    toppingsExportList.Add(newTopping);
+                    if (scannedList.Text != "None")
+                    {
+                        scannedList.Text = scannedList.Text + newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    }
+                    else
+                    {
+                        scannedList.Text = newTopping.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    }
+                }
+            }
+            else if (itemSelector.Text == "Beascuits")
+            {
+                if (toppingType.Text == "")
+                {
+                    MessageBox.Show(
+                        "Missing topping type.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+                else if (new List<string> { statType1.Text, statType2.Text, statType3.Text, statType4.Text }.Any(n => n == ""))
+                {
+                    MessageBox.Show(
+                        "Missing Beascuit substat. Please ensure you select \"unattuned\" for all unattuned slots.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+                else
+                {
+                    Beascuit newBeascuit = new Beascuit()
+                    {
+                        Tainted = isTainted.Checked,
+                        ResonantType = resonantType.Text,
+                        BeascuitType = toppingType.Text,
+                        Stat1Value = double.Parse(stat1.Text),
+                        Stat2Value = double.Parse(stat2.Text),
+                        Stat3Value = double.Parse(stat3.Text),
+                        Stat4Value = double.Parse(stat4.Text),
+                        Stat1 = statType1.Text,
+                        Stat2 = statType2.Text,
+                        Stat3 = statType3.Text,
+                        Stat4 = statType4.Text
+                    };
+                    if (scannedList.Text != "None")
+                    {
+                        scannedList.Text = scannedList.Text + newBeascuit.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    }
+                    else
+                    {
+                        scannedList.Text = newBeascuit.ToString().Replace("\n", Environment.NewLine) + Environment.NewLine + Environment.NewLine;
+                    }
+                    toppingsExportList.Add(newBeascuit);
                 }
             }
         }
