@@ -307,9 +307,6 @@ namespace Crk_Topping_Scanner
 
         private void screenshotButton_Click(object sender, EventArgs e)
         {
-            // Memory thing
-            var oldImage = scannedImage.Image;
-
             scanRoot = (Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
             // Force 16:9 aspect ratio
             scanRoot = ((int)(Screen.PrimaryScreen.Bounds.Width),
@@ -330,21 +327,19 @@ namespace Crk_Topping_Scanner
             {
                 g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
             }
-            Bitmap processedImage = null;
+            
             using (Bitmap grayScreenshot = MakeGrayscale3(bmpScreenshot))
             using (Bitmap tempImage = boundWords(grayScreenshot))
             {
-                processedImage = (Bitmap)tempImage.Clone();
+                if (scannedImage.Image != null)
+                {
+                    scannedImage.Image.Dispose();
+                }
+                scannedImage.Image = (Bitmap)tempImage.Clone();
             }
-            if (scannedImage.Image != null)
+            if (bmpScreenshot != null)
             {
-                scannedImage.Image.Dispose();
-            }
-            scannedImage.Image = processedImage;
-
-            if (oldImage != null)
-            {
-                oldImage.Dispose();
+                bmpScreenshot.Dispose();
             }
 
         }
@@ -460,7 +455,6 @@ namespace Crk_Topping_Scanner
                     newBitmap.SetPixel(i, j, newColor);
                 }
             }
-
             return newBitmap;
         }
         public static Bitmap MakeGrayscale3(Bitmap original)
