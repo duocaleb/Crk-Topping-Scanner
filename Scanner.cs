@@ -313,23 +313,44 @@ namespace Crk_Topping_Scanner
             (int)(Screen.PrimaryScreen.Bounds.Height));
             scanRoot = ((int)Math.Min(scanRoot.Value.Item1, scanRoot.Value.Item2 * (16.0 / 9.0)),
                         (int)Math.Min(scanRoot.Value.Item1 * (9.0 / 16.0), scanRoot.Value.Item2));
-
-            int x1 = (int)(0.063 * scanRoot.Value.Item1);
-            int y1 = (int)(0.262 * scanRoot.Value.Item2);
-            int x2 = (int)(0.459 * scanRoot.Value.Item1);
-            int y2 = (int)(0.749 * scanRoot.Value.Item2);
-
-            int width = x2 - x1;
-            int height = y2 - y1;
-
-            bmpScreenshot = new Bitmap(width, height);
-            using (Graphics g = Graphics.FromImage(bmpScreenshot))
+            if (itemSelector.Text == "Toppings")
             {
-                g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+                int x1 = (int)(0.063 * scanRoot.Value.Item1);
+                int y1 = (int)(0.262 * scanRoot.Value.Item2);
+                int x2 = (int)(0.459 * scanRoot.Value.Item1);
+                int y2 = (int)(0.749 * scanRoot.Value.Item2);
+
+                int width = x2 - x1;
+                int height = y2 - y1;
+
+                bmpScreenshot = new Bitmap(width, height);
+                using (Graphics g = Graphics.FromImage(bmpScreenshot))
+                {
+                    g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+                }
             }
-            
-            using (Bitmap grayScreenshot = MakeGrayscale3(bmpScreenshot))
-            using (Bitmap tempImage = boundWords(grayScreenshot))
+            else if (itemSelector.Text == "Beascuits")
+            {
+                // For future
+            }
+            else if (itemSelector.Text == "Tarts")
+            {
+                int x1 = (int)(0.063 * scanRoot.Value.Item1);
+                int y1 = (int)(0.265 * scanRoot.Value.Item2);
+                int x2 = (int)(0.445 * scanRoot.Value.Item1);
+                int y2 = (int)(0.700 * scanRoot.Value.Item2);
+
+                int width = x2 - x1;
+                int height = y2 - y1;
+
+                bmpScreenshot = new Bitmap(width, height);
+                using (Graphics g = Graphics.FromImage(bmpScreenshot))
+                {
+                    g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+                }
+            }
+
+            using (Bitmap tempImage = preprocImage(bmpScreenshot))
             {
                 if (scannedImage.Image != null)
                 {
@@ -346,17 +367,17 @@ namespace Crk_Topping_Scanner
 
         private void readButton_Click(object sender, EventArgs e)
         {
-
-            if (itemSelector.Text == "Toppings")
+            foreach (var combo in comboBoxes)
             {
-                foreach(var combo in comboBoxes)
+                combo.SelectedItem = "";
+            }
+            using (var scaledBitmap = new Bitmap(scannedImage.Image, scannedImage.Image.Width * 5, scannedImage.Image.Height * 5))
+            using (var pix = PixConverter.ToPix(scaledBitmap))
+            {
+                if (itemSelector.Text == "Toppings")
                 {
-                    combo.SelectedItem = "";
-                }
-                double[] statValues = { 0, 0, 0 };
-                using (var scaledBitmap = new Bitmap(bmpScreenshot, bmpScreenshot.Width * 5, bmpScreenshot.Height * 5))
-                using (var pix = PixConverter.ToPix(scaledBitmap))
-                {
+                    double[] statValues = { 0, 0, 0 };
+
 
                     Rect rectSubs = new Rect(0, (int)(0.671 * pix.Height), pix.Width, (int)(0.329 * pix.Height));
                     Rect rectHead = new Rect(0, 0, pix.Width, pix.Height);
@@ -407,90 +428,82 @@ namespace Crk_Topping_Scanner
                             }
                         }
                     }
-                }
-                for (int i = 0; i < 3; i++)
-                {
-                    numericUpDowns[i].Value = (decimal)statValues[i];
-                }
-            }
-            else if (itemSelector.Text == "Beascuits")
-            {
-                // Future Implementation
-            }
-            else if (itemSelector.Text == "Tarts")
-            {
-                // Future Implementation
-            }
-        }
-
-
-        //code from switchonthecode
-        public static Bitmap boundWords(Bitmap original)
-        {
-            //make an empty bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
-
-            for (int i = 0; i < original.Width; i++)
-            {
-                for (int j = 0; j < original.Height; j++)
-                {
-                    //get the pixel from the original image
-                    Color originalColor = original.GetPixel(i, j);
-
-                    //create the grayscale version of the pixel
-                    int bw;
-                    if (originalColor.R > 200)
+                    for (int i = 0; i < 3; i++)
                     {
-                        bw = 255;
+                        numericUpDowns[i].Value = (decimal)statValues[i];
                     }
-                    else
-                    {
-                        bw = 0;
-                    }
-
-                    //create the color object
-                    Color newColor = Color.FromArgb(bw, bw, bw);
-
-                    //set the new image's pixel to the grayscale version
-                    newBitmap.SetPixel(i, j, newColor);
+                }
+                else if (itemSelector.Text == "Beascuits")
+                {
+                    // Future Implementation
+                }
+                else if (itemSelector.Text == "Tarts")
+                {
+                    // Future Implementation
                 }
             }
-            return newBitmap;
         }
-        public static Bitmap MakeGrayscale3(Bitmap original)
+
+
+        //code from switchonthecode, edits pixel's byte to be fast.
+        public static Bitmap preprocImage(Bitmap original)
         {
-            //create a blank bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+            unsafe
+            {
+                //create an empty bitmap the same size as original
+                Bitmap newBitmap = new Bitmap(original.Width, original.Height);
 
-            //get a graphics object from the new image
-            Graphics g = Graphics.FromImage(newBitmap);
+                //lock the original bitmap in memory
+                BitmapData originalData = original.LockBits(
+                   new Rectangle(0, 0, original.Width, original.Height),
+                   ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
 
-            //create the grayscale ColorMatrix
-            ColorMatrix colorMatrix = new ColorMatrix(
-               new float[][]
-               {
-                 new float[] {.3f, .3f, .3f, 0, 0},
-                 new float[] {.59f, .59f, .59f, 0, 0},
-                 new float[] {.11f, .11f, .11f, 0, 0},
-                 new float[] {0, 0, 0, 1, 0},
-                 new float[] {0, 0, 0, 0, 1}
-               });
+                //lock the new bitmap in memory
+                BitmapData newData = newBitmap.LockBits(
+                   new Rectangle(0, 0, original.Width, original.Height),
+                   ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
 
-            //create some image attributes
-            ImageAttributes attributes = new ImageAttributes();
+                //set the number of bytes per pixel
+                int pixelSize = 3;
 
-            //set the color matrix attribute
-            attributes.SetColorMatrix(colorMatrix);
+                for (int y = 0; y < original.Height; y++)
+                {
+                    //get the data from the original image
+                    byte* oRow = (byte*)originalData.Scan0 + (y * originalData.Stride);
 
-            //draw the original image on the new image
-            //using the grayscale color matrix
-            g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-               0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
+                    //get the data from the new image
+                    byte* nRow = (byte*)newData.Scan0 + (y * newData.Stride);
 
-            //dispose the Graphics object
-            g.Dispose();
-            return newBitmap;
+                    for (int x = 0; x < original.Width; x++)
+                    {
+                        byte pixCol;
+                        if ((oRow[x * pixelSize] * .11) + 
+                           (oRow[x * pixelSize + 1] * .59) +  
+                           (oRow[x * pixelSize + 2] * .3) >= 200) // Combining grayscale and bounding into one step
+                        {
+                            pixCol = 255;
+                        }
+                        else
+                        {
+                            pixCol = 0;
+                        }
+
+
+                        //set the new image's pixel to the grayscale version
+                        nRow[x * pixelSize] = pixCol; //B
+                        nRow[x * pixelSize + 1] = pixCol; //G
+                        nRow[x * pixelSize + 2] = pixCol; //R
+                    }
+                }
+
+                //unlock the bitmaps
+                newBitmap.UnlockBits(newData);
+                original.UnlockBits(originalData);
+
+                return newBitmap;
+            }
         }
+
 
         private void itemSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
