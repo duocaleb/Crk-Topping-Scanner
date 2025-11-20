@@ -55,7 +55,7 @@ namespace Crk_Topping_Scanner
             TenToppingResonants = new List<string> { "Destined", "Silent", "Blooming", "" };
             comboBoxes = new List<ComboBox> { statType1, statType2, statType3, statType4 };
             numericUpDowns = new List<NumericUpDown> { stat1, stat2, stat3, stat4 };
-            ToppingSubstats = new List<string> { "", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF", "DMG Resist" };
+            ToppingSubstats = new List<string> { "", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF", "DMG Resist", "HP" };
             BeascuitsSubstats = new List<string> { "", "Unattuned", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF", "DMG Resist", "DMG Resist Bypass" };
             toppingTypes = new List<string> { "", "Raspberry", "Caramel", "Apple Jelly", "Chocolate", "Almond", "Walnut", "Peanut", "Hazelnut", "Candy", "Kiwi" };
             toppingRes = new List<string> { "", "Blooming", "Silent", "Destined", "Seafarer", "Fuzzy Wuzzy", "Passionate", "Indolent", "Flaming", "Sacred Vow", "Truthful", "Deceitful", "Iris", "Fragrant", "Destructive", "Life-sprouting", "Frosted Crystal", "Radiant Cheese", "Sea Salt", "Tropical Rock", "Destructive", "Triple Cone Cup", "Moonkissed" };
@@ -141,7 +141,7 @@ namespace Crk_Topping_Scanner
                 }
                 else
                 {
-                    ToppingSubstats = new List<string> { "", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF", "DMG Resist" };
+                    ToppingSubstats = new List<string> { "", "Amplify Buff", "ATK SPD", "ATK", "Cooldown", "CRIT Resist", "CRIT%", "Debuff Resist", "DEF", "DMG Resist", "HP" };
                     subStatLimits["ATK SPD"] = (1.0, 3.0);
                     subStatLimits["ATK"] = (1.0, 3.0);
                     subStatLimits["Cooldown"] = (1.0, 2.0);
@@ -264,7 +264,7 @@ namespace Crk_Topping_Scanner
             scannedList.Text = "None";
             string json = JsonSerializer.Serialize(toppingsExportList);
             string filePath = Path.Combine(Application.StartupPath, "Crk-Exports\\" + "crkExport" + DateTime.Now.ToString("yyyyMMddhmmss") + ".json");
-            File.WriteAllText(filePath, json);
+            //File.WriteAllText(filePath, json);
 
         }
 
@@ -367,7 +367,7 @@ namespace Crk_Topping_Scanner
             {
                 scannedImage.Image.Dispose();
             }
-            scannedImage.Image = (Bitmap)bmpCollection[1].Clone();
+            scannedImage.Image = (Bitmap)bmpScreenshot.Clone();
             if (bmpScreenshot != null)
             {
                 bmpScreenshot.Dispose();
@@ -378,74 +378,7 @@ namespace Crk_Topping_Scanner
 
         private void readButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < comboBoxes.Count; i++)
-            {
-                comboBoxes[i].SelectedItem = "";
-            }
-            if (itemSelector.Text == "Toppings")
-            {
-                double[] statValues = { 0, 0, 0 };
-
-
-                try
-                {
-                    using (var pix = PixConverter.ToPix(bmpCollection[0]))
-                    using (var page = engine.Process(pix, PageSegMode.SingleLine))
-                    {
-                        var text = page.GetText();
-                        scannedList.Text = text;
-                        foreach (var resonant in resonantType.Items)
-                        {
-                            if (text.Contains(resonant.ToString()))
-                            {
-                                resonantType.SelectedItem = resonant.ToString();
-                            }
-                        }
-                        foreach (var topType in toppingType.Items)
-                        {
-                            if (text.Contains(topType.ToString()))
-                            {
-                                toppingType.SelectedItem = topType.ToString();
-                            }
-                        }
-                    }
-                    for (int i = 1; i < 4; i++) {
-                        using (var pix = PixConverter.ToPix(bmpCollection[i]))
-                        using (var page = engine.Process(pix, PageSegMode.SingleLine))
-                        {
-                            var text = page.GetText();
-                            scannedList.Text = text;
-                            int lastSpace = text.LastIndexOf(' ');
-                            string statName = text.Substring(0, lastSpace);
-                            comboBoxes[i-1].SelectedItem = statName;
-                            double statValue = double.Parse(text.Substring(lastSpace + 1).Replace("%", ""));
-                            statValues[i-1] = statValue;
-                        }
-                        for (int a = 0; a < 3; a++)
-                        {
-                            numericUpDowns[a].Value = (decimal)statValues[a];
-
-                        }
-                    }
-                }
-                catch (Exception error)
-                {
-                    MessageBox.Show(
-                        "Scanner Error. Please ensure that CookieRun: Kingdom is full screen and the scanner does not cover the topping. \n Error code: " + error.ToString(),
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error
-                    );
-                }
-            }
-            else if (itemSelector.Text == "Beascuits")
-            {
-                // Future Implementation
-            }
-            else if (itemSelector.Text == "Tarts")
-            {
-                // Future Implementation
-            }
+            readScreenshot(1);
         }
 
 
@@ -782,6 +715,88 @@ namespace Crk_Topping_Scanner
             g.DrawImageUnscaled(bmp, padding, padding, bmp.Width, bmp.Height);
             g.Dispose();
             return image;
+        }
+
+        private void readScreenshot(int upScale, Boolean overrideCatch)
+        {
+            for (int i = 0; i < comboBoxes.Count; i++)
+            {
+                comboBoxes[i].SelectedItem = "";
+            }
+            if (itemSelector.Text == "Toppings")
+            {
+                double[] statValues = { 0, 0, 0 };
+
+
+                try
+                {
+                    using (var pix = PixConverter.ToPix(bmpCollection[0]))
+                    using (var page = engine.Process(pix, PageSegMode.SingleLine))
+                    {
+                        var text = page.GetText();
+                        foreach (var resonant in resonantType.Items)
+                        {
+                            if (text.Contains(resonant.ToString()))
+                            {
+                                resonantType.SelectedItem = resonant.ToString();
+                            }
+                        }
+                        foreach (var topType in toppingType.Items)
+                        {
+                            if (text.Contains(topType.ToString()))
+                            {
+                                toppingType.SelectedItem = topType.ToString();
+                            }
+                        }
+                    }
+                    for (int i = 1; i < 4; i++)
+                    {
+                        // scannedImage.Image = bmpCollection[i];
+                        using (var scaledBitmap = new Bitmap(bmpCollection[i], bmpCollection[i].Width * upScale, bmpCollection[i].Height * upScale))
+                        using (var pix = PixConverter.ToPix(scaledBitmap))
+                        using (var page = engine.Process(pix, PageSegMode.SingleLine))
+                        {
+                            
+                            var text = page.GetText();
+                            int lastSpace = text.LastIndexOf(' ');
+                            string statName = text.Substring(0, lastSpace);
+                            comboBoxes[i - 1].SelectedItem = statName;
+                            double statValue = double.Parse(text.Substring(lastSpace + 1).Replace("%", ""));
+                            statValues[i - 1] = statValue;
+                        }
+                        for (int a = 0; a < 3; a++)
+                        {
+                            numericUpDowns[a].Value = (decimal)statValues[a];
+
+                        }
+                    }
+                }
+                catch (Exception error)
+                {
+                    if (upScale < 10)
+                    {
+                        readScreenshot(upScale + 1, overrideCatch); // "are you sureeeeee you cant read it?"
+                    }
+                    else if(!overrideCatch)
+                    {
+                        MessageBox.Show(
+                            "Scanner Error. Please ensure that CookieRun: Kingdom is full screen and the scanner does not cover the topping. \n Error code: " + error.ToString(),
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error
+                        );
+                    }
+                    
+                }
+            }
+            else if (itemSelector.Text == "Beascuits")
+            {
+                // Future Implementation
+            }
+            else if (itemSelector.Text == "Tarts")
+            {
+                // Future Implementation
+            }
         }
     }
 }
