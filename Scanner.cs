@@ -313,10 +313,10 @@ namespace Crk_Topping_Scanner
         private void screenshotButton_Click(object sender, EventArgs e)
         {
             // The magic numbers come from measurements of screenshots to determine where the topping is, where the substats are, ect
-            scanRoot = (Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
-            // Force 16:9 aspect ratio
             scanRoot = ((int)(Screen.PrimaryScreen.Bounds.Width),
             (int)(Screen.PrimaryScreen.Bounds.Height));
+
+            // Force 16:9 aspect ratio
             scanRoot = ((int)Math.Min(scanRoot.Value.Item1, scanRoot.Value.Item2 * (16.0 / 9.0)),
                         (int)Math.Min(scanRoot.Value.Item1 * (9.0 / 16.0), scanRoot.Value.Item2));
             
@@ -329,15 +329,20 @@ namespace Crk_Topping_Scanner
 
                 for (int i = 0; i < startCollection.Length; i++)
                 {
-                    bmpCollection[i] = new Bitmap(width, hieght);
-                    using (Graphics g = Graphics.FromImage(bmpCollection[i]))
+                    bmpCollection[i]?.Dispose();
+                    Bitmap bmpDisposable = new Bitmap(width, hieght);
+                    using (Graphics g = Graphics.FromImage(bmpDisposable))
                     {
                         g.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(startCollection[i] * scanRoot.Value.Item2), 0, 0, new Size(width, hieght), CopyPixelOperation.SourceCopy);
                         
                     }
-                    using (Bitmap preProcImage = preprocImage(bmpCollection[i]))
+                    using (Bitmap preProcImage = preprocImage(bmpDisposable))
                     using (Bitmap tempImage = AddPadding(preProcImage, 30))
                     {
+                        if (bmpDisposable != null)
+                        {
+                            bmpDisposable.Dispose();
+                        }
                         bmpCollection[i] = (Bitmap)tempImage.Clone();
                     }
                 }
@@ -355,26 +360,18 @@ namespace Crk_Topping_Scanner
             }
             else if (itemSelector.Text == "Tarts")
             {
-                int x1 = (int)(0.063 * scanRoot.Value.Item1);
-                int y1 = (int)(0.265 * scanRoot.Value.Item2);
-                int x2 = (int)(0.445 * scanRoot.Value.Item1);
-                int y2 = (int)(0.700 * scanRoot.Value.Item2);
-
-                int width = x2 - x1;
-                int height = y2 - y1;
-
-                bmpScreenshot = new Bitmap(width, height);
-                using (Graphics g = Graphics.FromImage(bmpScreenshot))
-                {
-                    g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
-                }
+                // For future
             }
 
             if (scannedImage.Image != null)
             {
                 scannedImage.Image.Dispose();
             }
-            scannedImage.Image = (Bitmap)bmpScreenshot.Clone();
+            scannedImage.Image = (Bitmap)bmpCollection[1].Clone();
+            if (bmpScreenshot != null)
+            {
+                bmpScreenshot.Dispose();
+            }
 
 
         }
@@ -441,14 +438,14 @@ namespace Crk_Topping_Scanner
                     );
                 }
             }
-            //    else if (itemSelector.Text == "Beascuits")
-            //    {
-            //        // Future Implementation
-            //    }
-            //    else if (itemSelector.Text == "Tarts")
-            //    {
-            // Future Implementation
-            //    }
+            else if (itemSelector.Text == "Beascuits")
+            {
+                // Future Implementation
+            }
+            else if (itemSelector.Text == "Tarts")
+            {
+                // Future Implementation
+            }
         }
 
 
