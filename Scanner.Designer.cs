@@ -54,6 +54,7 @@
             label3 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            autoScanButton = new System.Windows.Forms.Button();
             readButton = new System.Windows.Forms.Button();
             exportButton = new System.Windows.Forms.Button();
             screenshotButton = new System.Windows.Forms.Button();
@@ -409,10 +410,12 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.Controls.Add(autoScanButton, 3, 0);
             tableLayoutPanel1.Controls.Add(readButton, 1, 0);
             tableLayoutPanel1.Controls.Add(exportButton, 2, 0);
             tableLayoutPanel1.Controls.Add(screenshotButton, 0, 0);
@@ -422,18 +425,29 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
             tableLayoutPanel1.Size = new System.Drawing.Size(612, 57);
             tableLayoutPanel1.TabIndex = 5;
+            // 
+            // autoScanButton
+            // 
+            autoScanButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            autoScanButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            autoScanButton.Location = new System.Drawing.Point(457, 1);
+            autoScanButton.Margin = new System.Windows.Forms.Padding(0);
+            autoScanButton.Name = "autoScanButton";
+            autoScanButton.Size = new System.Drawing.Size(154, 55);
+            autoScanButton.TabIndex = 7;
+            autoScanButton.Text = "Auto scan";
+            autoScanButton.UseVisualStyleBackColor = true;
             // 
             // readButton
             // 
             readButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             readButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            readButton.Location = new System.Drawing.Point(204, 1);
+            readButton.Location = new System.Drawing.Point(153, 1);
             readButton.Margin = new System.Windows.Forms.Padding(0);
             readButton.Name = "readButton";
-            readButton.Size = new System.Drawing.Size(202, 55);
+            readButton.Size = new System.Drawing.Size(151, 55);
             readButton.TabIndex = 5;
             readButton.Text = "Read";
             readButton.UseVisualStyleBackColor = true;
@@ -443,10 +457,10 @@
             // 
             exportButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             exportButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            exportButton.Location = new System.Drawing.Point(407, 1);
+            exportButton.Location = new System.Drawing.Point(305, 1);
             exportButton.Margin = new System.Windows.Forms.Padding(0);
             exportButton.Name = "exportButton";
-            exportButton.Size = new System.Drawing.Size(204, 55);
+            exportButton.Size = new System.Drawing.Size(151, 55);
             exportButton.TabIndex = 4;
             exportButton.Text = "Export";
             exportButton.UseVisualStyleBackColor = true;
@@ -459,7 +473,7 @@
             screenshotButton.Location = new System.Drawing.Point(1, 1);
             screenshotButton.Margin = new System.Windows.Forms.Padding(0);
             screenshotButton.Name = "screenshotButton";
-            screenshotButton.Size = new System.Drawing.Size(202, 55);
+            screenshotButton.Size = new System.Drawing.Size(151, 55);
             screenshotButton.TabIndex = 6;
             screenshotButton.Text = "Screenshot";
             screenshotButton.UseVisualStyleBackColor = true;
@@ -651,6 +665,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox isTainted;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button autoScanButton;
     }
 }
 
