@@ -8,7 +8,6 @@ namespace Crk_Topping_Scanner
 {
     internal class Beascuit : Iitem
     {
-        public string itemType { get; } = "Beascuit";
         public Boolean Tainted { get; set; }
         public string ResonantType { get; set; }
         public string BeascuitType { get; set; }

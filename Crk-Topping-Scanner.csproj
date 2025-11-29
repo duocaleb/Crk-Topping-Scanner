@@ -30,6 +30,160 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="CookieRun Black.ttf" />
+    <None Remove="Crk-Exports\Placeholder.txt" />
+    <None Remove="graphics\almondblooming_topping.png" />
+    <None Remove="graphics\almonddeceitful_topping.png" />
+    <None Remove="graphics\almonddestined_topping.png" />
+    <None Remove="graphics\almonddestructive_topping.png" />
+    <None Remove="graphics\almonddraconic_topping.png" />
+    <None Remove="graphics\almondflaming_topping.png" />
+    <None Remove="graphics\almondfragrant_topping.png" />
+    <None Remove="graphics\almondfrostedcrystal_topping.png" />
+    <None Remove="graphics\almondfuzzywuzzy_topping.png" />
+    <None Remove="graphics\almondgambit_topping.png" />
+    <None Remove="graphics\almondindolent_topping.png" />
+    <None Remove="graphics\almondirisgem_topping.png" />
+    <None Remove="graphics\almondlife-sprouting_topping.png" />
+    <None Remove="graphics\almondmoonkissed_topping.png" />
+    <None Remove="graphics\almondpassionate_topping.png" />
+    <None Remove="graphics\almondradiantcheese_topping.png" />
+    <None Remove="graphics\almondsacredvow_topping.png" />
+    <None Remove="graphics\almondseafarer_topping.png" />
+    <None Remove="graphics\almondseasalt_topping.png" />
+    <None Remove="graphics\almondsilent_topping.png" />
+    <None Remove="graphics\almondtripleconecup_topping.png" />
+    <None Remove="graphics\almondtropicalrock_topping.png" />
+    <None Remove="graphics\almondtropical_topping.png" />
+    <None Remove="graphics\almondtruthful_topping.png" />
+    <None Remove="graphics\almond_topping.png" />
+    <None Remove="graphics\applejellyblooming_topping.png" />
+    <None Remove="graphics\applejellydeceitful_topping.png" />
+    <None Remove="graphics\applejellydestined_topping.png" />
+    <None Remove="graphics\applejellydestructive_topping.png" />
+    <None Remove="graphics\applejellydraconic_topping.png" />
+    <None Remove="graphics\applejellyflaming_topping.png" />
+    <None Remove="graphics\applejellyfragrant_topping.png" />
+    <None Remove="graphics\applejellyfrostedcrystal_topping.png" />
+    <None Remove="graphics\applejellyfuzzywuzzy_topping.png" />
+    <None Remove="graphics\applejellygambit_topping.png" />
+    <None Remove="graphics\applejellyindolent_topping.png" />
+    <None Remove="graphics\applejellyirisgem_topping.png" />
+    <None Remove="graphics\applejellylife-sprouting_topping.png" />
+    <None Remove="graphics\applejellymoonkissed_topping.png" />
+    <None Remove="graphics\applejellypassionate_topping.png" />
+    <None Remove="graphics\applejellyradiantcheese_topping.png" />
+    <None Remove="graphics\applejellysacredvow_topping.png" />
+    <None Remove="graphics\applejellyseafarer_topping.png" />
+    <None Remove="graphics\applejellyseasalt_topping.png" />
+    <None Remove="graphics\applejellysilent_topping.png" />
+    <None Remove="graphics\applejellytripleconecup_topping.png" />
+    <None Remove="graphics\applejellytropicalrock_topping.png" />
+    <None Remove="graphics\applejellytropical_topping.png" />
+    <None Remove="graphics\applejellytruthful_topping.png" />
+    <None Remove="graphics\applejelly_topping.png" />
+    <None Remove="graphics\candyblooming_topping.png" />
+    <None Remove="graphics\candydestined_topping.png" />
+    <None Remove="graphics\candygambit_topping.png" />
+    <None Remove="graphics\candysilent_topping.png" />
+    <None Remove="graphics\candy_topping.png" />
+    <None Remove="graphics\caramelblooming_topping.png" />
+    <None Remove="graphics\carameldeceitful_topping.png" />
+    <None Remove="graphics\carameldestined_topping.png" />
+    <None Remove="graphics\carameldestructive_topping.png" />
+    <None Remove="graphics\carameldraconic_topping.png" />
+    <None Remove="graphics\caramelflaming_topping.png" />
+    <None Remove="graphics\caramelfragrant_topping.png" />
+    <None Remove="graphics\caramelfrostedcrystal_topping.png" />
+    <None Remove="graphics\caramelfuzzywuzzy_topping.png" />
+    <None Remove="graphics\caramelgambit_topping.png" />
+    <None Remove="graphics\caramelindolent_topping.png" />
+    <None Remove="graphics\caramelirisgem_topping.png" />
+    <None Remove="graphics\caramellife-sprouting_topping.png" />
+    <None Remove="graphics\caramelmoonkissed_topping.png" />
+    <None Remove="graphics\caramelpassionate_topping.png" />
+    <None Remove="graphics\caramelradiantcheese_topping.png" />
+    <None Remove="graphics\caramelsacredvow_topping.png" />
+    <None Remove="graphics\caramelseafarer_topping.png" />
+    <None Remove="graphics\caramelseasalt_topping.png" />
+    <None Remove="graphics\caramelsilent_topping.png" />
+    <None Remove="graphics\carameltripleconecup_topping.png" />
+    <None Remove="graphics\carameltropicalrock_topping.png" />
+    <None Remove="graphics\carameltropical_topping.png" />
+    <None Remove="graphics\carameltruthful_topping.png" />
+    <None Remove="graphics\caramel_topping.png" />
+    <None Remove="graphics\chocolateblooming_topping.png" />
+    <None Remove="graphics\chocolatedeceitful_topping.png" />
+    <None Remove="graphics\chocolatedestined_topping.png" />
+    <None Remove="graphics\chocolatedestructive_topping.png" />
+    <None Remove="graphics\chocolatedraconic_topping.png" />
+    <None Remove="graphics\chocolateflaming_topping.png" />
+    <None Remove="graphics\chocolatefragrant_topping.png" />
+    <None Remove="graphics\chocolatefrostedcrystal_topping.png" />
+    <None Remove="graphics\chocolatefuzzywuzzy_topping.png" />
+    <None Remove="graphics\chocolategambit_topping.png" />
+    <None Remove="graphics\chocolateindolent_topping.png" />
+    <None Remove="graphics\chocolateirisgem_topping.png" />
+    <None Remove="graphics\chocolatelife-sprouting_topping.png" />
+    <None Remove="graphics\chocolatemoonkissed_topping.png" />
+    <None Remove="graphics\chocolatepassionate_topping.png" />
+    <None Remove="graphics\chocolateradiantcheese_topping.png" />
+    <None Remove="graphics\chocolatesacredvow_topping.png" />
+    <None Remove="graphics\chocolateseafarer_topping.png" />
+    <None Remove="graphics\chocolateseasalt_topping.png" />
+    <None Remove="graphics\chocolatesilent_topping.png" />
+    <None Remove="graphics\chocolatetripleconecup_topping.png" />
+    <None Remove="graphics\chocolatetropicalrock_topping.png" />
+    <None Remove="graphics\chocolatetropical_topping.png" />
+    <None Remove="graphics\chocolatetruthful_topping.png" />
+    <None Remove="graphics\chocolate_topping.png" />
+    <None Remove="graphics\hazelnutblooming_topping.png" />
+    <None Remove="graphics\hazelnutdestined_topping.png" />
+    <None Remove="graphics\hazelnutgambit_topping.png" />
+    <None Remove="graphics\hazelnutsilent_topping.png" />
+    <None Remove="graphics\hazelnut_topping.png" />
+    <None Remove="graphics\kiwiblooming_topping.png" />
+    <None Remove="graphics\kiwidestined_topping.png" />
+    <None Remove="graphics\kiwigambit_topping.png" />
+    <None Remove="graphics\kiwisilent_topping.png" />
+    <None Remove="graphics\kiwi_topping.png" />
+    <None Remove="graphics\peanutblooming_topping.png" />
+    <None Remove="graphics\peanutdestined_topping.png" />
+    <None Remove="graphics\peanutgambit_topping.png" />
+    <None Remove="graphics\peanutsilent_topping.png" />
+    <None Remove="graphics\peanut_topping.png" />
+    <None Remove="graphics\raspberryblooming_topping.png" />
+    <None Remove="graphics\raspberrydeceitful_topping.png" />
+    <None Remove="graphics\raspberrydestined_topping.png" />
+    <None Remove="graphics\raspberrydestructive_topping.png" />
+    <None Remove="graphics\raspberrydraconic_topping.png" />
+    <None Remove="graphics\raspberryflaming_topping.png" />
+    <None Remove="graphics\raspberryfragrant_topping.png" />
+    <None Remove="graphics\raspberryfrostedcrystal_topping.png" />
+    <None Remove="graphics\raspberryfuzzywuzzy_topping.png" />
+    <None Remove="graphics\raspberrygambit_topping.png" />
+    <None Remove="graphics\raspberryindolent_topping.png" />
+    <None Remove="graphics\raspberryirisgem_topping.png" />
+    <None Remove="graphics\raspberrylife-sprouting_topping.png" />
+    <None Remove="graphics\raspberrymoonkissed_topping.png" />
+    <None Remove="graphics\raspberrypassionate_topping.png" />
+    <None Remove="graphics\raspberryradiantcheese_topping.png" />
+    <None Remove="graphics\raspberrysacredvow_topping.png" />
+    <None Remove="graphics\raspberryseafarer_topping.png" />
+    <None Remove="graphics\raspberryseasalt_topping.png" />
+    <None Remove="graphics\raspberrysilent_topping.png" />
+    <None Remove="graphics\raspberrytripleconecup_topping.png" />
+    <None Remove="graphics\raspberrytropicalrock_topping.png" />
+    <None Remove="graphics\raspberrytropical_topping.png" />
+    <None Remove="graphics\raspberrytruthful_topping.png" />
+    <None Remove="graphics\raspberry_topping.png" />
+    <None Remove="graphics\walnutblooming_topping.png" />
+    <None Remove="graphics\walnutdestined_topping.png" />
+    <None Remove="graphics\walnutgambit_topping.png" />
+    <None Remove="graphics\walnutsilent_topping.png" />
+    <None Remove="graphics\walnut_topping.png" />
+  </ItemGroup>
+  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -50,6 +204,449 @@
     <PackageReference Include="Tesseract" Version="5.2.0" />
     <PackageReference Include="Tesseract.Data.English" Version="4.0.0" />
     <PackageReference Include="Tesseract.Drawing" Version="5.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CookieRun Black.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Crk-Exports\Placeholder.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almonddeceitful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almonddestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almonddestructive_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almonddraconic_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondflaming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondfragrant_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondfrostedcrystal_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondfuzzywuzzy_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondgambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondindolent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondirisgem_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondlife-sprouting_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondmoonkissed_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondpassionate_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondradiantcheese_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondsacredvow_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondseafarer_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondseasalt_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondsilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondtripleconecup_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondtropicalrock_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almondtruthful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\almond_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellydeceitful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellydestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellydestructive_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellydraconic_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyflaming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyfragrant_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyfrostedcrystal_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyfuzzywuzzy_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellygambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyindolent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyirisgem_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellylife-sprouting_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellymoonkissed_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellypassionate_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyradiantcheese_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellysacredvow_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyseafarer_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellyseasalt_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellysilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellytripleconecup_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellytropicalrock_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejellytruthful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\applejelly_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\candyblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\candydestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\candygambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\candysilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\candy_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\carameldeceitful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\carameldestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\carameldestructive_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\carameldraconic_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelflaming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelfragrant_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelfrostedcrystal_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelfuzzywuzzy_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelgambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelindolent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelirisgem_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramellife-sprouting_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelmoonkissed_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelpassionate_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelradiantcheese_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelsacredvow_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelseafarer_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelseasalt_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramelsilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\carameltripleconecup_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\carameltropicalrock_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\carameltruthful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramel_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolateblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatedeceitful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatedestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatedestructive_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatedraconic_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolateflaming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatefragrant_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatefrostedcrystal_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatefuzzywuzzy_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolategambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolateindolent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolateirisgem_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatelife-sprouting_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatemoonkissed_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatepassionate_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolateradiantcheese_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatesacredvow_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolateseafarer_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolateseasalt_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatesilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatetripleconecup_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatetropicalrock_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolatetruthful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\chocolate_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\hazelnutblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\hazelnutdestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\hazelnutgambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\hazelnutsilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\hazelnut_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\kiwiblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\kiwidestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\kiwigambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\kiwisilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\kiwi_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\peanutblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\peanutdestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\peanutgambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\peanutsilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\peanut_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrydeceitful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrydestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrydestructive_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrydraconic_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryflaming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryfragrant_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryfrostedcrystal_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryfuzzywuzzy_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrygambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryindolent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryirisgem_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrylife-sprouting_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrymoonkissed_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrypassionate_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryradiantcheese_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrysacredvow_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryseafarer_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberryseasalt_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrysilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrytripleconecup_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrytropicalrock_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberrytruthful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\raspberry_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\walnutblooming_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\walnutdestined_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\walnutgambit_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\walnutsilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\walnut_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">

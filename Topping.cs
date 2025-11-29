@@ -8,7 +8,6 @@ namespace Crk_Topping_Scanner
 {
     internal class Topping : Iitem
     {
-        public string itemType { get; } = "Topping";
         public string ResonantType { get; set; }
         public string ToppingType{ get; set;}
         public string Stat1{ get; set;}

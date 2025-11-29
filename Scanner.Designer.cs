@@ -54,19 +54,26 @@
             label3 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            addItem = new System.Windows.Forms.Button();
             autoScanButton = new System.Windows.Forms.Button();
             readButton = new System.Windows.Forms.Button();
-            exportButton = new System.Windows.Forms.Button();
             screenshotButton = new System.Windows.Forms.Button();
             panel5 = new System.Windows.Forms.Panel();
             label4 = new System.Windows.Forms.Label();
             itemSelector = new System.Windows.Forms.ComboBox();
             scannedImage = new System.Windows.Forms.PictureBox();
+            exportButton = new System.Windows.Forms.Button();
             label2 = new System.Windows.Forms.Label();
-            scannedList = new System.Windows.Forms.TextBox();
-            tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            addItem = new System.Windows.Forms.Button();
             panel8 = new System.Windows.Forms.Panel();
+            tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            recentScanImg = new System.Windows.Forms.PictureBox();
+            tabs = new System.Windows.Forms.TabControl();
+            scanningTab = new System.Windows.Forms.TabPage();
+            invTab = new System.Windows.Forms.TabPage();
+            inventoryDisplay = new System.Windows.Forms.FlowLayoutPanel();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            importButton = new System.Windows.Forms.Button();
+            optimizationTab = new System.Windows.Forms.TabPage();
             panel1.SuspendLayout();
             panel7.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
@@ -82,8 +89,13 @@
             tableLayoutPanel1.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)scannedImage).BeginInit();
-            tableLayoutPanel3.SuspendLayout();
             panel8.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)recentScanImg).BeginInit();
+            tabs.SuspendLayout();
+            scanningTab.SuspendLayout();
+            invTab.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -92,10 +104,10 @@
             panel1.Controls.Add(panel7);
             panel1.Controls.Add(scannedImage);
             panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Location = new System.Drawing.Point(3, 3);
             panel1.Margin = new System.Windows.Forms.Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(612, 649);
+            panel1.Size = new System.Drawing.Size(617, 643);
             panel1.TabIndex = 12;
             // 
             // panel7
@@ -104,9 +116,9 @@
             panel7.Controls.Add(tableLayoutPanel1);
             panel7.Controls.Add(panel5);
             panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel7.Location = new System.Drawing.Point(0, 473);
+            panel7.Location = new System.Drawing.Point(0, 467);
             panel7.Name = "panel7";
-            panel7.Size = new System.Drawing.Size(612, 176);
+            panel7.Size = new System.Drawing.Size(617, 176);
             panel7.TabIndex = 10;
             // 
             // tableLayoutPanel4
@@ -137,14 +149,14 @@
             tableLayoutPanel4.RowCount = 2;
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            tableLayoutPanel4.Size = new System.Drawing.Size(612, 85);
+            tableLayoutPanel4.Size = new System.Drawing.Size(617, 85);
             tableLayoutPanel4.TabIndex = 9;
             // 
             // isTainted
             // 
             isTainted.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             isTainted.Dock = System.Windows.Forms.DockStyle.Right;
-            isTainted.Location = new System.Drawing.Point(105, 25);
+            isTainted.Location = new System.Drawing.Point(107, 25);
             isTainted.Name = "isTainted";
             isTainted.Size = new System.Drawing.Size(94, 56);
             isTainted.TabIndex = 11;
@@ -157,9 +169,9 @@
             label8.Dock = System.Windows.Forms.DockStyle.Fill;
             label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F);
             label8.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            label8.Location = new System.Drawing.Point(105, 1);
+            label8.Location = new System.Drawing.Point(106, 1);
             label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(94, 20);
+            label8.Size = new System.Drawing.Size(95, 20);
             label8.TabIndex = 13;
             label8.Text = "Tainted";
             label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -169,7 +181,7 @@
             panel2.Controls.Add(stat4);
             panel2.Controls.Add(statType4);
             panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel2.Location = new System.Drawing.Point(509, 26);
+            panel2.Location = new System.Drawing.Point(514, 26);
             panel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
             panel2.Size = new System.Drawing.Size(99, 54);
@@ -204,10 +216,10 @@
             tbxStat3.Controls.Add(stat3);
             tbxStat3.Controls.Add(statType3);
             tbxStat3.Dock = System.Windows.Forms.DockStyle.Fill;
-            tbxStat3.Location = new System.Drawing.Point(408, 26);
+            tbxStat3.Location = new System.Drawing.Point(412, 26);
             tbxStat3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             tbxStat3.Name = "tbxStat3";
-            tbxStat3.Size = new System.Drawing.Size(94, 54);
+            tbxStat3.Size = new System.Drawing.Size(95, 54);
             tbxStat3.TabIndex = 9;
             // 
             // stat3
@@ -219,7 +231,7 @@
             stat3.Location = new System.Drawing.Point(0, 25);
             stat3.Margin = new System.Windows.Forms.Padding(0);
             stat3.Name = "stat3";
-            stat3.Size = new System.Drawing.Size(94, 29);
+            stat3.Size = new System.Drawing.Size(95, 29);
             stat3.TabIndex = 7;
             // 
             // statType3
@@ -231,7 +243,7 @@
             statType3.Location = new System.Drawing.Point(0, 0);
             statType3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             statType3.Name = "statType3";
-            statType3.Size = new System.Drawing.Size(94, 29);
+            statType3.Size = new System.Drawing.Size(95, 29);
             statType3.TabIndex = 6;
             // 
             // panel4
@@ -239,10 +251,10 @@
             panel4.Controls.Add(stat2);
             panel4.Controls.Add(statType2);
             panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel4.Location = new System.Drawing.Point(307, 26);
+            panel4.Location = new System.Drawing.Point(310, 26);
             panel4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel4.Name = "panel4";
-            panel4.Size = new System.Drawing.Size(94, 54);
+            panel4.Size = new System.Drawing.Size(95, 54);
             panel4.TabIndex = 8;
             // 
             // stat2
@@ -254,7 +266,7 @@
             stat2.Location = new System.Drawing.Point(0, 25);
             stat2.Margin = new System.Windows.Forms.Padding(0);
             stat2.Name = "stat2";
-            stat2.Size = new System.Drawing.Size(94, 29);
+            stat2.Size = new System.Drawing.Size(95, 29);
             stat2.TabIndex = 7;
             // 
             // statType2
@@ -266,7 +278,7 @@
             statType2.Location = new System.Drawing.Point(0, 0);
             statType2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             statType2.Name = "statType2";
-            statType2.Size = new System.Drawing.Size(94, 29);
+            statType2.Size = new System.Drawing.Size(95, 29);
             statType2.TabIndex = 6;
             // 
             // panel3
@@ -274,10 +286,10 @@
             panel3.Controls.Add(statType1);
             panel3.Controls.Add(stat1);
             panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel3.Location = new System.Drawing.Point(206, 26);
+            panel3.Location = new System.Drawing.Point(208, 26);
             panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new System.Drawing.Size(94, 54);
+            panel3.Size = new System.Drawing.Size(95, 54);
             panel3.TabIndex = 10;
             // 
             // statType1
@@ -290,7 +302,7 @@
             statType1.Location = new System.Drawing.Point(0, 0);
             statType1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             statType1.Name = "statType1";
-            statType1.Size = new System.Drawing.Size(94, 29);
+            statType1.Size = new System.Drawing.Size(95, 29);
             statType1.TabIndex = 6;
             // 
             // stat1
@@ -302,7 +314,7 @@
             stat1.Location = new System.Drawing.Point(0, 25);
             stat1.Margin = new System.Windows.Forms.Padding(0);
             stat1.Name = "stat1";
-            stat1.Size = new System.Drawing.Size(94, 29);
+            stat1.Size = new System.Drawing.Size(95, 29);
             stat1.TabIndex = 6;
             // 
             // label7
@@ -311,9 +323,9 @@
             label7.Dock = System.Windows.Forms.DockStyle.Fill;
             label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F);
             label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            label7.Location = new System.Drawing.Point(408, 1);
+            label7.Location = new System.Drawing.Point(412, 1);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(94, 20);
+            label7.Size = new System.Drawing.Size(95, 20);
             label7.TabIndex = 6;
             label7.Text = "Stat 3";
             label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -324,7 +336,7 @@
             label6.Dock = System.Windows.Forms.DockStyle.Fill;
             label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F);
             label6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            label6.Location = new System.Drawing.Point(509, 1);
+            label6.Location = new System.Drawing.Point(514, 1);
             label6.Name = "label6";
             label6.Size = new System.Drawing.Size(99, 20);
             label6.TabIndex = 11;
@@ -339,7 +351,7 @@
             panel6.Location = new System.Drawing.Point(4, 26);
             panel6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel6.Name = "panel6";
-            panel6.Size = new System.Drawing.Size(94, 54);
+            panel6.Size = new System.Drawing.Size(95, 54);
             panel6.TabIndex = 6;
             // 
             // toppingType
@@ -351,7 +363,7 @@
             toppingType.Location = new System.Drawing.Point(0, 25);
             toppingType.Margin = new System.Windows.Forms.Padding(0);
             toppingType.Name = "toppingType";
-            toppingType.Size = new System.Drawing.Size(94, 29);
+            toppingType.Size = new System.Drawing.Size(95, 29);
             toppingType.TabIndex = 7;
             toppingType.SelectedIndexChanged += toppingType_SelectedIndexChanged;
             // 
@@ -364,7 +376,7 @@
             resonantType.Location = new System.Drawing.Point(0, 0);
             resonantType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             resonantType.Name = "resonantType";
-            resonantType.Size = new System.Drawing.Size(94, 29);
+            resonantType.Size = new System.Drawing.Size(95, 29);
             resonantType.TabIndex = 7;
             resonantType.SelectedIndexChanged += resonantType_SelectedIndexChanged;
             // 
@@ -374,9 +386,9 @@
             label5.Dock = System.Windows.Forms.DockStyle.Fill;
             label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F);
             label5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            label5.Location = new System.Drawing.Point(307, 1);
+            label5.Location = new System.Drawing.Point(310, 1);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(94, 20);
+            label5.Size = new System.Drawing.Size(95, 20);
             label5.TabIndex = 4;
             label5.Text = "Stat 2";
             label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -387,9 +399,9 @@
             label3.Dock = System.Windows.Forms.DockStyle.Fill;
             label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F);
             label3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            label3.Location = new System.Drawing.Point(206, 1);
+            label3.Location = new System.Drawing.Point(208, 1);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(94, 20);
+            label3.Size = new System.Drawing.Size(95, 20);
             label3.TabIndex = 2;
             label3.Text = "Stat 1";
             label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -402,7 +414,7 @@
             label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             label1.Location = new System.Drawing.Point(4, 1);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(94, 20);
+            label1.Size = new System.Drawing.Size(95, 20);
             label1.TabIndex = 0;
             label1.Text = "Topping Type";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -415,9 +427,9 @@
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel1.Controls.Add(addItem, 2, 0);
             tableLayoutPanel1.Controls.Add(autoScanButton, 3, 0);
             tableLayoutPanel1.Controls.Add(readButton, 1, 0);
-            tableLayoutPanel1.Controls.Add(exportButton, 2, 0);
             tableLayoutPanel1.Controls.Add(screenshotButton, 0, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 119);
@@ -425,17 +437,31 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(612, 57);
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(617, 57);
             tableLayoutPanel1.TabIndex = 5;
+            // 
+            // addItem
+            // 
+            addItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            addItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            addItem.Location = new System.Drawing.Point(309, 1);
+            addItem.Margin = new System.Windows.Forms.Padding(0);
+            addItem.Name = "addItem";
+            addItem.Size = new System.Drawing.Size(153, 55);
+            addItem.TabIndex = 11;
+            addItem.Text = "Add Item";
+            addItem.UseVisualStyleBackColor = true;
+            addItem.Click += addItem_Click;
             // 
             // autoScanButton
             // 
             autoScanButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             autoScanButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            autoScanButton.Location = new System.Drawing.Point(457, 1);
+            autoScanButton.Location = new System.Drawing.Point(463, 1);
             autoScanButton.Margin = new System.Windows.Forms.Padding(0);
             autoScanButton.Name = "autoScanButton";
-            autoScanButton.Size = new System.Drawing.Size(154, 55);
+            autoScanButton.Size = new System.Drawing.Size(153, 55);
             autoScanButton.TabIndex = 7;
             autoScanButton.Text = "Auto scan";
             autoScanButton.UseVisualStyleBackColor = true;
@@ -444,27 +470,14 @@
             // 
             readButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             readButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            readButton.Location = new System.Drawing.Point(153, 1);
+            readButton.Location = new System.Drawing.Point(155, 1);
             readButton.Margin = new System.Windows.Forms.Padding(0);
             readButton.Name = "readButton";
-            readButton.Size = new System.Drawing.Size(151, 55);
+            readButton.Size = new System.Drawing.Size(153, 55);
             readButton.TabIndex = 5;
             readButton.Text = "Read";
             readButton.UseVisualStyleBackColor = true;
             readButton.Click += readButton_Click;
-            // 
-            // exportButton
-            // 
-            exportButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            exportButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            exportButton.Location = new System.Drawing.Point(305, 1);
-            exportButton.Margin = new System.Windows.Forms.Padding(0);
-            exportButton.Name = "exportButton";
-            exportButton.Size = new System.Drawing.Size(151, 55);
-            exportButton.TabIndex = 4;
-            exportButton.Text = "Export";
-            exportButton.UseVisualStyleBackColor = true;
-            exportButton.Click += exportButton_Click;
             // 
             // screenshotButton
             // 
@@ -473,7 +486,7 @@
             screenshotButton.Location = new System.Drawing.Point(1, 1);
             screenshotButton.Margin = new System.Windows.Forms.Padding(0);
             screenshotButton.Name = "screenshotButton";
-            screenshotButton.Size = new System.Drawing.Size(151, 55);
+            screenshotButton.Size = new System.Drawing.Size(153, 55);
             screenshotButton.TabIndex = 6;
             screenshotButton.Text = "Screenshot";
             screenshotButton.UseVisualStyleBackColor = true;
@@ -487,7 +500,7 @@
             panel5.Dock = System.Windows.Forms.DockStyle.Top;
             panel5.Location = new System.Drawing.Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new System.Drawing.Size(612, 34);
+            panel5.Size = new System.Drawing.Size(617, 34);
             panel5.TabIndex = 10;
             // 
             // label4
@@ -506,7 +519,7 @@
             itemSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             itemSelector.FormattingEnabled = true;
             itemSelector.Items.AddRange(new object[] { "Toppings", "Beascuits", "Tarts" });
-            itemSelector.Location = new System.Drawing.Point(251, 0);
+            itemSelector.Location = new System.Drawing.Point(256, 0);
             itemSelector.Margin = new System.Windows.Forms.Padding(0);
             itemSelector.Name = "itemSelector";
             itemSelector.Size = new System.Drawing.Size(359, 29);
@@ -518,87 +531,159 @@
             scannedImage.Dock = System.Windows.Forms.DockStyle.Top;
             scannedImage.Location = new System.Drawing.Point(0, 0);
             scannedImage.Name = "scannedImage";
-            scannedImage.Size = new System.Drawing.Size(612, 467);
+            scannedImage.Size = new System.Drawing.Size(617, 467);
+            scannedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             scannedImage.TabIndex = 6;
             scannedImage.TabStop = false;
+            // 
+            // exportButton
+            // 
+            exportButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            exportButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            exportButton.Location = new System.Drawing.Point(0, 0);
+            exportButton.Margin = new System.Windows.Forms.Padding(0);
+            exportButton.Name = "exportButton";
+            exportButton.Size = new System.Drawing.Size(425, 135);
+            exportButton.TabIndex = 4;
+            exportButton.Text = "Export";
+            exportButton.UseVisualStyleBackColor = true;
+            exportButton.Click += exportButton_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            label2.Dock = System.Windows.Forms.DockStyle.Top;
             label2.Location = new System.Drawing.Point(5, 2);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(224, 34);
+            label2.Size = new System.Drawing.Size(224, 21);
             label2.TabIndex = 6;
-            label2.Text = "Scanned Pieces";
+            label2.Text = "Recently Scanned";
             label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // scannedList
+            // panel8
             // 
-            scannedList.AcceptsReturn = true;
-            scannedList.AcceptsTab = true;
-            scannedList.AccessibleRole = System.Windows.Forms.AccessibleRole.List;
-            scannedList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            scannedList.Dock = System.Windows.Forms.DockStyle.Fill;
-            scannedList.Location = new System.Drawing.Point(5, 41);
-            scannedList.MaxLength = int.MaxValue;
-            scannedList.Multiline = true;
-            scannedList.Name = "scannedList";
-            scannedList.ReadOnly = true;
-            scannedList.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            scannedList.Size = new System.Drawing.Size(224, 545);
-            scannedList.TabIndex = 8;
-            scannedList.TabStop = false;
-            scannedList.Text = "None";
-            scannedList.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            panel8.Controls.Add(tableLayoutPanel3);
+            panel8.Dock = System.Windows.Forms.DockStyle.Right;
+            panel8.Location = new System.Drawing.Point(620, 3);
+            panel8.Name = "panel8";
+            panel8.Size = new System.Drawing.Size(234, 643);
+            panel8.TabIndex = 11;
             // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             tableLayoutPanel3.ColumnCount = 1;
-            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel3.Controls.Add(scannedList, 0, 1);
+            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel3.Controls.Add(recentScanImg, 0, 1);
             tableLayoutPanel3.Controls.Add(label2, 0, 0);
-            tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            tableLayoutPanel3.Location = new System.Drawing.Point(0, 467);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 2;
-            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.91805744F));
-            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.08194F));
-            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            tableLayoutPanel3.Size = new System.Drawing.Size(234, 591);
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.000008F));
+            tableLayoutPanel3.Size = new System.Drawing.Size(234, 176);
             tableLayoutPanel3.TabIndex = 11;
             // 
-            // addItem
+            // recentScanImg
             // 
-            addItem.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            addItem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            addItem.Location = new System.Drawing.Point(0, 591);
-            addItem.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            addItem.Name = "addItem";
-            addItem.Size = new System.Drawing.Size(234, 58);
-            addItem.TabIndex = 11;
-            addItem.Text = "Add Item";
-            addItem.UseVisualStyleBackColor = true;
-            addItem.Click += addItem_Click;
+            recentScanImg.Dock = System.Windows.Forms.DockStyle.Fill;
+            recentScanImg.Location = new System.Drawing.Point(3, 35);
+            recentScanImg.Margin = new System.Windows.Forms.Padding(1);
+            recentScanImg.Name = "recentScanImg";
+            recentScanImg.Size = new System.Drawing.Size(228, 138);
+            recentScanImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            recentScanImg.TabIndex = 11;
+            recentScanImg.TabStop = false;
             // 
-            // panel8
+            // tabs
             // 
-            panel8.Controls.Add(tableLayoutPanel3);
-            panel8.Controls.Add(addItem);
-            panel8.Dock = System.Windows.Forms.DockStyle.Right;
-            panel8.Location = new System.Drawing.Point(612, 0);
-            panel8.Name = "panel8";
-            panel8.Size = new System.Drawing.Size(234, 649);
-            panel8.TabIndex = 11;
+            tabs.Controls.Add(scanningTab);
+            tabs.Controls.Add(invTab);
+            tabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabs.Location = new System.Drawing.Point(0, 0);
+            tabs.Name = "tabs";
+            tabs.SelectedIndex = 0;
+            tabs.Size = new System.Drawing.Size(865, 683);
+            tabs.TabIndex = 11;
+            tabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
+            // 
+            // scanningTab
+            // 
+            scanningTab.Controls.Add(panel1);
+            scanningTab.Controls.Add(panel8);
+            scanningTab.Location = new System.Drawing.Point(4, 30);
+            scanningTab.Name = "scanningTab";
+            scanningTab.Padding = new System.Windows.Forms.Padding(3);
+            scanningTab.Size = new System.Drawing.Size(857, 649);
+            scanningTab.TabIndex = 0;
+            scanningTab.Text = "Scanning";
+            scanningTab.UseVisualStyleBackColor = true;
+            // 
+            // invTab
+            // 
+            invTab.Controls.Add(inventoryDisplay);
+            invTab.Controls.Add(tableLayoutPanel2);
+            invTab.Location = new System.Drawing.Point(4, 30);
+            invTab.Name = "invTab";
+            invTab.Padding = new System.Windows.Forms.Padding(3);
+            invTab.Size = new System.Drawing.Size(857, 649);
+            invTab.TabIndex = 1;
+            invTab.Text = "Inventory";
+            invTab.UseVisualStyleBackColor = true;
+            // 
+            // inventoryDisplay
+            // 
+            inventoryDisplay.AutoScroll = true;
+            inventoryDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            inventoryDisplay.Location = new System.Drawing.Point(3, 3);
+            inventoryDisplay.Name = "inventoryDisplay";
+            inventoryDisplay.Size = new System.Drawing.Size(851, 508);
+            inventoryDisplay.TabIndex = 6;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(importButton, 1, 0);
+            tableLayoutPanel2.Controls.Add(exportButton, 0, 0);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            tableLayoutPanel2.Location = new System.Drawing.Point(3, 511);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(851, 135);
+            tableLayoutPanel2.TabIndex = 5;
+            // 
+            // importButton
+            // 
+            importButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            importButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            importButton.Location = new System.Drawing.Point(425, 0);
+            importButton.Margin = new System.Windows.Forms.Padding(0);
+            importButton.Name = "importButton";
+            importButton.Size = new System.Drawing.Size(426, 135);
+            importButton.TabIndex = 5;
+            importButton.Text = "Import";
+            importButton.UseVisualStyleBackColor = true;
+            importButton.Click += importButton_Click;
+            // 
+            // optimizationTab
+            // 
+            optimizationTab.Location = new System.Drawing.Point(4, 30);
+            optimizationTab.Name = "optimizationTab";
+            optimizationTab.Size = new System.Drawing.Size(857, 649);
+            optimizationTab.TabIndex = 2;
+            optimizationTab.Text = "Optimizing";
+            optimizationTab.UseVisualStyleBackColor = true;
             // 
             // Scanner
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(846, 649);
-            Controls.Add(panel1);
-            Controls.Add(panel8);
+            ClientSize = new System.Drawing.Size(865, 683);
+            Controls.Add(tabs);
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             Name = "Scanner";
             Text = "Topping Scanner";
@@ -619,9 +704,14 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)scannedImage).EndInit();
+            panel8.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
-            panel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)recentScanImg).EndInit();
+            tabs.ResumeLayout(false);
+            scanningTab.ResumeLayout(false);
+            invTab.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
             ResumeLayout(false);
 
         }
@@ -630,8 +720,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox scannedImage;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox scannedList;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button readButton;
         private System.Windows.Forms.Button exportButton;
@@ -666,6 +754,17 @@
         private System.Windows.Forms.CheckBox isTainted;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button autoScanButton;
+        private System.Windows.Forms.TabControl tabs;
+        private System.Windows.Forms.TabPage scanningTab;
+        private System.Windows.Forms.TabPage invTab;
+        private System.Windows.Forms.TabPage optimizationTab;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.PictureBox recentScanImg;
+        private System.Windows.Forms.FlowLayoutPanel inventoryDisplay;
+        private System.Windows.Forms.Button importButton;
     }
 }
 
