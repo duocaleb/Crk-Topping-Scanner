@@ -465,6 +465,7 @@
             autoScanButton.TabIndex = 7;
             autoScanButton.Text = "Auto scan";
             autoScanButton.UseVisualStyleBackColor = true;
+            autoScanButton.Click += autoScanButton_Click;
             // 
             // readButton
             // 
@@ -540,10 +541,10 @@
             // 
             exportButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             exportButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            exportButton.Location = new System.Drawing.Point(0, 0);
+            exportButton.Location = new System.Drawing.Point(1, 1);
             exportButton.Margin = new System.Windows.Forms.Padding(0);
             exportButton.Name = "exportButton";
-            exportButton.Size = new System.Drawing.Size(425, 135);
+            exportButton.Size = new System.Drawing.Size(424, 78);
             exportButton.TabIndex = 4;
             exportButton.Text = "Export";
             exportButton.UseVisualStyleBackColor = true;
@@ -638,32 +639,33 @@
             inventoryDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             inventoryDisplay.Location = new System.Drawing.Point(3, 3);
             inventoryDisplay.Name = "inventoryDisplay";
-            inventoryDisplay.Size = new System.Drawing.Size(851, 508);
+            inventoryDisplay.Size = new System.Drawing.Size(851, 563);
             inventoryDisplay.TabIndex = 6;
             // 
             // tableLayoutPanel2
             // 
+            tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel2.ColumnCount = 2;
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             tableLayoutPanel2.Controls.Add(importButton, 1, 0);
             tableLayoutPanel2.Controls.Add(exportButton, 0, 0);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            tableLayoutPanel2.Location = new System.Drawing.Point(3, 511);
+            tableLayoutPanel2.Location = new System.Drawing.Point(3, 566);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(851, 135);
+            tableLayoutPanel2.Size = new System.Drawing.Size(851, 80);
             tableLayoutPanel2.TabIndex = 5;
             // 
             // importButton
             // 
             importButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             importButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            importButton.Location = new System.Drawing.Point(425, 0);
+            importButton.Location = new System.Drawing.Point(426, 1);
             importButton.Margin = new System.Windows.Forms.Padding(0);
             importButton.Name = "importButton";
-            importButton.Size = new System.Drawing.Size(426, 135);
+            importButton.Size = new System.Drawing.Size(424, 78);
             importButton.TabIndex = 5;
             importButton.Text = "Import";
             importButton.UseVisualStyleBackColor = true;
@@ -684,7 +686,9 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(865, 683);
             Controls.Add(tabs);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            MaximizeBox = false;
             Name = "Scanner";
             Text = "Topping Scanner";
             panel1.ResumeLayout(false);

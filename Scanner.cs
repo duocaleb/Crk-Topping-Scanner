@@ -208,6 +208,7 @@ namespace Crk_Topping_Scanner
                     if (isTainted.Checked)
                     {
                         RefreshComboBoxManually(statType1, new List<string> { beascuitResToMain[resonantType.Text] });
+                        statType1.SelectedItem = beascuitResToMain[resonantType.Text];
                         stat1.Minimum = 20;
                         stat1.Maximum = 20;
                         statType1.Enabled = false;
@@ -311,68 +312,7 @@ namespace Crk_Topping_Scanner
 
         private void screenshotButton_Click(object sender, EventArgs e)
         {
-            // The magic numbers come from measurements of screenshots to determine where the topping is, where the substats are, ect
-            scanRoot = ((int)(Screen.PrimaryScreen.Bounds.Width),
-            (int)(Screen.PrimaryScreen.Bounds.Height));
-
-            // Force 16:9 aspect ratio
-            scanRoot = ((int)Math.Min(scanRoot.Value.Item1, scanRoot.Value.Item2 * (16.0 / 9.0)),
-                        (int)Math.Min(scanRoot.Value.Item1 * (9.0 / 16.0), scanRoot.Value.Item2));
-
-            if (itemSelector.Text == "Toppings")
-            {
-                int width = (int)(0.392 * scanRoot.Value.Item1);
-                int disHieght = (int)(0.494 * scanRoot.Value.Item2);
-                int hieght = (int)(0.05 * scanRoot.Value.Item2);
-                double[] startCollection = { 0.26, 0.589, 0.646, 0.704 };
-
-                for (int i = 0; i < startCollection.Length; i++)
-                {
-                    bmpCollection[i]?.Dispose();
-                    Bitmap bmpDisposable = new Bitmap(width, hieght);
-                    using (Graphics g = Graphics.FromImage(bmpDisposable))
-                    {
-                        g.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(startCollection[i] * scanRoot.Value.Item2), 0, 0, new Size(width, hieght), CopyPixelOperation.SourceCopy);
-
-                    }
-                    using (Bitmap preProcImage = preprocImage(bmpDisposable))
-                    using (Bitmap tempImage = AddPadding(preProcImage, 30, Color.White))
-                    {
-                        if (bmpDisposable != null)
-                        {
-                            bmpDisposable.Dispose();
-                        }
-                        bmpCollection[i] = (Bitmap)tempImage.Clone();
-                    }
-                }
-
-                bmpScreenshot = new Bitmap(width, disHieght);
-                using (Graphics g = Graphics.FromImage(bmpScreenshot))
-                {
-                    g.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(0.262 * scanRoot.Value.Item2), 0, 0, new Size(width, disHieght), CopyPixelOperation.SourceCopy);
-                }
-
-            }
-            else if (itemSelector.Text == "Beascuits")
-            {
-                // For future
-            }
-            else if (itemSelector.Text == "Tarts")
-            {
-                // For future
-            }
-
-            if (scannedImage.Image != null)
-            {
-                scannedImage.Image.Dispose();
-            }
-            scannedImage.Image = (Bitmap)bmpScreenshot.Clone();
-            if (bmpScreenshot != null)
-            {
-                bmpScreenshot.Dispose();
-            }
-
-
+            takeScreenshot();
         }
 
         private void readButton_Click(object sender, EventArgs e)
@@ -444,10 +384,11 @@ namespace Crk_Topping_Scanner
 
         private void itemSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
+            statType1.Enabled = true;
+            stat1.Enabled = true;
             if (itemSelector.Text == "Toppings")
             {
                 resonantType.Enabled = true;
-                statType1.Enabled = true;
                 RefreshComboBoxManually(resonantType, new List<string>(toppingRes));
                 RefreshComboBoxManually(toppingType, new List<string>(toppingTypes));
                 label1.Text = "Topping Type";
@@ -482,7 +423,6 @@ namespace Crk_Topping_Scanner
             else if (itemSelector.Text == "Beascuits")
             {
                 resonantType.Enabled = true;
-                statType1.Enabled = true;
                 RefreshComboBoxManually(resonantType, new List<string>(beascuitRes));
                 RefreshComboBoxManually(toppingType, new List<string>(beascuitTypes));
                 label1.Text = "Beascuit Type";
@@ -525,7 +465,6 @@ namespace Crk_Topping_Scanner
             {
                 resonantType.SelectedItem = "";
                 resonantType.Enabled = false;
-                statType1.Enabled = false;
                 RefreshComboBoxManually(toppingType, new List<string>(toppingTypes));
                 label1.Text = "Tart Type";
                 subStatLimits = new Dictionary<string, (double, double)>()
@@ -574,6 +513,7 @@ namespace Crk_Topping_Scanner
                 {
 
                     RefreshComboBoxManually(statType1, new List<string> { beascuitResToMain[resonantType.Text] });
+                    statType1.SelectedItem = beascuitResToMain[resonantType.Text];
                     stat1.Minimum = 20;
                     stat1.Maximum = 20;
                     statType1.Enabled = false;
@@ -647,12 +587,12 @@ namespace Crk_Topping_Scanner
                         Stat3 = statType3.Text
                     };
                     toppingsExportList.Add(newTopping);
-                    BitmapGraphics.Add(createCompactToppingGraphic(newTopping));
+                    BitmapGraphics.Add(createCompactGraphic(newTopping));
                     if (recentScanImg.Image != null)
                     {
                         recentScanImg.Image.Dispose();
                     }
-                    recentScanImg.Image = createToppingGraphic(newTopping);
+                    recentScanImg.Image = createGraphic(newTopping);
                 }
             }
             else if (itemSelector.Text == "Beascuits")
@@ -691,8 +631,9 @@ namespace Crk_Topping_Scanner
                         Stat3 = statType3.Text,
                         Stat4 = statType4.Text
                     };
-                    // Add graphic here
+                    recentScanImg.Image = createGraphic(newBeascuit);
                     toppingsExportList.Add(newBeascuit);
+                    BitmapGraphics.Add(createCompactGraphic(newBeascuit));
                 }
             }
         }
@@ -798,7 +739,7 @@ namespace Crk_Topping_Scanner
             return originalImage;
         }
 
-        private Bitmap createToppingGraphic(Topping topping)
+        private Bitmap createGraphic(Topping topping)
         {
             Bitmap image = new Bitmap(768, 432);
             Bitmap toppingGraphic = (Bitmap)Image.FromFile(Path.Combine(Application.StartupPath, "graphics/" + topping.ToppingType.Replace(" ", "").ToLower() + topping.ResonantType.Replace(" ", "").ToLower() + "_topping.png"));
@@ -818,8 +759,29 @@ namespace Crk_Topping_Scanner
             return image;
 
         }
+        private Bitmap createGraphic(Beascuit beascuit)
+        {
+            Bitmap image = new Bitmap(768, 432);
+            Bitmap toppingGraphic = (Bitmap)Image.FromFile(Path.Combine(Application.StartupPath, "graphics/" + beascuit.BeascuitType.ToLower() + "_beascuit.png"));
 
-        private Bitmap createCompactToppingGraphic(Topping topping)
+            Graphics g = Graphics.FromImage(image);
+            g.Clear(Color.White);
+            g.DrawImage(toppingGraphic, 10, 70, (int)(toppingGraphic.Width*1.7), (int)(toppingGraphic.Height*1.7));
+            g.Dispose();
+
+            image = AddTextToImage(image, (beascuit.Tainted?"Tainted ":"") + beascuit.ResonantType, new Font(cookieRunFont, 45, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(267, 60));
+            image = AddTextToImage(image, beascuit.BeascuitType + " Beascuit", new Font(cookieRunFont, 60, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(267, 104));
+            image = AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", new Font(cookieRunFont, 37, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(267, 180));
+            image = AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", new Font(cookieRunFont, 37, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(267, 220));
+            image = AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", new Font(cookieRunFont, 37, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(267, 260));
+            image = AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", new Font(cookieRunFont, 37, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(267, 300));
+            toppingGraphic.Dispose();
+
+            return image;
+
+        }
+
+        private Bitmap createCompactGraphic(Topping topping)
         {
             Bitmap image = new Bitmap(400, 400, PixelFormat.Format32bppArgb);
             Bitmap toppingGraphic = (Bitmap)Image.FromFile(Path.Combine(Application.StartupPath, "graphics/" + topping.ToppingType.Replace(" ", "").ToLower() + topping.ResonantType.Replace(" ", "").ToLower() + "_topping.png"));
@@ -832,6 +794,25 @@ namespace Crk_Topping_Scanner
             image = AddTextToImage(image, topping.Stat1 + ": " + topping.Stat1Value + "%", new Font(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(image.Width / 2 - (topping.Stat1 + ": " + topping.Stat1Value + "%").Length * 9, 265));
             image = AddTextToImage(image, topping.Stat2 + ": " + topping.Stat2Value + "%", new Font(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(image.Width / 2 - (topping.Stat2 + ": " + topping.Stat2Value + "%").Length * 9, 305));
             image = AddTextToImage(image, topping.Stat3 + ": " + topping.Stat3Value + "%", new Font(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(image.Width / 2 - (topping.Stat3 + ": " + topping.Stat3Value + "%").Length * 9, 345));
+
+            toppingGraphic.Dispose();
+
+            return image;
+        }
+        private Bitmap createCompactGraphic(Beascuit beascuit)
+        {
+            Bitmap image = new Bitmap(400, 400, PixelFormat.Format32bppArgb);
+            Bitmap toppingGraphic = (Bitmap)Image.FromFile(Path.Combine(Application.StartupPath, "graphics/" + beascuit.BeascuitType.ToLower() + "_beascuit.png"));
+
+            Graphics g = Graphics.FromImage(image);
+            g.Clear(Color.White);
+            g.DrawImage(toppingGraphic, image.Width/2  - (int)(toppingGraphic.Width * 1.4)/2, 15, (int)(toppingGraphic.Width * 1.4), (int)(toppingGraphic.Height * 1.4));
+            g.Dispose();
+
+            image = AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", new Font(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(image.Width / 2 - (beascuit.Stat1 + ": " + beascuit.Stat1Value + "%").Length * 9, 225));
+            image = AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", new Font(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(image.Width / 2 - (beascuit.Stat2 + ": " + beascuit.Stat2Value + "%").Length * 9, 265));
+            image = AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", new Font(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(image.Width / 2 - (beascuit.Stat3 + ": " + beascuit.Stat3Value + "%").Length * 9, 305));
+            image = AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", new Font(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel), new SolidBrush(Color.Black), new PointF(image.Width / 2 - (beascuit.Stat4 + ": " + beascuit.Stat4Value + "%").Length * 9, 345));
 
             toppingGraphic.Dispose();
 
@@ -882,7 +863,10 @@ namespace Crk_Topping_Scanner
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
             t.Join();
-            LoadInventory(filePath);
+            if (filePath != "")
+            {
+                LoadInventory(filePath);
+            }
         }
         private void LoadInventory(string filePath)
         {
@@ -890,11 +874,11 @@ namespace Crk_Topping_Scanner
             {
                 string json = File.ReadAllText(filePath);
 
-                toppingsExportList = JsonSerializer.Deserialize<List<Iitem>>(json, new JsonSerializerOptions{ WriteIndented = true });
+                toppingsExportList = JsonSerializer.Deserialize<List<Iitem>>(json, new JsonSerializerOptions { WriteIndented = true });
                 BitmapGraphics.Clear();
                 foreach (Iitem item in toppingsExportList)
                 {
-                    BitmapGraphics.Add(createCompactToppingGraphic((Topping)item));
+                    BitmapGraphics.Add(createCompactGraphic((Topping)item));
                 }
                 updateInventory();
             }
@@ -910,8 +894,8 @@ namespace Crk_Topping_Scanner
             for (int i = 0; i < BitmapGraphics.Count; i++)
             {
                 Panel itemPanel = new Panel();
-                itemPanel.Width = 140;
-                itemPanel.Height = 140;
+                itemPanel.Width = 158;
+                itemPanel.Height = 158;
                 itemPanel.BackColor = Color.Black;
 
                 PictureBox pb = new PictureBox();
@@ -919,8 +903,8 @@ namespace Crk_Topping_Scanner
                 pb.BackColor = Color.White;
                 pb.Image = BitmapGraphics[i];
                 pb.SizeMode = PictureBoxSizeMode.Zoom;
-                pb.Width = 130;
-                pb.Height = 130;
+                pb.Width = 148;
+                pb.Height = 148;
                 pb.Left = (itemPanel.Width - pb.Width) / 2;
                 pb.Top = (itemPanel.Height - pb.Height) / 2;
                 pb.Tag = (BitmapGraphics[i], toppingsExportList[i]);
@@ -932,7 +916,7 @@ namespace Crk_Topping_Scanner
                 deleteLabel.Font = new Font("Arial", 12, FontStyle.Bold);
                 deleteLabel.AutoSize = true;
                 deleteLabel.Top = 0;
-                deleteLabel.Left = 105;
+                deleteLabel.Left = 123;
                 deleteLabel.Click += (s, e) =>
                 {
                     ValueTuple<Bitmap, Iitem> i = (ValueTuple<Bitmap, Iitem>)pb.Tag;
@@ -948,6 +932,76 @@ namespace Crk_Topping_Scanner
                 itemPanel.Controls.Add(pb);
                 inventoryDisplay.Controls.Add(itemPanel);
             }
+        }
+
+        private void takeScreenshot()
+        {
+            // The magic numbers come from measurements of screenshots to determine where the topping is, where the substats are, ect
+            scanRoot = ((int)(Screen.PrimaryScreen.Bounds.Width),
+            (int)(Screen.PrimaryScreen.Bounds.Height));
+
+            // Force 16:9 aspect ratio
+            scanRoot = ((int)Math.Min(scanRoot.Value.Item1, scanRoot.Value.Item2 * (16.0 / 9.0)),
+                        (int)Math.Min(scanRoot.Value.Item1 * (9.0 / 16.0), scanRoot.Value.Item2));
+
+            if (itemSelector.Text == "Toppings")
+            {
+                int width = (int)(0.392 * scanRoot.Value.Item1);
+                int disHieght = (int)(0.494 * scanRoot.Value.Item2);
+                int hieght = (int)(0.05 * scanRoot.Value.Item2);
+                double[] startCollection = { 0.26, 0.589, 0.646, 0.704 };
+
+                for (int i = 0; i < startCollection.Length; i++)
+                {
+                    bmpCollection[i]?.Dispose();
+                    Bitmap bmpDisposable = new Bitmap(width, hieght);
+                    using (Graphics g = Graphics.FromImage(bmpDisposable))
+                    {
+                        g.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(startCollection[i] * scanRoot.Value.Item2), 0, 0, new Size(width, hieght), CopyPixelOperation.SourceCopy);
+
+                    }
+                    using (Bitmap preProcImage = preprocImage(bmpDisposable))
+                    using (Bitmap tempImage = AddPadding(preProcImage, 30, Color.White))
+                    {
+                        if (bmpDisposable != null)
+                        {
+                            bmpDisposable.Dispose();
+                        }
+                        bmpCollection[i] = (Bitmap)tempImage.Clone();
+                    }
+                }
+
+                bmpScreenshot = new Bitmap(width, disHieght);
+                using (Graphics g = Graphics.FromImage(bmpScreenshot))
+                {
+                    g.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(0.262 * scanRoot.Value.Item2), 0, 0, new Size(width, disHieght), CopyPixelOperation.SourceCopy);
+                }
+
+            }
+            else if (itemSelector.Text == "Beascuits")
+            {
+                // For future
+            }
+            else if (itemSelector.Text == "Tarts")
+            {
+                // For future
+            }
+
+            if (scannedImage.Image != null)
+            {
+                scannedImage.Image.Dispose();
+            }
+            scannedImage.Image = (Bitmap)bmpScreenshot.Clone();
+            if (bmpScreenshot != null)
+            {
+                bmpScreenshot.Dispose();
+            }
+        }
+        private void autoScanButton_Click(object sender, EventArgs e)
+        {
+            takeScreenshot();
+            readScreenshot(1, false);
+            AddItem();
         }
     }
 }
