@@ -7,11 +7,13 @@ using System.Windows.Forms;
 
 namespace Crk_Topping_Scanner
 {
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        
         [STAThread]
         [DllImport("user32.dll")]
         private static extern bool SetProcessDPIAware();

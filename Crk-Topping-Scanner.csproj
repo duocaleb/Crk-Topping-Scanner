@@ -28,6 +28,7 @@
     <SignManifests>true</SignManifests>
     <SignAssembly>False</SignAssembly>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="CookieRun Black.ttf" />
