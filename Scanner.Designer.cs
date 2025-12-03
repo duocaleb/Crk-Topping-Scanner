@@ -61,18 +61,46 @@
             panel5 = new System.Windows.Forms.Panel();
             label4 = new System.Windows.Forms.Label();
             itemSelector = new System.Windows.Forms.ComboBox();
-            scannedImage = new System.Windows.Forms.PictureBox();
-            exportButton = new System.Windows.Forms.Button();
-            label2 = new System.Windows.Forms.Label();
-            panel8 = new System.Windows.Forms.Panel();
             tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             recentScanImg = new System.Windows.Forms.PictureBox();
+            label2 = new System.Windows.Forms.Label();
+            scannedImage = new System.Windows.Forms.PictureBox();
             tabs = new System.Windows.Forms.TabControl();
             scanningTab = new System.Windows.Forms.TabPage();
             invTab = new System.Windows.Forms.TabPage();
-            inventoryDisplay = new System.Windows.Forms.FlowLayoutPanel();
+            invPanel = new System.Windows.Forms.TableLayoutPanel();
+            pictureBox20 = new System.Windows.Forms.PictureBox();
+            pictureBox19 = new System.Windows.Forms.PictureBox();
+            pictureBox18 = new System.Windows.Forms.PictureBox();
+            pictureBox17 = new System.Windows.Forms.PictureBox();
+            pictureBox16 = new System.Windows.Forms.PictureBox();
+            pictureBox15 = new System.Windows.Forms.PictureBox();
+            pictureBox14 = new System.Windows.Forms.PictureBox();
+            pictureBox13 = new System.Windows.Forms.PictureBox();
+            pictureBox12 = new System.Windows.Forms.PictureBox();
+            pictureBox11 = new System.Windows.Forms.PictureBox();
+            pictureBox10 = new System.Windows.Forms.PictureBox();
+            pictureBox9 = new System.Windows.Forms.PictureBox();
+            pictureBox8 = new System.Windows.Forms.PictureBox();
+            pictureBox7 = new System.Windows.Forms.PictureBox();
+            pictureBox6 = new System.Windows.Forms.PictureBox();
+            pictureBox5 = new System.Windows.Forms.PictureBox();
+            pictureBox4 = new System.Windows.Forms.PictureBox();
+            pictureBox3 = new System.Windows.Forms.PictureBox();
+            pictureBox2 = new System.Windows.Forms.PictureBox();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
             tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            exportButton = new System.Windows.Forms.Button();
             importButton = new System.Windows.Forms.Button();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            label10 = new System.Windows.Forms.Label();
+            goToNum = new System.Windows.Forms.NumericUpDown();
+            goToPageButton = new System.Windows.Forms.Button();
+            panel8 = new System.Windows.Forms.Panel();
+            prevButton = new System.Windows.Forms.Button();
+            pageIndicator = new System.Windows.Forms.Label();
+            nextButton = new System.Windows.Forms.Button();
             optimizationTab = new System.Windows.Forms.TabPage();
             panel1.SuspendLayout();
             panel7.SuspendLayout();
@@ -88,26 +116,49 @@
             panel6.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)scannedImage).BeginInit();
-            panel8.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)recentScanImg).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)scannedImage).BeginInit();
             tabs.SuspendLayout();
             scanningTab.SuspendLayout();
             invTab.SuspendLayout();
+            invPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox20).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox19).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox18).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox16).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox14).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tableLayoutPanel2.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)goToNum).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.AutoScroll = true;
             panel1.Controls.Add(panel7);
-            panel1.Controls.Add(scannedImage);
-            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(3, 4);
+            panel1.Controls.Add(tableLayoutPanel3);
+            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel1.Location = new System.Drawing.Point(3, 564);
             panel1.Margin = new System.Windows.Forms.Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(687, 767);
+            panel1.Size = new System.Drawing.Size(947, 207);
             panel1.TabIndex = 12;
             // 
             // panel7
@@ -116,10 +167,10 @@
             panel7.Controls.Add(tableLayoutPanel1);
             panel7.Controls.Add(panel5);
             panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panel7.Location = new System.Drawing.Point(0, 557);
+            panel7.Location = new System.Drawing.Point(0, 0);
             panel7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             panel7.Name = "panel7";
-            panel7.Size = new System.Drawing.Size(687, 210);
+            panel7.Size = new System.Drawing.Size(687, 207);
             panel7.TabIndex = 10;
             // 
             // tableLayoutPanel4
@@ -151,7 +202,7 @@
             tableLayoutPanel4.RowCount = 2;
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
-            tableLayoutPanel4.Size = new System.Drawing.Size(687, 102);
+            tableLayoutPanel4.Size = new System.Drawing.Size(687, 99);
             tableLayoutPanel4.TabIndex = 9;
             // 
             // isTainted
@@ -161,7 +212,7 @@
             isTainted.Location = new System.Drawing.Point(121, 30);
             isTainted.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             isTainted.Name = "isTainted";
-            isTainted.Size = new System.Drawing.Size(104, 67);
+            isTainted.Size = new System.Drawing.Size(104, 64);
             isTainted.TabIndex = 11;
             isTainted.UseVisualStyleBackColor = true;
             isTainted.CheckedChanged += IsTainted_CheckedChanged;
@@ -187,7 +238,7 @@
             panel2.Location = new System.Drawing.Point(574, 31);
             panel2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(109, 65);
+            panel2.Size = new System.Drawing.Size(109, 62);
             panel2.TabIndex = 12;
             // 
             // stat4
@@ -196,7 +247,7 @@
             stat4.DecimalPlaces = 1;
             stat4.Dock = System.Windows.Forms.DockStyle.Bottom;
             stat4.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            stat4.Location = new System.Drawing.Point(0, 34);
+            stat4.Location = new System.Drawing.Point(0, 31);
             stat4.Margin = new System.Windows.Forms.Padding(0);
             stat4.Name = "stat4";
             stat4.Size = new System.Drawing.Size(109, 31);
@@ -222,7 +273,7 @@
             tbxStat3.Location = new System.Drawing.Point(460, 31);
             tbxStat3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             tbxStat3.Name = "tbxStat3";
-            tbxStat3.Size = new System.Drawing.Size(107, 65);
+            tbxStat3.Size = new System.Drawing.Size(107, 62);
             tbxStat3.TabIndex = 9;
             // 
             // stat3
@@ -231,7 +282,7 @@
             stat3.DecimalPlaces = 1;
             stat3.Dock = System.Windows.Forms.DockStyle.Bottom;
             stat3.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            stat3.Location = new System.Drawing.Point(0, 34);
+            stat3.Location = new System.Drawing.Point(0, 31);
             stat3.Margin = new System.Windows.Forms.Padding(0);
             stat3.Name = "stat3";
             stat3.Size = new System.Drawing.Size(107, 31);
@@ -257,7 +308,7 @@
             panel4.Location = new System.Drawing.Point(346, 31);
             panel4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             panel4.Name = "panel4";
-            panel4.Size = new System.Drawing.Size(107, 65);
+            panel4.Size = new System.Drawing.Size(107, 62);
             panel4.TabIndex = 8;
             // 
             // stat2
@@ -266,7 +317,7 @@
             stat2.DecimalPlaces = 1;
             stat2.Dock = System.Windows.Forms.DockStyle.Bottom;
             stat2.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            stat2.Location = new System.Drawing.Point(0, 34);
+            stat2.Location = new System.Drawing.Point(0, 31);
             stat2.Margin = new System.Windows.Forms.Padding(0);
             stat2.Name = "stat2";
             stat2.Size = new System.Drawing.Size(107, 31);
@@ -292,7 +343,7 @@
             panel3.Location = new System.Drawing.Point(232, 31);
             panel3.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             panel3.Name = "panel3";
-            panel3.Size = new System.Drawing.Size(107, 65);
+            panel3.Size = new System.Drawing.Size(107, 62);
             panel3.TabIndex = 10;
             // 
             // statType1
@@ -314,7 +365,7 @@
             stat1.DecimalPlaces = 1;
             stat1.Dock = System.Windows.Forms.DockStyle.Bottom;
             stat1.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            stat1.Location = new System.Drawing.Point(0, 34);
+            stat1.Location = new System.Drawing.Point(0, 31);
             stat1.Margin = new System.Windows.Forms.Padding(0);
             stat1.Name = "stat1";
             stat1.Size = new System.Drawing.Size(107, 31);
@@ -354,7 +405,7 @@
             panel6.Location = new System.Drawing.Point(4, 31);
             panel6.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             panel6.Name = "panel6";
-            panel6.Size = new System.Drawing.Size(107, 65);
+            panel6.Size = new System.Drawing.Size(107, 62);
             panel6.TabIndex = 6;
             // 
             // toppingType
@@ -363,7 +414,7 @@
             toppingType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             toppingType.FormattingEnabled = true;
             toppingType.Items.AddRange(new object[] { "Caramel", "Almond", "Raspberry", "Chocolate", "Apple Jelly", "Walnut", "Peanut", "Hazelnut", "Candy", "Kiwi" });
-            toppingType.Location = new System.Drawing.Point(0, 32);
+            toppingType.Location = new System.Drawing.Point(0, 29);
             toppingType.Margin = new System.Windows.Forms.Padding(0);
             toppingType.Name = "toppingType";
             toppingType.Size = new System.Drawing.Size(107, 33);
@@ -435,7 +486,7 @@
             tableLayoutPanel1.Controls.Add(readButton, 1, 0);
             tableLayoutPanel1.Controls.Add(screenshotButton, 0, 0);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            tableLayoutPanel1.Location = new System.Drawing.Point(0, 142);
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 139);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
@@ -531,29 +582,33 @@
             itemSelector.TabIndex = 7;
             itemSelector.SelectedIndexChanged += ItemSelector_SelectedIndexChanged;
             // 
-            // scannedImage
+            // tableLayoutPanel3
             // 
-            scannedImage.Dock = System.Windows.Forms.DockStyle.Top;
-            scannedImage.Location = new System.Drawing.Point(0, 0);
-            scannedImage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            scannedImage.Name = "scannedImage";
-            scannedImage.Size = new System.Drawing.Size(687, 556);
-            scannedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            scannedImage.TabIndex = 6;
-            scannedImage.TabStop = false;
+            tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
+            tableLayoutPanel3.ColumnCount = 1;
+            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel3.Controls.Add(recentScanImg, 0, 1);
+            tableLayoutPanel3.Controls.Add(label2, 0, 0);
+            tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Right;
+            tableLayoutPanel3.Location = new System.Drawing.Point(687, 0);
+            tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 2;
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.000008F));
+            tableLayoutPanel3.Size = new System.Drawing.Size(260, 207);
+            tableLayoutPanel3.TabIndex = 11;
             // 
-            // exportButton
+            // recentScanImg
             // 
-            exportButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            exportButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            exportButton.Location = new System.Drawing.Point(1, 1);
-            exportButton.Margin = new System.Windows.Forms.Padding(0);
-            exportButton.Name = "exportButton";
-            exportButton.Size = new System.Drawing.Size(472, 93);
-            exportButton.TabIndex = 4;
-            exportButton.Text = "Export";
-            exportButton.UseVisualStyleBackColor = true;
-            exportButton.Click += ExportButton_Click;
+            recentScanImg.Dock = System.Windows.Forms.DockStyle.Fill;
+            recentScanImg.Location = new System.Drawing.Point(3, 41);
+            recentScanImg.Margin = new System.Windows.Forms.Padding(1);
+            recentScanImg.Name = "recentScanImg";
+            recentScanImg.Size = new System.Drawing.Size(254, 163);
+            recentScanImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            recentScanImg.TabIndex = 11;
+            recentScanImg.TabStop = false;
             // 
             // label2
             // 
@@ -566,43 +621,16 @@
             label2.Text = "Recently Scanned";
             label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel8
+            // scannedImage
             // 
-            panel8.Controls.Add(tableLayoutPanel3);
-            panel8.Dock = System.Windows.Forms.DockStyle.Right;
-            panel8.Location = new System.Drawing.Point(690, 4);
-            panel8.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            panel8.Name = "panel8";
-            panel8.Size = new System.Drawing.Size(260, 767);
-            panel8.TabIndex = 11;
-            // 
-            // tableLayoutPanel3
-            // 
-            tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
-            tableLayoutPanel3.ColumnCount = 1;
-            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel3.Controls.Add(recentScanImg, 0, 1);
-            tableLayoutPanel3.Controls.Add(label2, 0, 0);
-            tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            tableLayoutPanel3.Location = new System.Drawing.Point(0, 557);
-            tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
-            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.000008F));
-            tableLayoutPanel3.Size = new System.Drawing.Size(260, 210);
-            tableLayoutPanel3.TabIndex = 11;
-            // 
-            // recentScanImg
-            // 
-            recentScanImg.Dock = System.Windows.Forms.DockStyle.Fill;
-            recentScanImg.Location = new System.Drawing.Point(3, 41);
-            recentScanImg.Margin = new System.Windows.Forms.Padding(1);
-            recentScanImg.Name = "recentScanImg";
-            recentScanImg.Size = new System.Drawing.Size(254, 166);
-            recentScanImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            recentScanImg.TabIndex = 11;
-            recentScanImg.TabStop = false;
+            scannedImage.Dock = System.Windows.Forms.DockStyle.Fill;
+            scannedImage.Location = new System.Drawing.Point(3, 4);
+            scannedImage.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            scannedImage.Name = "scannedImage";
+            scannedImage.Size = new System.Drawing.Size(947, 560);
+            scannedImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            scannedImage.TabIndex = 6;
+            scannedImage.TabStop = false;
             // 
             // tabs
             // 
@@ -615,11 +643,12 @@
             tabs.SelectedIndex = 0;
             tabs.Size = new System.Drawing.Size(961, 813);
             tabs.TabIndex = 11;
+            tabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
             // 
             // scanningTab
             // 
+            scanningTab.Controls.Add(scannedImage);
             scanningTab.Controls.Add(panel1);
-            scanningTab.Controls.Add(panel8);
             scanningTab.Location = new System.Drawing.Point(4, 34);
             scanningTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             scanningTab.Name = "scanningTab";
@@ -631,7 +660,7 @@
             // 
             // invTab
             // 
-            invTab.Controls.Add(inventoryDisplay);
+            invTab.Controls.Add(invPanel);
             invTab.Controls.Add(tableLayoutPanel2);
             invTab.Location = new System.Drawing.Point(4, 34);
             invTab.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -642,45 +671,384 @@
             invTab.Text = "Inventory";
             invTab.UseVisualStyleBackColor = true;
             // 
-            // inventoryDisplay
+            // invPanel
             // 
-            inventoryDisplay.AutoScroll = true;
-            inventoryDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            inventoryDisplay.Location = new System.Drawing.Point(3, 4);
-            inventoryDisplay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            inventoryDisplay.Name = "inventoryDisplay";
-            inventoryDisplay.Size = new System.Drawing.Size(947, 672);
-            inventoryDisplay.TabIndex = 6;
+            invPanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            invPanel.ColumnCount = 5;
+            invPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            invPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            invPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            invPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            invPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            invPanel.Controls.Add(pictureBox20, 4, 3);
+            invPanel.Controls.Add(pictureBox19, 3, 3);
+            invPanel.Controls.Add(pictureBox18, 2, 3);
+            invPanel.Controls.Add(pictureBox17, 1, 3);
+            invPanel.Controls.Add(pictureBox16, 0, 3);
+            invPanel.Controls.Add(pictureBox15, 4, 2);
+            invPanel.Controls.Add(pictureBox14, 3, 2);
+            invPanel.Controls.Add(pictureBox13, 2, 2);
+            invPanel.Controls.Add(pictureBox12, 1, 2);
+            invPanel.Controls.Add(pictureBox11, 0, 2);
+            invPanel.Controls.Add(pictureBox10, 4, 1);
+            invPanel.Controls.Add(pictureBox9, 3, 1);
+            invPanel.Controls.Add(pictureBox8, 2, 1);
+            invPanel.Controls.Add(pictureBox7, 1, 1);
+            invPanel.Controls.Add(pictureBox6, 0, 1);
+            invPanel.Controls.Add(pictureBox5, 4, 0);
+            invPanel.Controls.Add(pictureBox4, 3, 0);
+            invPanel.Controls.Add(pictureBox3, 2, 0);
+            invPanel.Controls.Add(pictureBox2, 1, 0);
+            invPanel.Controls.Add(pictureBox1, 0, 0);
+            invPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            invPanel.Location = new System.Drawing.Point(3, 4);
+            invPanel.Margin = new System.Windows.Forms.Padding(0);
+            invPanel.Name = "invPanel";
+            invPanel.RowCount = 4;
+            invPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            invPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            invPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            invPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            invPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            invPanel.Size = new System.Drawing.Size(947, 721);
+            invPanel.TabIndex = 6;
+            // 
+            // pictureBox20
+            // 
+            pictureBox20.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox20.Location = new System.Drawing.Point(760, 544);
+            pictureBox20.Name = "pictureBox20";
+            pictureBox20.Size = new System.Drawing.Size(183, 173);
+            pictureBox20.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox20.TabIndex = 19;
+            pictureBox20.TabStop = false;
+            // 
+            // pictureBox19
+            // 
+            pictureBox19.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox19.Location = new System.Drawing.Point(571, 544);
+            pictureBox19.Name = "pictureBox19";
+            pictureBox19.Size = new System.Drawing.Size(182, 173);
+            pictureBox19.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox19.TabIndex = 18;
+            pictureBox19.TabStop = false;
+            // 
+            // pictureBox18
+            // 
+            pictureBox18.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox18.Location = new System.Drawing.Point(382, 544);
+            pictureBox18.Name = "pictureBox18";
+            pictureBox18.Size = new System.Drawing.Size(182, 173);
+            pictureBox18.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox18.TabIndex = 17;
+            pictureBox18.TabStop = false;
+            // 
+            // pictureBox17
+            // 
+            pictureBox17.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox17.Location = new System.Drawing.Point(193, 544);
+            pictureBox17.Name = "pictureBox17";
+            pictureBox17.Size = new System.Drawing.Size(182, 173);
+            pictureBox17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox17.TabIndex = 16;
+            pictureBox17.TabStop = false;
+            // 
+            // pictureBox16
+            // 
+            pictureBox16.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox16.Location = new System.Drawing.Point(4, 544);
+            pictureBox16.Name = "pictureBox16";
+            pictureBox16.Size = new System.Drawing.Size(182, 173);
+            pictureBox16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox16.TabIndex = 15;
+            pictureBox16.TabStop = false;
+            // 
+            // pictureBox15
+            // 
+            pictureBox15.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox15.Location = new System.Drawing.Point(760, 364);
+            pictureBox15.Name = "pictureBox15";
+            pictureBox15.Size = new System.Drawing.Size(183, 173);
+            pictureBox15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox15.TabIndex = 14;
+            pictureBox15.TabStop = false;
+            // 
+            // pictureBox14
+            // 
+            pictureBox14.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox14.Location = new System.Drawing.Point(571, 364);
+            pictureBox14.Name = "pictureBox14";
+            pictureBox14.Size = new System.Drawing.Size(182, 173);
+            pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox14.TabIndex = 13;
+            pictureBox14.TabStop = false;
+            // 
+            // pictureBox13
+            // 
+            pictureBox13.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox13.Location = new System.Drawing.Point(382, 364);
+            pictureBox13.Name = "pictureBox13";
+            pictureBox13.Size = new System.Drawing.Size(182, 173);
+            pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox13.TabIndex = 12;
+            pictureBox13.TabStop = false;
+            // 
+            // pictureBox12
+            // 
+            pictureBox12.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox12.Location = new System.Drawing.Point(193, 364);
+            pictureBox12.Name = "pictureBox12";
+            pictureBox12.Size = new System.Drawing.Size(182, 173);
+            pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox12.TabIndex = 11;
+            pictureBox12.TabStop = false;
+            // 
+            // pictureBox11
+            // 
+            pictureBox11.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox11.Location = new System.Drawing.Point(4, 364);
+            pictureBox11.Name = "pictureBox11";
+            pictureBox11.Size = new System.Drawing.Size(182, 173);
+            pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox11.TabIndex = 10;
+            pictureBox11.TabStop = false;
+            // 
+            // pictureBox10
+            // 
+            pictureBox10.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox10.Location = new System.Drawing.Point(760, 184);
+            pictureBox10.Name = "pictureBox10";
+            pictureBox10.Size = new System.Drawing.Size(183, 173);
+            pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox10.TabIndex = 9;
+            pictureBox10.TabStop = false;
+            // 
+            // pictureBox9
+            // 
+            pictureBox9.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox9.Location = new System.Drawing.Point(571, 184);
+            pictureBox9.Name = "pictureBox9";
+            pictureBox9.Size = new System.Drawing.Size(182, 173);
+            pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox9.TabIndex = 8;
+            pictureBox9.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            pictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox8.Location = new System.Drawing.Point(382, 184);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new System.Drawing.Size(182, 173);
+            pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox8.TabIndex = 7;
+            pictureBox8.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            pictureBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox7.Location = new System.Drawing.Point(193, 184);
+            pictureBox7.Name = "pictureBox7";
+            pictureBox7.Size = new System.Drawing.Size(182, 173);
+            pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox7.TabIndex = 6;
+            pictureBox7.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox6.Location = new System.Drawing.Point(4, 184);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new System.Drawing.Size(182, 173);
+            pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox6.TabIndex = 5;
+            pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox5.Location = new System.Drawing.Point(760, 4);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new System.Drawing.Size(183, 173);
+            pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox5.TabIndex = 4;
+            pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox4.Location = new System.Drawing.Point(571, 4);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new System.Drawing.Size(182, 173);
+            pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox4.TabIndex = 3;
+            pictureBox4.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox3.Location = new System.Drawing.Point(382, 4);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new System.Drawing.Size(182, 173);
+            pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox3.TabIndex = 2;
+            pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox2.Location = new System.Drawing.Point(193, 4);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new System.Drawing.Size(182, 173);
+            pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 1;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox1.Location = new System.Drawing.Point(4, 4);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(182, 173);
+            pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            tableLayoutPanel2.Controls.Add(importButton, 1, 0);
-            tableLayoutPanel2.Controls.Add(exportButton, 0, 0);
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel2.Controls.Add(flowLayoutPanel2, 2, 0);
+            tableLayoutPanel2.Controls.Add(flowLayoutPanel1, 0, 0);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            tableLayoutPanel2.Location = new System.Drawing.Point(3, 676);
-            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            tableLayoutPanel2.Location = new System.Drawing.Point(3, 725);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(947, 95);
-            tableLayoutPanel2.TabIndex = 5;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(947, 46);
+            tableLayoutPanel2.TabIndex = 0;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.AutoSize = true;
+            flowLayoutPanel2.Controls.Add(exportButton);
+            flowLayoutPanel2.Controls.Add(importButton);
+            flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
+            flowLayoutPanel2.Location = new System.Drawing.Point(708, 3);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new System.Drawing.Size(236, 40);
+            flowLayoutPanel2.TabIndex = 0;
+            flowLayoutPanel2.WrapContents = false;
+            // 
+            // exportButton
+            // 
+            exportButton.Location = new System.Drawing.Point(3, 3);
+            exportButton.Name = "exportButton";
+            exportButton.Size = new System.Drawing.Size(112, 34);
+            exportButton.TabIndex = 1;
+            exportButton.Text = "Export";
+            exportButton.UseVisualStyleBackColor = true;
+            exportButton.Click += ExportButton_Click;
             // 
             // importButton
             // 
-            importButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            importButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            importButton.Location = new System.Drawing.Point(474, 1);
-            importButton.Margin = new System.Windows.Forms.Padding(0);
+            importButton.Location = new System.Drawing.Point(121, 3);
             importButton.Name = "importButton";
-            importButton.Size = new System.Drawing.Size(472, 93);
-            importButton.TabIndex = 5;
+            importButton.Size = new System.Drawing.Size(112, 34);
+            importButton.TabIndex = 0;
             importButton.Text = "Import";
             importButton.UseVisualStyleBackColor = true;
             importButton.Click += ImportButton_Click;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel1.Controls.Add(label10);
+            flowLayoutPanel1.Controls.Add(goToNum);
+            flowLayoutPanel1.Controls.Add(goToPageButton);
+            flowLayoutPanel1.Controls.Add(panel8);
+            flowLayoutPanel1.Controls.Add(prevButton);
+            flowLayoutPanel1.Controls.Add(pageIndicator);
+            flowLayoutPanel1.Controls.Add(nextButton);
+            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(638, 42);
+            flowLayoutPanel1.TabIndex = 0;
+            flowLayoutPanel1.WrapContents = false;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new System.Drawing.Point(3, 0);
+            label10.Name = "label10";
+            label10.Padding = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            label10.Size = new System.Drawing.Size(79, 41);
+            label10.TabIndex = 3;
+            label10.Text = "Go To: ";
+            // 
+            // goToNum
+            // 
+            goToNum.Location = new System.Drawing.Point(88, 5);
+            goToNum.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            goToNum.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
+            goToNum.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            goToNum.Name = "goToNum";
+            goToNum.Size = new System.Drawing.Size(67, 31);
+            goToNum.TabIndex = 4;
+            goToNum.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // goToPageButton
+            // 
+            goToPageButton.Location = new System.Drawing.Point(161, 3);
+            goToPageButton.Name = "goToPageButton";
+            goToPageButton.Size = new System.Drawing.Size(50, 34);
+            goToPageButton.TabIndex = 0;
+            goToPageButton.Text = "Go";
+            goToPageButton.UseVisualStyleBackColor = true;
+            goToPageButton.Click += GoToPageButton_Click;
+            // 
+            // panel8
+            // 
+            panel8.Location = new System.Drawing.Point(217, 3);
+            panel8.Name = "panel8";
+            panel8.Size = new System.Drawing.Size(82, 36);
+            panel8.TabIndex = 5;
+            // 
+            // prevButton
+            // 
+            prevButton.AutoSize = true;
+            prevButton.Location = new System.Drawing.Point(305, 3);
+            prevButton.Name = "prevButton";
+            prevButton.Size = new System.Drawing.Size(112, 35);
+            prevButton.TabIndex = 0;
+            prevButton.Text = "< Prev";
+            prevButton.UseVisualStyleBackColor = true;
+            prevButton.Click += prevButton_Click;
+            // 
+            // pageIndicator
+            // 
+            pageIndicator.AutoSize = true;
+            pageIndicator.Location = new System.Drawing.Point(423, 0);
+            pageIndicator.Name = "pageIndicator";
+            pageIndicator.Padding = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            pageIndicator.Size = new System.Drawing.Size(94, 41);
+            pageIndicator.TabIndex = 2;
+            pageIndicator.Text = "Page 1/1";
+            // 
+            // nextButton
+            // 
+            nextButton.AutoSize = true;
+            nextButton.Location = new System.Drawing.Point(523, 3);
+            nextButton.Name = "nextButton";
+            nextButton.Size = new System.Drawing.Size(112, 35);
+            nextButton.TabIndex = 0;
+            nextButton.Text = "Next >";
+            nextButton.UseVisualStyleBackColor = true;
+            nextButton.Click += nextButton_Click;
             // 
             // optimizationTab
             // 
@@ -718,15 +1086,40 @@
             tableLayoutPanel1.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)scannedImage).EndInit();
-            panel8.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)recentScanImg).EndInit();
+            ((System.ComponentModel.ISupportInitialize)scannedImage).EndInit();
             tabs.ResumeLayout(false);
             scanningTab.ResumeLayout(false);
             invTab.ResumeLayout(false);
+            invPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox20).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox19).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox18).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox17).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox16).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox15).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox14).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            flowLayoutPanel2.ResumeLayout(false);
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)goToNum).EndInit();
             ResumeLayout(false);
 
         }
@@ -737,7 +1130,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button readButton;
-        private System.Windows.Forms.Button exportButton;
         private System.Windows.Forms.Button screenshotButton;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label4;
@@ -761,7 +1153,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.NumericUpDown stat4;
         private System.Windows.Forms.ComboBox statType4;
@@ -773,11 +1164,41 @@
         private System.Windows.Forms.TabPage scanningTab;
         private System.Windows.Forms.TabPage invTab;
         private System.Windows.Forms.TabPage optimizationTab;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.PictureBox recentScanImg;
-        private System.Windows.Forms.FlowLayoutPanel inventoryDisplay;
+        private System.Windows.Forms.TableLayoutPanel invPanel;
+        private System.Windows.Forms.Button prevButton;
+        private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Button goToPageButton;
         private System.Windows.Forms.Button importButton;
+        private System.Windows.Forms.Button exportButton;
+        private System.Windows.Forms.Label pageIndicator;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown goToNum;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox20;
+        private System.Windows.Forms.PictureBox pictureBox19;
+        private System.Windows.Forms.PictureBox pictureBox18;
+        private System.Windows.Forms.PictureBox pictureBox17;
+        private System.Windows.Forms.PictureBox pictureBox16;
+        private System.Windows.Forms.PictureBox pictureBox15;
+        private System.Windows.Forms.PictureBox pictureBox14;
+        private System.Windows.Forms.PictureBox pictureBox13;
+        private System.Windows.Forms.PictureBox pictureBox12;
+        private System.Windows.Forms.PictureBox pictureBox11;
+        private System.Windows.Forms.PictureBox pictureBox10;
+        private System.Windows.Forms.PictureBox pictureBox9;
     }
 }
 

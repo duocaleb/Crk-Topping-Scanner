@@ -26,14 +26,16 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 using Application = System.Windows.Forms.Application;
+using Button = System.Windows.Forms.Button;
 using ComboBox = System.Windows.Forms.ComboBox;
 using Font = System.Drawing.Font;
+using Image = System.Drawing.Image;
 
 
 namespace Crk_Topping_Scanner
 {
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
-    
+
 
     public partial class Scanner : Form
     {
@@ -47,8 +49,11 @@ namespace Crk_Topping_Scanner
         private readonly Bitmap[] bmpCollection = new Bitmap[5];
         private readonly JsonSerializerOptions jsonSerializer = new() { WriteIndented = true };
         private readonly JsonSerializerOptions jsonDeserializeOptions = new() { WriteIndented = true };
+        private int currentPage = 1;
+        private int maxPage = 1;
         public Scanner()
         {
+
             InitializeComponent();
             comboBoxes = [statType1, statType2, statType3, statType4];
             numericUpDowns = [stat1, stat2, stat3, stat4];
@@ -72,7 +77,7 @@ namespace Crk_Topping_Scanner
 
         private void ReadButton_Click(object sender, EventArgs e)
         {
-            ReadScreenshot(1, false);
+            ReadScreenshot(2, false);
         }
 
         private void AddItem_Click(object sender, EventArgs e)
@@ -93,7 +98,7 @@ namespace Crk_Topping_Scanner
             string filePath = Path.Combine(Application.StartupPath, "Crk-Exports\\" + "crkExport" + DateTime.Now.ToString("yyyyMMddhmmss") + ".json");
             File.WriteAllText(filePath, json);
         }
-    
+
         private void ImportButton_Click(object sender, EventArgs e)
         {
             String filePath = "";
@@ -511,7 +516,7 @@ namespace Crk_Topping_Scanner
                         Stat2 = statType2.Text,
                         Stat3 = statType3.Text
                     };
-                    AddItemToList(newTopping);
+                    itemList.Add(newTopping);
                     recentScanImg.Image?.Dispose();
                     recentScanImg.Image = BitmapTools.CreateGraphic(newTopping);
                 }
@@ -553,7 +558,7 @@ namespace Crk_Topping_Scanner
                         Stat4 = statType4.Text
                     };
                     recentScanImg.Image = BitmapTools.CreateGraphic(newBeascuit);
-                    AddItemToList(newBeascuit);
+                    itemList.Add(newBeascuit);
                 }
             }
         }
@@ -661,7 +666,7 @@ namespace Crk_Topping_Scanner
         {
             try
             {
-                inventoryDisplay.Controls.Clear();
+                //inventoryDisplay.Controls.Clear();
                 string json = File.ReadAllText(filePath);
 
                 List<Iitem> itemsImport = JsonSerializer.Deserialize<List<Iitem>>(json, jsonDeserializeOptions);
@@ -678,19 +683,20 @@ namespace Crk_Topping_Scanner
                     if (type == "Topping")
                     {
                         item = element.Deserialize<Topping>(jsonDeserializeOptions)!;
-                        AddItemToList((Topping)item);
+                        itemList.Add((Topping)item);
                     }
                     else if (type == "Beascuit")
                     {
                         item = element.Deserialize<Beascuit>(jsonDeserializeOptions)!;
-                        AddItemToList((Beascuit)item);
+                        itemList.Add((Beascuit)item);
                     }
                     else if (type == "Tart")
                     {
                         item = element.Deserialize<Beascuit>(jsonDeserializeOptions)!;
-                        // AddItemToList((Tart)item); Later
+                        itemList.Add((Tart)item);
                     }
                 }
+                SetInventoryPage(itemList, 1);
             }
             catch (Exception ex)
             {
@@ -698,26 +704,9 @@ namespace Crk_Topping_Scanner
             }
         }
 
-        private void UpdateInventory(Bitmap bitmap, Iitem item)
+        private void MakePictureBoxDeletable(PictureBox pb, Bitmap bitmap, Iitem item)
         {
-            Panel itemPanel = new()
-            {
-                Width = 183,
-                Height = 183,
-                BackColor = Color.Black
-            };
-
-            PictureBox pb = new()
-            {
-                BackColor = Color.White,
-                Image = bitmap,
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Width = 173,
-                Height = 173
-            };
-            pb.Left = (itemPanel.Width - pb.Width) / 2;
-            pb.Top = (itemPanel.Height - pb.Height) / 2;
-
+            pb.Image = bitmap;
             Label deleteLabel = new()
             {
                 Text = "X",
@@ -730,16 +719,13 @@ namespace Crk_Topping_Scanner
             };
             deleteLabel.Click += (s, e) =>
             {
-                bitmap.Dispose();
                 itemList.Remove(item);
-                inventoryDisplay.Controls.Remove(itemPanel);
-                itemPanel.Dispose();
+                SetInventoryPage(itemList, currentPage);
+                bitmap.Dispose();
             };
 
             pb.Controls.Add(deleteLabel);
             deleteLabel.BringToFront();
-            itemPanel.Controls.Add(pb);
-            inventoryDisplay.Controls.Add(itemPanel);
         }
 
         private void TakeScreenshot()
@@ -795,16 +781,80 @@ namespace Crk_Topping_Scanner
             bmpScreenshot?.Dispose();
         }
 
-        private void AddItemToList(Topping item)
+
+        private void SetInventoryPage(List<Iitem> itemList, int pagenum)
         {
-            itemList.Add(item);
-            UpdateInventory(BitmapTools.CreateGraphicCompact(item), item);
+
+            var sw = Stopwatch.StartNew();
+            maxPage = (int)Math.Ceiling(itemList.Count / 20.0);
+            goToNum.Maximum = maxPage;
+            goToNum.Minimum = 1;
+            int initialIndex = (pagenum - 1) * 20;
+            for (int i = 0; i < 20; i++)
+            {
+                PictureBox pb = (PictureBox)invPanel.GetControlFromPosition(i % 5, (int)Math.Floor(i / 5.0));
+                pb.Image?.Dispose();
+                pb.Image = null;
+                pb.Controls.Clear();
+            }
+
+            for (int i = initialIndex; i < Math.Min(initialIndex + 20, itemList.Count); i++)
+            {
+                Bitmap bitmap = new(1, 1);
+                Iitem item = itemList[i];
+                if (item.GetType() == typeof(Topping))
+                {
+                    bitmap = BitmapTools.CreateGraphicCompact((Topping)item);
+                }
+                else if (item.GetType() == typeof(Beascuit))
+                {
+                    bitmap = BitmapTools.CreateGraphicCompact((Beascuit)item);
+                }
+                MakePictureBoxDeletable((PictureBox)invPanel.GetControlFromPosition((i - initialIndex) % 5, (int)Math.Floor((i - initialIndex) / 5.0)), bitmap, item);
+            }
+            pageIndicator.Text = $"Page {currentPage}/{maxPage}";
         }
-      
-        private void AddItemToList(Beascuit item)
+
+        private void prevButton_Click(object sender, EventArgs e)
         {
-            itemList.Add(item);
-            UpdateInventory(BitmapTools.CreateGraphicCompact(item), item);
+            if (currentPage > 1)
+            {
+                currentPage--;
+                SetInventoryPage(itemList, currentPage);
+            }
+        }
+
+        private void nextButton_Click(object sender, EventArgs e)
+        {
+            if (currentPage < maxPage)
+            {
+                currentPage++;
+                SetInventoryPage(itemList, currentPage);
+            }
+        }
+
+        private void Tabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabs.SelectedIndex == 1)
+            {
+                SetInventoryPage(itemList, 1);
+            }
+        }
+
+        private void panel20_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel11_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void GoToPageButton_Click(object sender, EventArgs e)
+        {
+            currentPage = (int)goToNum.Value;
+            SetInventoryPage(itemList, currentPage);
         }
     }
 }

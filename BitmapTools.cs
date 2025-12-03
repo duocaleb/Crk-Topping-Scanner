@@ -82,14 +82,12 @@ namespace Crk_Topping_Scanner
             }
         }
         
-        internal static Bitmap AddTextToImage(Image image, string textToAdd, Font font, Brush brush, PointF location)
+        internal static void AddTextToImage(Image image, string textToAdd, Font font, Brush brush, PointF location)
         {
-            Bitmap originalImage = (Bitmap)image;
-            using (Graphics graphics = Graphics.FromImage(originalImage))
+            using (Graphics graphics = Graphics.FromImage(image))
             {
                 graphics.DrawString(textToAdd, font, brush, location);
             }
-            return originalImage;
         }
 
         internal static Bitmap AddPadding(Bitmap bmp, int padding, Color color)
@@ -115,11 +113,11 @@ namespace Crk_Topping_Scanner
             using (Font font2 = new(cookieRunFont, 70, FontStyle.Bold, GraphicsUnit.Pixel))
             using (Font font3 = new(cookieRunFont, 42, FontStyle.Bold, GraphicsUnit.Pixel))
             using (SolidBrush brush = new(Color.Black)) {
-                image = AddTextToImage(image, topping.ResonantType, font1, brush, new PointF(290, 52));
-                image = AddTextToImage(image, topping.ToppingType, font2, brush, new PointF(290, 109));
-                image = AddTextToImage(image, topping.Stat1 + ": " + topping.Stat1Value + "%", font3, brush, new PointF(290, 215));
-                image = AddTextToImage(image, topping.Stat2 + ": " + topping.Stat2Value + "%", font3, brush, new PointF(290, 265));
-                image = AddTextToImage(image, topping.Stat3 + ": " + topping.Stat3Value + "%", font3, brush, new PointF(290, 315));
+                AddTextToImage(image, topping.ResonantType, font1, brush, new PointF(290, 52));
+                AddTextToImage(image, topping.ToppingType, font2, brush, new PointF(290, 109));
+                AddTextToImage(image, topping.Stat1 + ": " + topping.Stat1Value + "%", font3, brush, new PointF(290, 215));
+                AddTextToImage(image, topping.Stat2 + ": " + topping.Stat2Value + "%", font3, brush, new PointF(290, 265));
+                AddTextToImage(image, topping.Stat3 + ": " + topping.Stat3Value + "%", font3, brush, new PointF(290, 315));
             }
             toppingGraphic.Dispose();
 
@@ -143,12 +141,12 @@ namespace Crk_Topping_Scanner
             using (Font font3 = new(cookieRunFont, 37, FontStyle.Bold, GraphicsUnit.Pixel))
             using (SolidBrush brush = new(Color.Black))
             {
-                image = AddTextToImage(image, (beascuit.Tainted ? "Tainted " : "") + beascuit.ResonantType, font1, brush, new PointF(267, 60));
-                image = AddTextToImage(image, beascuit.BeascuitType + " Beascuit", font2, brush, new PointF(267, 104));
-                image = AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", font3, brush, new PointF(267, 180));
-                image = AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", font3, brush, new PointF(267, 220));
-                image = AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", font3, brush, new PointF(267, 260));
-                image = AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", font3, brush, new PointF(267, 300));
+                AddTextToImage(image, (beascuit.Tainted ? "Tainted " : "") + beascuit.ResonantType, font1, brush, new PointF(267, 60));
+                AddTextToImage(image, beascuit.BeascuitType + " Beascuit", font2, brush, new PointF(267, 104));
+                AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", font3, brush, new PointF(267, 180));
+                AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", font3, brush, new PointF(267, 220));
+                AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", font3, brush, new PointF(267, 260));
+                AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", font3, brush, new PointF(267, 300));
             }
 
             beascuitGraphic.Dispose();
@@ -156,28 +154,23 @@ namespace Crk_Topping_Scanner
             return image;
         }
 
-        internal static Bitmap CreateGraphicCompact(Topping topping)
-        {
-            Bitmap image = new(400, 400, PixelFormat.Format32bppArgb);
-            Bitmap toppingGraphic = (Bitmap)Image.FromFile(
-                Path.Combine(Application.StartupPath, "graphics/" + topping.ToppingType.Replace(" ", "").ToLower() + topping.ResonantType.Replace(" ", "").ToLower() + "_topping.png"));
-
-            Graphics g = Graphics.FromImage(image);
+        internal static Bitmap CreateGraphicCompact(Topping topping) { 
+            Bitmap image = new(400, 400, PixelFormat.Format32bppArgb); 
+            Bitmap toppingGraphic = (Bitmap)Image.FromFile(Path.Combine(Application.StartupPath, "graphics/" + topping.ToppingType.Replace(" ", "").ToLower() + topping.ResonantType.Replace(" ", "").ToLower() + "_topping.png"));
+            Graphics g = Graphics.FromImage(image); 
+            
             g.Clear(Color.White);
             g.DrawImage(toppingGraphic, (image.Width - toppingGraphic.Width) / 2, 25, (int)(toppingGraphic.Width * 1.1), (int)(toppingGraphic.Height * 1.1));
-            g.Dispose();
-
+            g.Dispose(); 
             using (Font font = new(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel))
-            using (SolidBrush brush = new(Color.Black))
-            {
-                image = AddTextToImage(image, topping.Stat1 + ": " + topping.Stat1Value + "%", font, brush, new PointF(image.Width / 2 - (topping.Stat1 + ": " + topping.Stat1Value + "%").Length * 9, 265));
-                image = AddTextToImage(image, topping.Stat2 + ": " + topping.Stat2Value + "%", font, brush, new PointF(image.Width / 2 - (topping.Stat2 + ": " + topping.Stat2Value + "%").Length * 9, 305));
-                image = AddTextToImage(image, topping.Stat3 + ": " + topping.Stat3Value + "%", font, brush, new PointF(image.Width / 2 - (topping.Stat3 + ": " + topping.Stat3Value + "%").Length * 9, 345));
+            using (SolidBrush brush = new(Color.Black)) { 
+                AddTextToImage(image, topping.Stat1 + ": " + topping.Stat1Value + "%", font, brush, new PointF(image.Width / 2 - (topping.Stat1 + ": " + topping.Stat1Value + "%").Length * 9, 265));
+                AddTextToImage(image, topping.Stat2 + ": " + topping.Stat2Value + "%", font, brush, new PointF(image.Width / 2 - (topping.Stat2 + ": " + topping.Stat2Value + "%").Length * 9, 305));
+                AddTextToImage(image, topping.Stat3 + ": " + topping.Stat3Value + "%", font, brush, new PointF(image.Width / 2 - (topping.Stat3 + ": " + topping.Stat3Value + "%").Length * 9, 345)); 
             }
-
-            toppingGraphic.Dispose();
-
-            return image;
+            
+            toppingGraphic.Dispose(); 
+            return image; 
         }
 
         internal static Bitmap CreateGraphicCompact(Beascuit beascuit)
@@ -194,10 +187,10 @@ namespace Crk_Topping_Scanner
             using (Font font = new(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel))
             using (SolidBrush brush = new(Color.Black))
             {
-                image = AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat1 + ": " + beascuit.Stat1Value + "%").Length * 9, 225));
-                image = AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat2 + ": " + beascuit.Stat2Value + "%").Length * 9, 265));
-                image = AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat3 + ": " + beascuit.Stat3Value + "%").Length * 9, 305));
-                image = AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat4 + ": " + beascuit.Stat4Value + "%").Length * 9, 345));
+                AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat1 + ": " + beascuit.Stat1Value + "%").Length * 9, 225));
+                AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat2 + ": " + beascuit.Stat2Value + "%").Length * 9, 265));
+                AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat3 + ": " + beascuit.Stat3Value + "%").Length * 9, 305));
+                AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat4 + ": " + beascuit.Stat4Value + "%").Length * 9, 345));
             }
 
             toppingGraphic.Dispose();
