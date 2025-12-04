@@ -183,8 +183,9 @@ namespace Crk_Topping_Scanner
             Graphics g = Graphics.FromImage(image); 
             
             g.Clear(Color.White);
-            g.DrawImage(toppingGraphic, (image.Width - toppingGraphic.Width) / 2, 25, (int)(toppingGraphic.Width * 1.1), (int)(toppingGraphic.Height * 1.1));
+            g.DrawImage(toppingGraphic, (image.Width - toppingGraphic.Width) / 2, 15, (int)(toppingGraphic.Width * 1.1), (int)(toppingGraphic.Height * 1.1));
             g.Dispose(); 
+
             using (Font font = new(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel))
             using (SolidBrush brush = new(Color.Black)) { 
                 AddTextToImage(image, topping.Stat1 + ": " + topping.Stat1Value + "%", font, brush, new PointF(image.Width / 2 - (topping.Stat1 + ": " + topping.Stat1Value + "%").Length * 9, 265));

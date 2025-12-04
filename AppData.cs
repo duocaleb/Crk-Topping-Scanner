@@ -30,7 +30,8 @@ namespace Crk_Topping_Scanner
             {"Peanut", "HP"},
             {"Hazelnut", "CRIT Resist"},
             {"Candy", "Amplify Buff"},
-            {"Kiwi", "Debuff Resist"}
+            {"Kiwi", "Debuff Resist"},
+            {"", ""}
         };
 
         public static readonly Dictionary<string, string> BeascuitResToMain = new()

@@ -23,9 +23,11 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using Tesseract;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 using Application = System.Windows.Forms.Application;
+using Boolean = System.Boolean;
 using Button = System.Windows.Forms.Button;
 using ComboBox = System.Windows.Forms.ComboBox;
 using Font = System.Drawing.Font;
@@ -89,7 +91,7 @@ namespace Crk_Topping_Scanner
         private void AutoScanButton_Click(object sender, EventArgs e)
         {
             TakeScreenshot();
-            ReadScreenshot(1, false);
+            ReadScreenshot(2, false);
             AddItem();
         }
 
@@ -437,7 +439,7 @@ namespace Crk_Topping_Scanner
 
         private void ToppingType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (itemSelector.Text == "Tarts" && toppingType.Text != "")
+            if (itemSelector.Text == "Tarts")
             {
                 statType1.SelectedItem = AppData.TypeToMain[toppingType.Text];
             }
@@ -591,17 +593,15 @@ namespace Crk_Topping_Scanner
 
         private void ReadScreenshot(int upScale, Boolean overrideCatch)
         {
-            for (int i = 0; i < comboBoxes.Count; i++)
+            try
             {
-                comboBoxes[i].SelectedItem = "";
-            }
-            if (itemSelector.Text == "Toppings")
-            {
-                double[] statValues = [0, 0, 0];
-
-
-                try
+                for (int i = 0; i < comboBoxes.Count; i++)
                 {
+                    comboBoxes[i].SelectedItem = "";
+                }
+                if (itemSelector.Text == "Toppings")
+                {
+                    double[] statValues = [0, 0, 0];
                     using (var pix = PixConverter.ToPix(bmpCollection[0]))
                     using (var page = engine.Process(pix, PageSegMode.SingleLine))
                     {
@@ -623,7 +623,6 @@ namespace Crk_Topping_Scanner
                     }
                     for (int i = 1; i < 4; i++)
                     {
-                        // scannedImage.Image = bmpCollection[i];
                         using (var scaledBitmap = new Bitmap(bmpCollection[i], bmpCollection[i].Width * upScale, bmpCollection[i].Height * upScale))
                         using (var pix = PixConverter.ToPix(scaledBitmap))
                         using (var page = engine.Process(pix, PageSegMode.SingleLine))
@@ -643,31 +642,57 @@ namespace Crk_Topping_Scanner
                         }
                     }
                 }
-                catch (Exception error)
+                else if (itemSelector.Text == "Beascuits")
                 {
-                    if (upScale < 10)
+                    // Future Implementation
+                }
+                else if (itemSelector.Text == "Tarts")
+                {
+                    double statValues = 0;
+                    using (var pix = PixConverter.ToPix(bmpCollection[0]))
+                    using (var page = engine.Process(pix, PageSegMode.SingleLine))
                     {
-                        ReadScreenshot(upScale + 1, overrideCatch); // "are you sureeeeee you cant read it?"
+                        var text = page.GetText();
+                        foreach (var topType in toppingType.Items)
+                        {
+                            if (topType.ToString() != "" && text.Contains(topType.ToString()))
+                            {
+                                toppingType.SelectedItem = topType.ToString();    
+                            }
+                            
+                        }
                     }
-                    else if (!overrideCatch)
+                    statType1.SelectedItem = AppData.TypeToMain[toppingType.Text];
+                    using (var scaledBitmap = new Bitmap(bmpCollection[1], bmpCollection[1].Width * upScale, bmpCollection[1].Height * upScale))
+                    using (var pix = PixConverter.ToPix(scaledBitmap))
+                    using (var page = engine.Process(pix, PageSegMode.SingleLine))
                     {
-                        MessageBox.Show(
-                            "Scanner Error. Please ensure that CookieRun: Kingdom is full screen and the scanner does not cover the topping. \n Error code: " + error.ToString(),
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error
-                        );
+
+                        var text = page.GetText();
+                        int lastSpace = text.LastIndexOf(' ');
+                        double statValue = double.Parse(text[(lastSpace + 1)..].Replace("%", ""));
+                        statValues = statValue;
                     }
+                    numericUpDowns[0].Value = (decimal)statValues;
 
                 }
             }
-            else if (itemSelector.Text == "Beascuits")
+            catch (Exception error)
             {
-                // Future Implementation
-            }
-            else if (itemSelector.Text == "Tarts")
-            {
-                // Future Implementation
+                if (upScale < 10)
+                {
+                    ReadScreenshot(upScale + 2, overrideCatch); // "are you sureeeeee you cant read it?"
+                }
+                else if (!overrideCatch)
+                {
+                    MessageBox.Show(
+                        "Scanner Error. Please ensure that CookieRun: Kingdom is full screen and the scanner does not cover the item. \n Error code: " + error.ToString(),
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+
             }
         }
 
@@ -773,11 +798,9 @@ namespace Crk_Topping_Scanner
                 {
                     bmpCollection[i]?.Dispose();
                     Bitmap bmpDisposable = new(width, hieght);
-                    using (Graphics g = Graphics.FromImage(bmpDisposable))
-                    {
-                        g.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(startCollection[i] * scanRoot.Value.Item2), 0, 0, new Size(width, hieght), CopyPixelOperation.SourceCopy);
-
-                    }
+                    using Graphics g1 = Graphics.FromImage(bmpDisposable);
+                    g1.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(startCollection[i] * scanRoot.Value.Item2), 0, 0, new Size(width, hieght), CopyPixelOperation.SourceCopy);
+                    
                     using Bitmap preProcImage = BitmapTools.PreprocImage(bmpDisposable);
                     using Bitmap tempImage = BitmapTools.AddPadding(preProcImage, 30, Color.White);
                     bmpDisposable?.Dispose();
@@ -785,10 +808,8 @@ namespace Crk_Topping_Scanner
                 }
 
                 bmpScreenshot = new Bitmap(width, disHieght);
-                using (Graphics g = Graphics.FromImage(bmpScreenshot))
-                {
-                    g.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(0.262 * scanRoot.Value.Item2), 0, 0, new Size(width, disHieght), CopyPixelOperation.SourceCopy);
-                }
+                using Graphics g2 = Graphics.FromImage(bmpScreenshot);
+                g2.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(0.262 * scanRoot.Value.Item2), 0, 0, new Size(width, disHieght), CopyPixelOperation.SourceCopy);
 
             }
             else if (itemSelector.Text == "Beascuits")
@@ -797,7 +818,29 @@ namespace Crk_Topping_Scanner
             }
             else if (itemSelector.Text == "Tarts")
             {
-                // For future
+                int width = (int)(0.392 * scanRoot.Value.Item1);
+                int disHieght = (int)(0.414 * scanRoot.Value.Item2);
+                int hieght = (int)(0.05 * scanRoot.Value.Item2);
+                double[] startCollection = [0.54, 0.615];
+
+                for (int i = 0; i < startCollection.Length; i++)
+                {
+                    bmpCollection[i]?.Dispose();
+                    Bitmap bmpDisposable = new(width, hieght);
+                    using Graphics g1 = Graphics.FromImage(bmpDisposable);
+                    g1.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(startCollection[i] * scanRoot.Value.Item2), 0, 0, new Size(width, hieght), CopyPixelOperation.SourceCopy);
+
+                    using Bitmap preProcImage = BitmapTools.PreprocImage(bmpDisposable);
+                    using Bitmap tempImage = BitmapTools.AddPadding(preProcImage, 30, Color.White);
+                    bmpDisposable?.Dispose();
+                    bmpCollection[i] = (Bitmap)tempImage.Clone();
+                }
+
+                bmpScreenshot = new Bitmap(width, disHieght);
+                using Graphics g2 = Graphics.FromImage(bmpScreenshot);
+                g2.CopyFromScreen((int)(0.063 * scanRoot.Value.Item1), (int)(0.265 * scanRoot.Value.Item2), 0, 0, new Size(width, disHieght), CopyPixelOperation.SourceCopy);
+            
+                
             }
 
             scannedImage.Image?.Dispose();
