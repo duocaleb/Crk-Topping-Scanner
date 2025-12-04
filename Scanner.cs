@@ -51,6 +51,7 @@ namespace Crk_Topping_Scanner
         private readonly JsonSerializerOptions jsonDeserializeOptions = new() { WriteIndented = true };
         private int currentPage = 1;
         private int maxPage = 1;
+        private Iitem invType = new Topping();
         public Scanner()
         {
 
@@ -62,7 +63,7 @@ namespace Crk_Topping_Scanner
             {
                 bmpCollection[i] = new Bitmap(1, 1);
             }
-
+            invViewerSelector.SelectedItem = "Toppings";
             itemSelector.SelectedItem = "Toppings";
             foreach (ComboBox combo in comboBoxes)
             {
@@ -323,6 +324,7 @@ namespace Crk_Topping_Scanner
             if (itemSelector.Text == "Toppings")
             {
                 resonantType.Enabled = true;
+                statType1.Enabled = true;
                 RefreshComboBoxManually(resonantType, [.. AppData.ToppingRes]);
                 RefreshComboBoxManually(toppingType, [.. AppData.ToppingTypes]);
                 label1.Text = "Topping Type";
@@ -357,6 +359,7 @@ namespace Crk_Topping_Scanner
             else if (itemSelector.Text == "Beascuits")
             {
                 resonantType.Enabled = true;
+                statType1.Enabled = true;
                 RefreshComboBoxManually(resonantType, [.. AppData.BeascuitRes]);
                 RefreshComboBoxManually(toppingType, [.. AppData.BeascuitTypes]);
                 label1.Text = "Beascuit Type";
@@ -399,6 +402,7 @@ namespace Crk_Topping_Scanner
             {
                 resonantType.SelectedItem = "";
                 resonantType.Enabled = false;
+                statType1.Enabled = false;
                 RefreshComboBoxManually(toppingType, [.. AppData.ToppingTypes]);
                 label1.Text = "Tart Type";
                 subStatLimits = new Dictionary<string, (double, double)>()
@@ -561,6 +565,28 @@ namespace Crk_Topping_Scanner
                     itemList.Add(newBeascuit);
                 }
             }
+            else if (itemSelector.Text == "Tarts")
+            {
+                if (toppingType.Text == "")
+                {
+                    MessageBox.Show(
+                        "Missing tart type.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
+                Tart newTart = new()
+                {
+                    TartType = toppingType.Text,
+                    StatValue = double.Parse(stat1.Text),
+                    Stat = statType1.Text,
+                };
+                itemList.Add(newTart);
+                recentScanImg.Image?.Dispose();
+                recentScanImg.Image = BitmapTools.CreateGraphic(newTart);
+
+            }
         }
 
         private void ReadScreenshot(int upScale, Boolean overrideCatch)
@@ -666,9 +692,7 @@ namespace Crk_Topping_Scanner
         {
             try
             {
-                //inventoryDisplay.Controls.Clear();
                 string json = File.ReadAllText(filePath);
-
                 List<Iitem> itemsImport = JsonSerializer.Deserialize<List<Iitem>>(json, jsonDeserializeOptions);
 
                 JsonElement root = JsonSerializer.Deserialize<JsonElement>(json);
@@ -692,7 +716,7 @@ namespace Crk_Topping_Scanner
                     }
                     else if (type == "Tart")
                     {
-                        item = element.Deserialize<Beascuit>(jsonDeserializeOptions)!;
+                        item = element.Deserialize<Tart>(jsonDeserializeOptions)!;
                         itemList.Add((Tart)item);
                     }
                 }
@@ -784,9 +808,25 @@ namespace Crk_Topping_Scanner
 
         private void SetInventoryPage(List<Iitem> itemList, int pagenum)
         {
+            // Someone please tell me if theres a better way of doing this cause I couldnt find one
+            List<Iitem> filteredItemList = new();
+            if (invType.GetType() == typeof(Topping)) {
+                filteredItemList = itemList
+                    .Where(item => item.GetType() == typeof(Topping))
+                    .ToList();
+            }
+            else if (invType.GetType() == typeof(Beascuit)) {
+                filteredItemList = itemList
+                    .Where(item => item.GetType() == typeof(Beascuit))
+                    .ToList();
+            }
+            else if (invType.GetType() == typeof(Tart)) {
+                filteredItemList = itemList
+                    .Where(item => item.GetType() == typeof(Tart))
+                    .ToList();
+            }
 
-            var sw = Stopwatch.StartNew();
-            maxPage = (int)Math.Ceiling(itemList.Count / 20.0);
+            maxPage = Math.Max((int)Math.Ceiling(filteredItemList.Count / 20.0), 1);
             goToNum.Maximum = maxPage;
             goToNum.Minimum = 1;
             int initialIndex = (pagenum - 1) * 20;
@@ -798,10 +838,10 @@ namespace Crk_Topping_Scanner
                 pb.Controls.Clear();
             }
 
-            for (int i = initialIndex; i < Math.Min(initialIndex + 20, itemList.Count); i++)
+            for (int i = initialIndex; i < Math.Min(initialIndex + 20, filteredItemList.Count); i++)
             {
                 Bitmap bitmap = new(1, 1);
-                Iitem item = itemList[i];
+                Iitem item = filteredItemList[i];
                 if (item.GetType() == typeof(Topping))
                 {
                     bitmap = BitmapTools.CreateGraphicCompact((Topping)item);
@@ -810,12 +850,16 @@ namespace Crk_Topping_Scanner
                 {
                     bitmap = BitmapTools.CreateGraphicCompact((Beascuit)item);
                 }
+                else if (item.GetType() == typeof(Tart))
+                {
+                    bitmap = BitmapTools.CreateGraphicCompact((Tart)item);
+                }
                 MakePictureBoxDeletable((PictureBox)invPanel.GetControlFromPosition((i - initialIndex) % 5, (int)Math.Floor((i - initialIndex) / 5.0)), bitmap, item);
             }
             pageIndicator.Text = $"Page {currentPage}/{maxPage}";
         }
 
-        private void prevButton_Click(object sender, EventArgs e)
+        private void PrevButton_Click(object sender, EventArgs e)
         {
             if (currentPage > 1)
             {
@@ -824,7 +868,7 @@ namespace Crk_Topping_Scanner
             }
         }
 
-        private void nextButton_Click(object sender, EventArgs e)
+        private void NextButton_Click(object sender, EventArgs e)
         {
             if (currentPage < maxPage)
             {
@@ -841,20 +885,27 @@ namespace Crk_Topping_Scanner
             }
         }
 
-        private void panel20_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel11_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void GoToPageButton_Click(object sender, EventArgs e)
         {
             currentPage = (int)goToNum.Value;
             SetInventoryPage(itemList, currentPage);
+        }
+
+        private void InvViewerSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (invViewerSelector.Text == "Toppings")
+            {
+                invType = new Topping();
+            }
+            else if (invViewerSelector.Text == "Beascuits")
+            {
+                invType = new Beascuit();
+            }
+            else if (invViewerSelector.Text == "Tarts")
+            {
+                invType = new Tart();
+            }
+            SetInventoryPage(itemList, 1);
         }
     }
 }

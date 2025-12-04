@@ -133,7 +133,7 @@ namespace Crk_Topping_Scanner
 
             Graphics g = Graphics.FromImage(image);
             g.Clear(Color.White);
-            g.DrawImageUnscaled(beascuitGraphic, 10, 70, beascuitGraphic.Width, beascuitGraphic.Height);
+            g.DrawImage(beascuitGraphic, (int)(267 - beascuitGraphic.Width * 1.6) - 4, (int)(432 - beascuitGraphic.Height * 1.6)/2, (int)(beascuitGraphic.Width*1.6), (int)(beascuitGraphic.Height*1.6));
             g.Dispose();
 
             using (Font font1 = new(cookieRunFont, 45, FontStyle.Bold, GraphicsUnit.Pixel))
@@ -141,15 +141,38 @@ namespace Crk_Topping_Scanner
             using (Font font3 = new(cookieRunFont, 37, FontStyle.Bold, GraphicsUnit.Pixel))
             using (SolidBrush brush = new(Color.Black))
             {
-                AddTextToImage(image, (beascuit.Tainted ? "Tainted " : "") + beascuit.ResonantType, font1, brush, new PointF(267, 60));
-                AddTextToImage(image, beascuit.BeascuitType + " Beascuit", font2, brush, new PointF(267, 104));
-                AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", font3, brush, new PointF(267, 180));
-                AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", font3, brush, new PointF(267, 220));
-                AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", font3, brush, new PointF(267, 260));
-                AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", font3, brush, new PointF(267, 300));
+                AddTextToImage(image, (beascuit.Tainted ? "Tainted " : "") + beascuit.ResonantType, font1, brush, new PointF(275, 60));
+                AddTextToImage(image, beascuit.BeascuitType + " Beascuit", font2, brush, new PointF(275, 104));
+                AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", font3, brush, new PointF(275, 180));
+                AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", font3, brush, new PointF(275, 220));
+                AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", font3, brush, new PointF(275, 260));
+                AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", font3, brush, new PointF(275, 300));
             }
 
             beascuitGraphic.Dispose();
+
+            return image;
+        }
+        internal static Bitmap CreateGraphic(Tart tart)
+        {
+            Bitmap image = new(768, 432);
+            Bitmap tartGraphic = (Bitmap)Image.FromFile(
+                Path.Combine(Application.StartupPath, "graphics/" + tart.TartType.ToLower().Replace(" ", "") + "_tart.png"));
+
+            Graphics g = Graphics.FromImage(image);
+            g.Clear(Color.White);
+            g.DrawImage(tartGraphic, (int)(768 - tartGraphic.Width * 1.2)/15, (int)(432 - tartGraphic.Height * 1.2)/2, (int)(tartGraphic.Width * 1.2), (int)(tartGraphic.Height * 1.2));
+            g.Dispose();
+
+            using (Font font2 = new(cookieRunFont, 65, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (Font font3 = new(cookieRunFont, 40, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (SolidBrush brush = new(Color.Black))
+            {
+                AddTextToImage(image, tart.TartType, font2, brush, new PointF(380, 150));
+                AddTextToImage(image, tart.Stat + ": " + tart.StatValue + "%", font3, brush, new PointF(380, 230));
+            }
+
+            tartGraphic.Dispose();
 
             return image;
         }
@@ -184,16 +207,37 @@ namespace Crk_Topping_Scanner
             g.DrawImage(toppingGraphic, image.Width / 2 - (int)(toppingGraphic.Width * 1.4) / 2, 15, (int)(toppingGraphic.Width * 1.4), (int)(toppingGraphic.Height * 1.4));
             g.Dispose();
 
-            using (Font font = new(cookieRunFont, 34, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (Font font = new(cookieRunFont, 32, FontStyle.Bold, GraphicsUnit.Pixel))
             using (SolidBrush brush = new(Color.Black))
             {
-                AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat1 + ": " + beascuit.Stat1Value + "%").Length * 9, 225));
-                AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat2 + ": " + beascuit.Stat2Value + "%").Length * 9, 265));
-                AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat3 + ": " + beascuit.Stat3Value + "%").Length * 9, 305));
-                AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", font, brush, new PointF(image.Width / 2 - (beascuit.Stat4 + ": " + beascuit.Stat4Value + "%").Length * 9, 345));
+                AddTextToImage(image, beascuit.Stat1 + ": " + beascuit.Stat1Value + "%", font, brush, new PointF((int)(image.Width / 2 - (beascuit.Stat1 + ": " + beascuit.Stat1Value + "%").Length * 8.5), 225));
+                AddTextToImage(image, beascuit.Stat2 + ": " + beascuit.Stat2Value + "%", font, brush, new PointF((int)(image.Width / 2 - (beascuit.Stat2 + ": " + beascuit.Stat2Value + "%").Length * 8.5), 265));
+                AddTextToImage(image, beascuit.Stat3 + ": " + beascuit.Stat3Value + "%", font, brush, new PointF((int)(image.Width / 2 - (beascuit.Stat3 + ": " + beascuit.Stat3Value + "%").Length * 8.5), 305));
+                AddTextToImage(image, beascuit.Stat4 + ": " + beascuit.Stat4Value + "%", font, brush, new PointF((int)(image.Width / 2 - (beascuit.Stat4 + ": " + beascuit.Stat4Value + "%").Length * 8.5), 345));
             }
 
             toppingGraphic.Dispose();
+
+            return image;
+        }
+        internal static Bitmap CreateGraphicCompact(Tart tart)
+        {
+            Bitmap image = new(400, 400, PixelFormat.Format32bppArgb);
+            Bitmap tartGraphic = (Bitmap)Image.FromFile(
+            Path.Combine(Application.StartupPath, "graphics/" + tart.TartType.ToLower().Replace(" ", "") + "_tart.png"));
+
+            Graphics g = Graphics.FromImage(image);
+            g.Clear(Color.White);
+            g.DrawImage(tartGraphic, image.Width / 2 - (int)(tartGraphic.Width*1.1) / 2, 15, (int)(tartGraphic.Width*1.1), (int)(tartGraphic.Height*1.1));
+            g.Dispose();
+
+            using (Font font = new(cookieRunFont, 38, FontStyle.Bold, GraphicsUnit.Pixel))
+            using (SolidBrush brush = new(Color.Black))
+            {
+                AddTextToImage(image, tart.Stat + ": " + tart.StatValue + "%", font, brush, new PointF((int)(image.Width / 2 - (tart.Stat + ": " + tart.StatValue + "%").Length * 10.2), 330));
+            }
+
+            tartGraphic.Dispose();
 
             return image;
         }

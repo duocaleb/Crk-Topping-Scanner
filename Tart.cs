@@ -9,6 +9,7 @@ namespace Crk_Topping_Scanner
     internal class Tart : Iitem
     {
         public string TartType { get; set; }
-        public string StatValue { get; set; }
+        public string Stat { get; set; }
+        public double StatValue { get; set; }
     }
 }

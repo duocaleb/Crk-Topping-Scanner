@@ -11,6 +11,7 @@ namespace Crk_Topping_Scanner
     [JsonPolymorphic(TypeDiscriminatorPropertyName = "ItemType")]
     [JsonDerivedType(typeof(Topping), "Topping")]
     [JsonDerivedType(typeof(Beascuit), "Beascuit")]
+    [JsonDerivedType(typeof(Tart), "Tart")]
     internal interface Iitem
     {
     }

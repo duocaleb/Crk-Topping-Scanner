@@ -57,6 +57,7 @@
     <None Remove="graphics\almondtropicalrock_topping.png" />
     <None Remove="graphics\almondtropical_topping.png" />
     <None Remove="graphics\almondtruthful_topping.png" />
+    <None Remove="graphics\almond_tart.png" />
     <None Remove="graphics\almond_topping.png" />
     <None Remove="graphics\applejellyblooming_topping.png" />
     <None Remove="graphics\applejellydeceitful_topping.png" />
@@ -82,11 +83,13 @@
     <None Remove="graphics\applejellytropicalrock_topping.png" />
     <None Remove="graphics\applejellytropical_topping.png" />
     <None Remove="graphics\applejellytruthful_topping.png" />
+    <None Remove="graphics\applejelly_tart.png" />
     <None Remove="graphics\applejelly_topping.png" />
     <None Remove="graphics\candyblooming_topping.png" />
     <None Remove="graphics\candydestined_topping.png" />
     <None Remove="graphics\candygambit_topping.png" />
     <None Remove="graphics\candysilent_topping.png" />
+    <None Remove="graphics\candy_tart.png" />
     <None Remove="graphics\candy_topping.png" />
     <None Remove="graphics\caramelblooming_topping.png" />
     <None Remove="graphics\carameldeceitful_topping.png" />
@@ -112,6 +115,7 @@
     <None Remove="graphics\carameltropicalrock_topping.png" />
     <None Remove="graphics\carameltropical_topping.png" />
     <None Remove="graphics\carameltruthful_topping.png" />
+    <None Remove="graphics\caramel_tart.png" />
     <None Remove="graphics\caramel_topping.png" />
     <None Remove="graphics\chocolateblooming_topping.png" />
     <None Remove="graphics\chocolatedeceitful_topping.png" />
@@ -137,21 +141,25 @@
     <None Remove="graphics\chocolatetropicalrock_topping.png" />
     <None Remove="graphics\chocolatetropical_topping.png" />
     <None Remove="graphics\chocolatetruthful_topping.png" />
+    <None Remove="graphics\chocolate_tart.png" />
     <None Remove="graphics\chocolate_topping.png" />
     <None Remove="graphics\hazelnutblooming_topping.png" />
     <None Remove="graphics\hazelnutdestined_topping.png" />
     <None Remove="graphics\hazelnutgambit_topping.png" />
     <None Remove="graphics\hazelnutsilent_topping.png" />
+    <None Remove="graphics\hazelnut_tart.png" />
     <None Remove="graphics\hazelnut_topping.png" />
     <None Remove="graphics\kiwiblooming_topping.png" />
     <None Remove="graphics\kiwidestined_topping.png" />
     <None Remove="graphics\kiwigambit_topping.png" />
     <None Remove="graphics\kiwisilent_topping.png" />
+    <None Remove="graphics\kiwi_tart.png" />
     <None Remove="graphics\kiwi_topping.png" />
     <None Remove="graphics\peanutblooming_topping.png" />
     <None Remove="graphics\peanutdestined_topping.png" />
     <None Remove="graphics\peanutgambit_topping.png" />
     <None Remove="graphics\peanutsilent_topping.png" />
+    <None Remove="graphics\peanut_tart.png" />
     <None Remove="graphics\peanut_topping.png" />
     <None Remove="graphics\raspberryblooming_topping.png" />
     <None Remove="graphics\raspberrydeceitful_topping.png" />
@@ -177,11 +185,13 @@
     <None Remove="graphics\raspberrytropicalrock_topping.png" />
     <None Remove="graphics\raspberrytropical_topping.png" />
     <None Remove="graphics\raspberrytruthful_topping.png" />
+    <None Remove="graphics\raspberry_tart.png" />
     <None Remove="graphics\raspberry_topping.png" />
     <None Remove="graphics\walnutblooming_topping.png" />
     <None Remove="graphics\walnutdestined_topping.png" />
     <None Remove="graphics\walnutgambit_topping.png" />
     <None Remove="graphics\walnutsilent_topping.png" />
+    <None Remove="graphics\walnut_tart.png" />
     <None Remove="graphics\walnut_topping.png" />
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +292,9 @@
     <Content Include="graphics\almondtruthful_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="graphics\almond_tart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="graphics\almond_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -354,6 +367,9 @@
     <Content Include="graphics\applejellytruthful_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="graphics\applejelly_tart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="graphics\applejelly_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -367,6 +383,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="graphics\candysilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\candy_tart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="graphics\candy_topping.png">
@@ -439,6 +458,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="graphics\carameltruthful_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\caramel_tart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="graphics\caramel_topping.png">
@@ -516,6 +538,9 @@
     <Content Include="graphics\chocolatetruthful_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="graphics\chocolate_tart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="graphics\chocolate_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -537,6 +562,9 @@
     <Content Include="graphics\hazelnutsilent_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="graphics\hazelnut_tart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="graphics\hazelnut_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -555,6 +583,9 @@
     <Content Include="graphics\kiwisilent_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="graphics\kiwi_tart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="graphics\kiwi_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -571,6 +602,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="graphics\peanutsilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\peanut_tart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="graphics\peanut_topping.png">
@@ -645,6 +679,9 @@
     <Content Include="graphics\raspberrytruthful_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="graphics\raspberry_tart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="graphics\raspberry_topping.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -664,6 +701,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="graphics\walnutsilent_topping.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="graphics\walnut_tart.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="graphics\walnut_topping.png">

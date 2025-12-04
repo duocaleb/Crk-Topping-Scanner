@@ -94,10 +94,10 @@
             exportButton = new System.Windows.Forms.Button();
             importButton = new System.Windows.Forms.Button();
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            invViewerSelector = new System.Windows.Forms.ComboBox();
             label10 = new System.Windows.Forms.Label();
             goToNum = new System.Windows.Forms.NumericUpDown();
             goToPageButton = new System.Windows.Forms.Button();
-            panel8 = new System.Windows.Forms.Panel();
             prevButton = new System.Windows.Forms.Button();
             pageIndicator = new System.Windows.Forms.Label();
             nextButton = new System.Windows.Forms.Button();
@@ -209,10 +209,10 @@
             // 
             isTainted.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             isTainted.Dock = System.Windows.Forms.DockStyle.Right;
-            isTainted.Location = new System.Drawing.Point(121, 30);
+            isTainted.Location = new System.Drawing.Point(126, 30);
             isTainted.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             isTainted.Name = "isTainted";
-            isTainted.Size = new System.Drawing.Size(104, 64);
+            isTainted.Size = new System.Drawing.Size(99, 64);
             isTainted.TabIndex = 11;
             isTainted.UseVisualStyleBackColor = true;
             isTainted.CheckedChanged += IsTainted_CheckedChanged;
@@ -965,25 +965,36 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel1.Controls.Add(invViewerSelector);
             flowLayoutPanel1.Controls.Add(label10);
             flowLayoutPanel1.Controls.Add(goToNum);
             flowLayoutPanel1.Controls.Add(goToPageButton);
-            flowLayoutPanel1.Controls.Add(panel8);
             flowLayoutPanel1.Controls.Add(prevButton);
             flowLayoutPanel1.Controls.Add(pageIndicator);
             flowLayoutPanel1.Controls.Add(nextButton);
             flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new System.Drawing.Size(638, 42);
+            flowLayoutPanel1.Size = new System.Drawing.Size(655, 40);
             flowLayoutPanel1.TabIndex = 0;
             flowLayoutPanel1.WrapContents = false;
+            // 
+            // invViewerSelector
+            // 
+            invViewerSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            invViewerSelector.FormattingEnabled = true;
+            invViewerSelector.Items.AddRange(new object[] { "Toppings", "Beascuits", "Tarts" });
+            invViewerSelector.Location = new System.Drawing.Point(3, 5);
+            invViewerSelector.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            invViewerSelector.Name = "invViewerSelector";
+            invViewerSelector.Size = new System.Drawing.Size(111, 33);
+            invViewerSelector.TabIndex = 1;
+            invViewerSelector.SelectedIndexChanged += InvViewerSelector_SelectedIndexChanged;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(3, 0);
+            label10.Location = new System.Drawing.Point(120, 0);
             label10.Name = "label10";
             label10.Padding = new System.Windows.Forms.Padding(6, 8, 6, 8);
             label10.Size = new System.Drawing.Size(79, 41);
@@ -992,18 +1003,18 @@
             // 
             // goToNum
             // 
-            goToNum.Location = new System.Drawing.Point(88, 5);
+            goToNum.Location = new System.Drawing.Point(205, 5);
             goToNum.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             goToNum.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
             goToNum.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             goToNum.Name = "goToNum";
-            goToNum.Size = new System.Drawing.Size(67, 31);
+            goToNum.Size = new System.Drawing.Size(55, 31);
             goToNum.TabIndex = 4;
             goToNum.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // goToPageButton
             // 
-            goToPageButton.Location = new System.Drawing.Point(161, 3);
+            goToPageButton.Location = new System.Drawing.Point(266, 3);
             goToPageButton.Name = "goToPageButton";
             goToPageButton.Size = new System.Drawing.Size(50, 34);
             goToPageButton.TabIndex = 0;
@@ -1011,28 +1022,21 @@
             goToPageButton.UseVisualStyleBackColor = true;
             goToPageButton.Click += GoToPageButton_Click;
             // 
-            // panel8
-            // 
-            panel8.Location = new System.Drawing.Point(217, 3);
-            panel8.Name = "panel8";
-            panel8.Size = new System.Drawing.Size(82, 36);
-            panel8.TabIndex = 5;
-            // 
             // prevButton
             // 
             prevButton.AutoSize = true;
-            prevButton.Location = new System.Drawing.Point(305, 3);
+            prevButton.Location = new System.Drawing.Point(322, 3);
             prevButton.Name = "prevButton";
             prevButton.Size = new System.Drawing.Size(112, 35);
             prevButton.TabIndex = 0;
             prevButton.Text = "< Prev";
             prevButton.UseVisualStyleBackColor = true;
-            prevButton.Click += prevButton_Click;
+            prevButton.Click += PrevButton_Click;
             // 
             // pageIndicator
             // 
             pageIndicator.AutoSize = true;
-            pageIndicator.Location = new System.Drawing.Point(423, 0);
+            pageIndicator.Location = new System.Drawing.Point(440, 0);
             pageIndicator.Name = "pageIndicator";
             pageIndicator.Padding = new System.Windows.Forms.Padding(6, 8, 6, 8);
             pageIndicator.Size = new System.Drawing.Size(94, 41);
@@ -1042,13 +1046,13 @@
             // nextButton
             // 
             nextButton.AutoSize = true;
-            nextButton.Location = new System.Drawing.Point(523, 3);
+            nextButton.Location = new System.Drawing.Point(540, 3);
             nextButton.Name = "nextButton";
             nextButton.Size = new System.Drawing.Size(112, 35);
             nextButton.TabIndex = 0;
             nextButton.Text = "Next >";
             nextButton.UseVisualStyleBackColor = true;
-            nextButton.Click += nextButton_Click;
+            nextButton.Click += NextButton_Click;
             // 
             // optimizationTab
             // 
@@ -1178,7 +1182,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox8;
         private System.Windows.Forms.PictureBox pictureBox7;
@@ -1199,6 +1202,7 @@
         private System.Windows.Forms.PictureBox pictureBox11;
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.ComboBox invViewerSelector;
     }
 }
 
