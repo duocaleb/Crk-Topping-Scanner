@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
@@ -8,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Image = System.Drawing.Image;
+using Path = System.IO.Path;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Crk_Topping_Scanner
 {
@@ -24,7 +28,12 @@ namespace Crk_Topping_Scanner
         }
 
         //code from switchonthecode, edits pixel's byte to be fast.
-        internal static Bitmap PreprocImage(Bitmap original)
+        internal static Bitmap PreprocImage(Bitmap original, int threshold, Boolean invert = false)
+        {
+            return Threshold(GrayscaleImage(original), threshold, invert);
+        }
+
+        internal static Bitmap Threshold(Bitmap original, int threshold, Boolean invert = false)
         {
             unsafe
             {
@@ -55,16 +64,66 @@ namespace Crk_Topping_Scanner
                     for (int x = 0; x < original.Width; x++)
                     {
                         byte pixCol;
-                        if ((oRow[x * pixelSize] * .11) +
-                           (oRow[x * pixelSize + 1] * .59) +
-                           (oRow[x * pixelSize + 2] * .3) >= 200) // Combining grayscale and bounding into one step
+                        if ((oRow[x * pixelSize]) >= threshold)
                         {
-                            pixCol = 255;
+                            pixCol = (byte)(invert ? 0 : 255);
                         }
                         else
-                        {
-                            pixCol = 0;
+                        {   
+                            pixCol = (byte)(invert ? 255 : 0);
                         }
+
+
+                            //set the new image's pixel to the grayscale version
+                            nRow[x * pixelSize] = pixCol; //B
+                        nRow[x * pixelSize + 1] = pixCol; //G
+                        nRow[x * pixelSize + 2] = pixCol; //R
+                    }
+                }
+
+                //unlock the bitmaps
+                newBitmap.UnlockBits(newData);
+                original.UnlockBits(originalData);
+
+                return newBitmap;
+            }
+        }
+        // Reminder: combine grayscale and threshold for full release
+
+        internal static Bitmap GrayscaleImage(Bitmap original)
+        {
+            unsafe
+            {
+                //create an empty bitmap the same size as original
+                Bitmap newBitmap = new(original.Width, original.Height);
+
+                //lock the original bitmap in memory
+                BitmapData originalData = original.LockBits(
+                   new Rectangle(0, 0, original.Width, original.Height),
+                   ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+
+                //lock the new bitmap in memory
+                BitmapData newData = newBitmap.LockBits(
+                   new Rectangle(0, 0, original.Width, original.Height),
+                   ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+
+                //set the number of bytes per pixel
+                int pixelSize = 3;
+
+                for (int y = 0; y < original.Height; y++)
+                {
+                    //get the data from the original image
+                    byte* oRow = (byte*)originalData.Scan0 + (y * originalData.Stride);
+
+                    //get the data from the new image
+                    byte* nRow = (byte*)newData.Scan0 + (y * newData.Stride);
+
+                    for (int x = 0; x < original.Width; x++)
+                    {
+                        byte pixCol = (byte)((oRow[x * pixelSize] * .11) +
+                           (oRow[x * pixelSize + 1] * .59) +
+                           (oRow[x * pixelSize + 2] * .3));
+
 
 
                         //set the new image's pixel to the grayscale version
@@ -153,6 +212,7 @@ namespace Crk_Topping_Scanner
 
             return image;
         }
+        
         internal static Bitmap CreateGraphic(Tart tart)
         {
             Bitmap image = new(768, 432);
@@ -221,6 +281,7 @@ namespace Crk_Topping_Scanner
 
             return image;
         }
+        
         internal static Bitmap CreateGraphicCompact(Tart tart)
         {
             Bitmap image = new(400, 400, PixelFormat.Format32bppArgb);
