@@ -15,11 +15,10 @@ namespace Crk_Topping_Scanner
         /// </summary>
         
         [STAThread]
-        [DllImport("user32.dll")]
-        private static extern bool SetProcessDPIAware();
         static void Main()
         {
-            SetProcessDPIAware();
+
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Scanner());

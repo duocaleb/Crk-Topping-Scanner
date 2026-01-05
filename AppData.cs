@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Crk_Topping_Scanner
 {
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+
     internal static class AppData
     {
         public static readonly List<string> TenToppingResonants = ["Destined", "Silent", "Blooming", ""];
@@ -50,7 +56,14 @@ namespace Crk_Topping_Scanner
             { "Wuthering", "Wind DMG" }
         };
 
-
+        public static readonly Dictionary<int, int> ColorToThreshold = new()
+        {
+            { 224, 185 }, // Orange
+            { 218, 140 }, // Purple
+            { 220, 140 }, // Blue
+            { 227, 174 }, // Green
+            { 215, 137 }  // Gray
+        };
 
         public static int LevenshteinDistance(string s, string t)
         {
@@ -115,6 +128,20 @@ namespace Crk_Topping_Scanner
                 }
             }
             return lowest;
+        }
+
+        public static void ScaleChildren(double scale, Control parent)
+        {
+            parent.Width = (int)(parent.Width * scale);
+            parent.Height = (int)(parent.Height * scale);
+            parent.Font = new Font(parent.Font.FontFamily, (float)(parent.Font.Size * scale), parent.Font.Style);
+            foreach (System.Windows.Forms.Control ctrl in parent.Controls)
+            {
+                if (ctrl.HasChildren)
+                {
+                    ScaleChildren(scale, ctrl);
+                }
+            }
         }
     }
 }

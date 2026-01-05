@@ -29,6 +29,8 @@
     <SignAssembly>False</SignAssembly>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <Platforms>AnyCPU;x64</Platforms>
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+    <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="CookieRun Black.ttf" />
@@ -193,7 +195,6 @@
     <None Remove="graphics\walnutsilent_topping.png" />
     <None Remove="graphics\walnut_tart.png" />
     <None Remove="graphics\walnut_topping.png" />
-    <None Remove="tessdata\eng.traineddata" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -214,6 +215,7 @@
     <PackageReference Include="System.Text.Encodings.Web" Version="9.0.10" />
     <PackageReference Include="System.Text.Json" Version="9.0.10" />
     <PackageReference Include="Tesseract" Version="5.2.0" />
+    <PackageReference Include="Tesseract.Data.English" Version="4.0.0" />
     <PackageReference Include="Tesseract.Drawing" Version="5.2.0" />
   </ItemGroup>
   <ItemGroup>
@@ -712,7 +714,7 @@
     <Content Include="graphics\zesty_beascuit.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="tessdata\eng.traineddata">
+    <Content Include="tessdata2\eng2.traineddata">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
