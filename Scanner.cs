@@ -61,25 +61,50 @@ namespace Crk_Topping_Scanner
         private Iitem invType = new Topping();
         private double screenDPI;
         private Control[] fontResizeList;
+        private Control[] cookieBondsList;
+        private AccountInfo accountInfo = new();
 
         public Scanner()
         {
             this.AutoScaleMode = AutoScaleMode.Dpi;
 
             InitializeComponent();
-            fontResizeList = [toppingType, resonantType, statType1, 
-                statType2, statType3, statType4, 
-                invViewerSelector, label1, label2, 
-                label3, label4, label5, label6, 
-                label7, label8, label10, 
-                screenshotButton, readButton, 
-                addItem, autoScanButton, stat1, 
-                stat2, stat3, stat4, 
-                invViewerSelector, goToNum, goToPageButton, 
-                prevButton, nextButton, pageIndicator, 
-                importButton, exportButton, itemSelector, 
-                scanningTab, invTab];
-            screenDPI =  96 / (double)DeviceDpi;
+
+            screenDPI = 96 / (double)DeviceDpi;
+
+            cookieBondsList = [numericUpDown1, numericUpDown2, numericUpDown3,
+                numericUpDown4, numericUpDown5, numericUpDown6,
+                numericUpDown7, numericUpDown8, numericUpDown9,
+                numericUpDown10, numericUpDown11, numericUpDown12,
+                numericUpDown13, numericUpDown14, numericUpDown15,
+                numericUpDown16, numericUpDown17, numericUpDown18,
+                numericUpDown19, numericUpDown20, numericUpDown21,
+                numericUpDown22, numericUpDown23, numericUpDown24,
+                numericUpDown25, numericUpDown26, numericUpDown27,
+                numericUpDown28, numericUpDown29, numericUpDown30];
+            fontResizeList = [toppingType, resonantType, statType1,
+                statType2, statType3, statType4,
+                invViewerSelector, label1, label2,
+                label3, label4, label5, label6,
+                label7, label8, label10,
+                screenshotButton, readButton,
+                addItem, autoScanButton, stat1,
+                stat2, stat3, stat4,
+                invTab, itemSelector, goToNum,
+                goToPageButton, prevButton, nextButton,
+                pageIndicator,importButton, exportButton,
+                label11, label12, label13,
+                label14, label15, label16,
+                label17, label18, label19,
+                label20, label21, label22,
+                label23, label24, label25,
+                label26, label27, label28,
+                label29, label30, label31,
+                label32, label33, label34,
+                label35, label36, label37,
+                label38, label39, label40,
+                label41];
+            fontResizeList = (Control[])fontResizeList.Concat(cookieBondsList);
 
             engineNum.SetVariable("tessedit_char_whitelist", "0123456789%.>");
 
@@ -100,7 +125,6 @@ namespace Crk_Topping_Scanner
             }
             foreach (Control control in fontResizeList)
             {
-                Debug.WriteLine(control.Font.Size + ", " + control.Font.Size * screenDPI + ", " + screenDPI);
                 control.Font = new Font(control.Font.FontFamily, (float)(control.Font.Size * screenDPI));
             }
         }
@@ -111,7 +135,7 @@ namespace Crk_Topping_Scanner
 
         private void ReadButton_Click(object sender, EventArgs e)
         {
-            ReadScreenshot(1.5, false);
+            ReadScreenshot(2, false);
         }
 
         private void AddItem_Click(object sender, EventArgs e)
@@ -122,7 +146,7 @@ namespace Crk_Topping_Scanner
         private void AutoScanButton_Click(object sender, EventArgs e)
         {
             TakeScreenshot();
-            ReadScreenshot(1.5, false);
+            ReadScreenshot(2, false);
             AddItem();
         }
 
@@ -158,6 +182,30 @@ namespace Crk_Topping_Scanner
             {
                 LoadInventory(filePath);
             }
+        }
+        
+        private void PrevButton_Click(object sender, EventArgs e)
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                SetInventoryPage(itemList, currentPage);
+            }
+        }
+
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            if (currentPage < maxPage)
+            {
+                currentPage++;
+                SetInventoryPage(itemList, currentPage);
+            }
+        }
+        
+        private void GoToPageButton_Click(object sender, EventArgs e)
+        {
+            currentPage = (int)goToNum.Value;
+            SetInventoryPage(itemList, currentPage);
         }
 
         private void ResonantType_SelectedIndexChanged(object sender, EventArgs e)
@@ -475,6 +523,31 @@ namespace Crk_Topping_Scanner
                 statType1.SelectedItem = AppData.TypeToMain[toppingType.Text];
             }
         }
+        
+        private void InvViewerSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (invViewerSelector.Text == "Toppings")
+            {
+                invType = new Topping();
+            }
+            else if (invViewerSelector.Text == "Beascuits")
+            {
+                invType = new Beascuit();
+            }
+            else if (invViewerSelector.Text == "Tarts")
+            {
+                invType = new Tart();
+            }
+            SetInventoryPage(itemList, 1);
+        }
+
+        private void Tabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabs.SelectedIndex == 1)
+            {
+                SetInventoryPage(itemList, 1);
+            }
+        }
 
         private void IsTainted_CheckedChanged(object sender, EventArgs e)
         {
@@ -726,7 +799,6 @@ namespace Crk_Topping_Scanner
                         {
 
                             var text = page.GetText();
-                            label2.Text = text;
                             string[] texts = text.Split(">");
                             double statValue = double.Parse(texts[^1].Replace("%", "").Trim());
                             statValue = (Math.Floor(statValue) == 1) ? statValue + 6 : statValue;
@@ -779,9 +851,10 @@ namespace Crk_Topping_Scanner
             }
             catch (Exception error)
             {
-                if (upScale < 10)
+                if (upScale < 8)
                 {
-                    ReadScreenshot(upScale + 2, overrideCatch); // "are you sureeeeee you cant read it?"
+                    // Give OCR another try with higher upscaling
+                    ReadScreenshot(upScale + 2, overrideCatch);
                 }
                 else if (!overrideCatch)
                 {
@@ -887,6 +960,7 @@ namespace Crk_Topping_Scanner
             (int, int) screenSize = ((int)(Screen.PrimaryScreen.Bounds.Width), (int)(Screen.PrimaryScreen.Bounds.Height));
             scanStart = (0, 0);
 
+            // Force 16:9, crk is always locked to this ratio.
             if (screenSize.Item1 * 9 > screenSize.Item2 * 16)
             {
                 scanSize = ((int)(screenSize.Item2 / 9 * 16), screenSize.Item2);
@@ -1005,10 +1079,9 @@ namespace Crk_Topping_Scanner
             }
 
             scannedImage.Image?.Dispose();
-            scannedImage.Image = (Bitmap)(bmpCollection[1].Clone());
+            scannedImage.Image = (Bitmap)(bmpScreenshot.Clone());
             bmpScreenshot?.Dispose();
         }
-
 
         private void SetInventoryPage(List<Iitem> itemList, int pagenum)
         {
@@ -1065,58 +1138,12 @@ namespace Crk_Topping_Scanner
             pageIndicator.Text = $"Page {currentPage}/{maxPage}";
         }
 
-        private void PrevButton_Click(object sender, EventArgs e)
+        private void UpdateAccountInfo()
         {
-            if (currentPage > 1)
+            for (int x = 0; x < cookieBondsList.Length; x++)
             {
-                currentPage--;
-                SetInventoryPage(itemList, currentPage);
+                accountInfo.CookieBondLevels[x] = (int)(((NumericUpDown)cookieBondsList[x]).Value);
             }
-        }
-
-        private void NextButton_Click(object sender, EventArgs e)
-        {
-            if (currentPage < maxPage)
-            {
-                currentPage++;
-                SetInventoryPage(itemList, currentPage);
-            }
-        }
-
-        private void Tabs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabs.SelectedIndex == 1)
-            {
-                SetInventoryPage(itemList, 1);
-            }
-        }
-
-        private void GoToPageButton_Click(object sender, EventArgs e)
-        {
-            currentPage = (int)goToNum.Value;
-            SetInventoryPage(itemList, currentPage);
-        }
-
-        private void InvViewerSelector_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (invViewerSelector.Text == "Toppings")
-            {
-                invType = new Topping();
-            }
-            else if (invViewerSelector.Text == "Beascuits")
-            {
-                invType = new Beascuit();
-            }
-            else if (invViewerSelector.Text == "Tarts")
-            {
-                invType = new Tart();
-            }
-            SetInventoryPage(itemList, 1);
-        }
-
-        private void Scanner_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
